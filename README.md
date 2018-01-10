@@ -1,8 +1,8 @@
 # TodoMVC Performance Benchmark
 
-<img src="img/2016-07-08.png" width="504">
+<img src="img/2018-01-10.png" width="504">
 
-_(Results for Chrome 51 + OSX 10.10.5 on a Macbook Pro)_
+_(Results for Chrome 63 + Windows 10 on Dell OptiPlex 5040)_
 
 # Try
 https://developit.github.io/preact-perf
