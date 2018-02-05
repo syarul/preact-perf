@@ -20,44 +20,48 @@
 
 			TODO_APP = new todoApp(this)
 
-			this.todos = TODO_APP.todoList.list
+			this.todos = TODO_APP.todoList.list || []
 
 			this.filters = TODO_APP.filters.list
 
 			this.renderFooter()
 
-			this.getActive()
+			this.getActive(this.todos)
 
 			this.updating = false
 
+			this.subscribe(todos => {
+				this.intelliUpdate(todos, 'store')
+			})
+
 		},
-		intelliUpdate: function(store){
+		intelliUpdate: function(todos, store){
 
 			var self = this
 			// only update when necessary
 			if(this.updating) clearTimeout(this.updating)
 			this.updating = setTimeout(function() {
-			 	self.getActive(store)
+			 	self.getActive(todos, store)
 			}, 10)
 		},
-		getActive: function(store) {
-			if(TODO_APP.container.mainDisplay == 'none'){
-				TODO_APP.main.toggleDisplay(this.todos.length)
-				TODO_APP.container.toggleMain(this.todos.length)
-				TODO_APP.container.toggleFooter(this.todos.length)
-			} else if(TODO_APP.container.mainDisplay == 'block' && !this.todos.length){
-				TODO_APP.main.toggleDisplay(this.todos.length)
-				TODO_APP.container.toggleMain(this.todos.length)
-				TODO_APP.container.toggleFooter(this.todos.length)
+		getActive: function(todos, store) {
+			if(TODO_APP.container.mainDisplay == 'none' && todos.length){
+				TODO_APP.main.toggleDisplay(todos.length)
+				TODO_APP.container.toggleMain(todos.length)
+				TODO_APP.container.toggleFooter(todos.length)
+			} else if(TODO_APP.container.mainDisplay == 'block' && !todos.length){
+				TODO_APP.main.toggleDisplay(todos.length)
+				TODO_APP.container.toggleMain(todos.length)
+				TODO_APP.container.toggleFooter(todos.length)
 			}
 
-			var actives = this.todos.filter(function(f) {
+			var actives = todos.filter(function(f) {
 				return f.completed !== 'completed'
 			})
 
 			TODO_APP.footer.updateCount(actives.length)
 			// only store if requested
-			if(store) util.store('todos-keetjs', this.todos)
+			if(store) util.store('todos-keetjs', todos)
 		},
 		getCompleted: function() {
 			var completed = this.filterTodos('completed', 'completed');
@@ -99,7 +103,7 @@
 			this.updateCheckAll();
 			this.focus();
 		},
-		create: function(evt) {
+		create: function(value) {
 			let obj = {
 		      id: util.genId(),
 		      title: value,
@@ -108,7 +112,7 @@
 		      checked: false
 		    }
 		    TODO_APP.todoList.list = TODO_APP.todoList.list.concat(obj)
-		    getId(TODO_APP.todoList.el).appendChild(util.genTemplate.call(TODO_APP.todoList, obj))
+		    util.getId(TODO_APP.todoList.el).appendChild(util.genTemplate.call(TODO_APP.todoList, obj))
 		    inform()
 		},
 		editTodos: function(id, ele) {
@@ -157,70 +161,27 @@
 				}
 			};
 		},
-		todoCheck: function(id) {
+		todoCheck: function(id, node) {
 
-			this.todos.filter((todo, idx, todos) => {
-				if(todo.id === id){
-					let chg = {}
-					chg.completed = todo.completed === '' ? 'completed' : ''
-					todos[idx] = Object.assign(todo, chg)
-				}
-			})
-
-			this.intelliUpdate('store')
-			// this.focus()
+			TODO_APP.todoList.list = TODO_APP.todoList.list.map((todo, idx, todos) => {
+		      if(todo.id === id){
+		        todo.completed = todo.completed === '' ? 'completed' : ''
+		        todo.checked = todo.completed === '' ? false : true
+		        // evt.target.parentNode.parentNode.replaceWith(genTemplate.call(todoList, todo))
+		        util.updateElem(node, util.genTemplate.call(TODO_APP.todoList, todo))
+		      }
+		      return todo
+		    })
+			inform()
 		},
-		// function packArray(tgtArray) {
-		//    if (!tgtArray || !tgtArray.length) return;
-		//    var srcIndex = 0;
-		//    var dstIndex = 0;
-		//    var arrayLength = tgtArray.length ;
-		//    do {
-		//        var currentItem = tgtArray[srcIndex]; 
-		//        if (currentItem.alive) {
-		//          if (srcIndex != dstIndex) {
-		//             tgtArray[dstIndex] = currentItem ;
-		//          }
-		//          dstIndex++;
-		//        } 
-		//        srcIndex++;
-		//    } while (srcIndex != arrayLength) ;
-		//     dstIndex--;
-		//     tgtArray.length = dstIndex > 0 ? dstIndex : 0 ;
-		// }
 		destroy: function(id, node) {
-			var self = this
-			// if (!this.todos || !this.todos.length) return
-			// let srcIndex = 0
-			// let dstIndex = 0
-			// let arrayLength = this.todos.length
-			// do {
-			// 	let currentItem = this.todos[srcIndex]
-			// 	if(id == currentItem.id) {
-			// 		log(currentItem, dstIndex, srcIndex)
-			// 		if(srcIndex == dstIndex){
-			// 			this.todos[dstIndex] = this.todos[srcIndex+1] 
-			// 		}
-			// 		dstIndex++
-			// 	}
-			// 	srcIndex++
-			// }  while (srcIndex != arrayLength)
-			// dstIndex--
-			// this.todos.length = dstIndex > 0 ? dstIndex : 0
-			// this.todos = this.todos.filter(f => {
-			// 	if(f.id == id)
-			// 		node.remove()
-			// 	else
-			// 		return f.id != id
-			// })
-	        let idx = this.todos.map(f => f.id).indexOf(id)
-	        if(~idx)
-	          this.todos.splice(idx, 1)
-			this.intelliUpdate('store')
-			// util.store('todos-keetjs', this.todos);
-			// this.getActive();
-			// this.updateCheckAll();
-			// this.focus();
+			TODO_APP.todoList.list = TODO_APP.todoList.list.filter(function(todo, index){
+		      if(id == todo.id)
+		        node.remove()
+		      else
+		        return todo
+		    })
+		    inform()
 		},
 		clearCompleted: function() {
 			log('clear!!')
@@ -271,7 +232,7 @@
 				// else if (initial && f.completed === 'completed') todoList.evented(i, 'class', 'toggle', { checked: true });
 			});
 			this.focus();
-		}
+		},
 		subscribe(fn) {
 	        onChanges.push(fn)
 	    }

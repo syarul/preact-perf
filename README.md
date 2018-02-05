@@ -1,10 +1,10 @@
 # TodoMVC Performance Benchmark
 
-<img src="img/2018-01-12.png" width="517">
+<img src="img/2018-02-06.png" width="583">
 
-_(Results for Microsoft Edge 41 + Windows 10 on Dell OptiPlex 5040)_
+_(Results for Chrome v64 on Window 7 Custom PC)_
 
-> Performance best in Microsoft Edge, slightly lower in Chrome (Both version of keet.js does not make of difference)
+> No write to localStorage, preact, mithril as well
 
 # Try
 https://developit.github.io/preact-perf

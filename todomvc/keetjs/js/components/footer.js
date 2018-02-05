@@ -1,6 +1,6 @@
 import Keet from 'keet'
-import app from 'app'
-import filtersInit from 'components/filters'
+import app from '../../'
+import filtersInit from './filters'
 
 class Footer extends Keet {
   constructor () {

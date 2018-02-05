@@ -1,14 +1,14 @@
 import Keet from 'keet'
 
-import { containerInit, container } from 'components/container'
-import { main } from 'components/main'
-import { todoList } from 'components/todoList'
-import { footer } from 'components/footer'
-import { filters } from 'components/filters'
+import { containerInit, container } from './js/components/container'
+import { main } from './js/components/main'
+import { todoList } from './js/components/todoList'
+import { footer } from './js/components/footer'
+import { filters } from './js/components/filters'
 
-import createTodoModel from './model'
+// import createTodoModel from './model'
 
-import { store as todoStore, uuid } from 'utils'
+import { store as todoStore, uuid } from './js/utils'
 
 let log = console.log.bind(console)
 

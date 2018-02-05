@@ -33,20 +33,20 @@
 				editMode(id){
 					// App.editTodos(id, this)
 				}
-				destroy(evt){
-					App.destroy(evt.target.parentNode.parentNode.getAttribute('data-id'), evt.target.parentNode.parentNode)
+				destroy(id, evt){
+					App.destroy(id, evt.target.parentNode.parentNode)
 				}
-				completeTodo(evt){
-					App.todoCheck(evt.target.parentNode.parentNode.getAttribute('data-id'))
+				completeTodo(id, evt){
+					App.todoCheck(id, evt.target.parentNode.parentNode)
 				}
 			}
 			self.todoList = new TodoList('checked')
 			self.todoList.mount({
 				template: `
 					<li k-dblclick="editMode({{id}})" class="{{completed}}" data-id="{{id}}" style="display:{{display}}">
-						<div class="view"><input k-click="completeTodo()" class="toggle" type="checkbox" checked="{{checked}}">
+						<div class="view"><input k-click="completeTodo({{id}})" class="toggle" type="checkbox" checked="{{checked}}">
 							<label>{{title}}</label>
-							<button k-click="destroy()" class="destroy"></button>
+							<button k-click="destroy({{id}})" class="destroy"></button>
 						</div>
 						<input class="edit" value="{{title}}">
 					</li>`,
@@ -181,14 +181,18 @@
 				}
 			}
 			self.container = new Container()
-			self.container.mount({
+
+			var vdom = {
 				header: {
 					tag: 'header',
 					id: 'header',
 					template: `
 						<h1>todos</h1>
 						<input id="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>`
-				},
+				}
+			}
+
+			var vdomTodos = {
 				main: {
 					tag: 'section',
 					id: 'main',
@@ -202,20 +206,19 @@
 					style: {
 						display: '{{footerDisplay}}'
 					}
-				},
-				
-			}).link('todoapp').cluster(mainCluster, footerCluster)
+				}
+			}
+
+			self.container.mount(vdom).link('todoapp')//.cluster(mainCluster, footerCluster)
+			setTimeout(() => {
+			  	Object.assign(self.container.base, vdomTodos)
+			  	self.container.render()
+			}, 2000)
 		}
 
 		this.todoapp = new Keet()
 
 		this.todoapp.mount(todo).link('todo').cluster(containerCluster)
-
-		setTimeout(() => {
-			// App.updateCheckAll()
-			// App.checkedAll(self.todoList, null, true)
-			// App.renderFooter()
-		}, 0)
 
 	}
 

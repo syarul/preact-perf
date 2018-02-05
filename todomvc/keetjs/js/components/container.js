@@ -1,9 +1,9 @@
 import Keet from 'keet'
-import { uuid } from 'utils'
+import { uuid } from '../utils'
 
-import main from 'components/main'
-import footer from 'components/footer'
-import { todoList } from 'components/todoList'
+import main from './main'
+import footer from './footer'
+import { todoList } from './todoList'
 
 class Container extends Keet {
   constructor () {
@@ -52,7 +52,7 @@ const vmodel = {
 
 const containerInit = () => container.mount(vmodel).link('todoapp').cluster(main, footer)
 
-module.exports = {
+export {
   containerInit,
   container
 }

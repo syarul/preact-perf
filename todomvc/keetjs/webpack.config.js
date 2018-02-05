@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 const config = {
   target: 'web',
@@ -8,7 +9,7 @@ const config = {
     fs: 'empty'
   },
   entry: [
-    './js/app_new.js',
+    './index.js',
     //'./view/layout.pug'
   ],
   output: {
@@ -34,7 +35,7 @@ const config = {
     alias: {
       components: path.resolve(__dirname, './js/components'),
       // keet: path.resolve(__dirname, './keet.js/keet'),
-      app: path.resolve(__dirname, './js/app_new'),
+      app: path.resolve(__dirname, './index'),
       utils: path.resolve(__dirname, './js/utils/index'),
       // '@keet/classList': path.resolve(__dirname, './keet.js/classList')
     }
@@ -53,6 +54,58 @@ const config = {
     inline: true
   },
   devtool: 'source-map'
+}
+
+if (process.env.NODE_ENV === 'production') {
+  console.log('on production mode')
+
+  delete config.devtool
+
+  config.plugins = (config.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      output: { comments:false },
+      mangle: true,
+      sourceMap: true,
+      compress: {
+        properties: true,
+        keep_fargs: false,
+        pure_getters: true,
+        collapse_vars: true,
+        warnings: false,
+        screw_ie8: true,
+        sequences: true,
+        dead_code: true,
+        drop_debugger: true,
+        comparisons: true,
+        conditionals: true,
+        evaluate: true,
+        booleans: true,
+        loops: true,
+        unused: true,
+        hoist_funs: true,
+        if_return: true,
+        join_vars: true,
+        cascade: true,
+        drop_console: false,
+        pure_funcs: [
+          'classCallCheck',
+          '_classCallCheck',
+          '_possibleConstructorReturn',
+          'Object.freeze',
+          'invariant',
+          'warning'
+        ]
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ])
 }
 
 module.exports = config

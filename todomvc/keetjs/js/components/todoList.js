@@ -1,9 +1,9 @@
 import Keet from 'keet'
 import genTemplate from 'keet/components/genTemplate'
 import { updateElem } from 'keet/components/elementUtils'
-import app from 'app'
+import app from '../../'
 
-import { store as todoStore, getId, uuid } from 'utils'
+import { store as todoStore, getId, uuid } from '../utils'
 
 let log = console.log.bind(console)
 

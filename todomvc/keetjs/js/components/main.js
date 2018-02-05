@@ -1,7 +1,7 @@
 import Keet from 'keet'
-import app from 'app'
+import app from '../../'
 
-import todoListInit from 'components/todoList'
+import todoListInit from './todoList'
 
 class Main extends Keet {
   constructor (...args) {

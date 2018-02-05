@@ -1,6 +1,6 @@
 import Keet from 'keet'
-import app from 'app'
-import { camelCase } from 'utils'
+import app from '../../'
+import { camelCase } from '../utils'
 
 let filterPage = ['all', 'active', 'completed']
 

@@ -8,25 +8,40 @@ var Handlebars = require('handlebars');
 function genTemplate(template, obj) {
   var arrProps = template.match(/{{([^{}]+)}}/g)
   var tmpl
-  var tempDiv
   tmpl = template
   var args = ['checked']
   arrProps.map(function (s) {
-    // console.log(s)
     var rep = s.replace(/{{([^{}]+)}}/g, '$1')
     tmpl = tmpl.replace(/{{([^{}]+)}}/, obj[rep])
     if (args && ~args.indexOf(rep) && !obj[rep]) {
       var re = new RegExp(' ' + rep + '="' + obj[rep] + '"', 'g')
-      // console.log(re, rep, obj[rep])
       tmpl = tmpl.replace(re, '')
     }
   })
   return tmpl
-  // tempDiv = document.createElement('div')
-  // tempDiv.innerHTML = tmpl
-  // var isevt = / k-/.test(tmpl)
-  // if (isevt) { processEvent.call(this, tempDiv) }
-  // return tempDiv.childNodes[0]
+}
+
+var tmpl2 = ''
+
+function next(i, obj, arrProps, args){
+  if (i < arrProps.length) {
+    var rep = arrProps[i].replace(/{{([^{}]+)}}/g, '$1')
+    tmpl2 = tmpl2.replace(/{{([^{}]+)}}/, obj[rep])
+    if (args && ~args.indexOf(rep) && !obj[rep]) {
+      var re = new RegExp(' ' + rep + '="' + obj[rep] + '"', 'g')
+      tmpl2 = tmpl2.replace(re, '')
+    }
+    i++
+    next(i, obj, arrProps, args)
+  }
+}
+
+function genTemplateNomap(template, obj) {
+  var arrProps = template.match(/{{([^{}]+)}}/g)
+  tmpl2 = template
+  var args = ['checked']
+  next(0, obj, arrProps, args)
+  return tmpl2
 }
 
 
@@ -39,7 +54,7 @@ var tmpl = `
       <input class="edit" value="{{title}}">
     </li>`.trim()
 
-var tmpl2 = `
+var tmpl1 = `
     <li k-dblclick="editMode({{id}})" class="{{completed}}" data-id="{{id}}" style="display:{{display}}">
       <div class="view"><input k-click="completeTodo()" class="toggle" type="checkbox" checked="{{checked}}">
         <label>{{title}}</label>
@@ -63,6 +78,11 @@ var b = Handlebars.compile(tmpl)(obj);
 console.timeEnd('hdl')
 
 console.time('hdl2')
-var c = genTemplate(tmpl2,obj)
-// console.log(c)
+var c1 = genTemplate(tmpl1,obj)
+// console.log(c1)
 console.timeEnd('hdl2')
+
+console.time('hdl3')
+var c2 = genTemplateNomap(tmpl1, obj)
+// console.log(c2)
+console.timeEnd('hdl3')
