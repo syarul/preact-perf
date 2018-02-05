@@ -1,0 +1,3 @@
+[submodule "keet.js"]
+	path = keet.js
+	url = https://github.com/keetjs/keet.js
