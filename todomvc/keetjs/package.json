@@ -6,7 +6,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server -d",
-    "build": "webpack && cp dist/build.js build.js"
+    "build": "gulp"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -20,6 +20,9 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-minify": "^0.3.0",
+    "gul": "^1.0.0",
+    "gulp-shell": "^0.6.5",
+    "gulp-watch": "^5.0.0",
     "handlebars": "^4.0.11",
     "handlebars-delimiters": "^1.0.0",
     "harmony-reflect": "^1.5.1",

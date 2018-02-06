@@ -189,10 +189,7 @@
 					template: `
 						<h1>todos</h1>
 						<input id="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>`
-				}
-			}
-
-			var vdomTodos = {
+				},
 				main: {
 					tag: 'section',
 					id: 'main',
@@ -209,11 +206,28 @@
 				}
 			}
 
-			self.container.mount(vdom).link('todoapp')//.cluster(mainCluster, footerCluster)
-			setTimeout(() => {
-			  	Object.assign(self.container.base, vdomTodos)
-			  	self.container.render()
-			}, 2000)
+			/*var vdomTodos = {
+				main: {
+					tag: 'section',
+					id: 'main',
+					style: {
+						display: '{{mainDisplay}}'
+					}
+				},
+				footer: {
+					tag: 'footer',
+					id: 'footer',
+					style: {
+						display: '{{footerDisplay}}'
+					}
+				}
+			}*/
+
+			self.container.mount(vdom).link('todoapp').cluster(mainCluster, footerCluster)
+			// setTimeout(() => {
+			  	// Object.assign(self.container.base, vdomTodos)
+			  	// self.container.render()
+			// }, 2000)
 		}
 
 		this.todoapp = new Keet()

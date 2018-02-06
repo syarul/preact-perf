@@ -72,17 +72,37 @@ let obj = {
   checkedStr: ' checked'
 }
 
-console.time('hdl')
-var b = Handlebars.compile(tmpl)(obj);
-// console.log(b)
-console.timeEnd('hdl')
+// console.time('hdl')
+// var b = Handlebars.compile(tmpl)(obj);
+// // console.log(b)
+// console.timeEnd('hdl')
 
-console.time('hdl2')
-var c1 = genTemplate(tmpl1,obj)
-// console.log(c1)
-console.timeEnd('hdl2')
+// console.time('hdl2')
+// var c1 = genTemplate(tmpl1,obj)
+// // console.log(c1)
+// console.timeEnd('hdl2')
 
-console.time('hdl3')
-var c2 = genTemplateNomap(tmpl1, obj)
-// console.log(c2)
-console.timeEnd('hdl3')
+// console.time('hdl3')
+// var c2 = genTemplateNomap(tmpl1, obj)
+// // console.log(c2)
+// console.timeEnd('hdl3')
+
+function tmplHandler(str){
+  var self = this
+  str = str.trim().replace(/\s+/g, ' ')
+  var arrProps = str.match(/{{([^{}]+)}}/g)
+  var tmpl = str
+  if (arrProps && arrProps.length) {
+    arrProps.map(function (s) {
+      var rep = s.replace(/{{([^{}]+)}}/g, '$1')
+      // console.log(rep, self[rep])
+      if (self[rep] !== undefined) {
+        str = str.replace(/{{([^{}]+)}}/, self[rep])
+      }
+      // console.log(tmpl)
+    })
+  }
+  console.log(str)
+}
+
+tmplHandler.call({ count: 1, s: '' }, `<strong>{{count}}</strong> item{{s}} left`)
