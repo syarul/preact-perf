@@ -9,7 +9,7 @@ const config = {
     fs: 'empty'
   },
   entry: [
-    './index.js',
+    './src/app.js',
     //'./view/layout.pug'
   ],
   output: {
@@ -23,10 +23,10 @@ const config = {
         loader: 'babel-loader',
         exclude: /node_modules/
       },
-      {
-        test: /\.pug$/,
-        use: ['html-loader', 'pug-html-loader?pretty&exports=false']
-      }
+      // {
+      //   test: /\.pug$/,
+      //   use: ['html-loader', 'pug-html-loader?pretty&exports=false']
+      // }
     ]
   },
   resolve: {

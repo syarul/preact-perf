@@ -6,7 +6,7 @@ let filterPage = ['all', 'active', 'completed']
 
 class Filters extends Keet {
   updateUrl (uri) {
-    console.log(app)
+    // console.log(app)
     // app.updateFilter(uri)
   }
 }
@@ -18,7 +18,7 @@ const vmodel = {
     <li k-click="updateUrl({{hash}})">
       <a class="{{className}}" href="{{hash}}">{{nodeValue}}</a>
     </li>`.trim(),
-  list: filterPage.map(f => {
+  model: filterPage.map((f, i) => {
     return {
       className: '',
       hash: '#/' + f,
@@ -27,7 +27,9 @@ const vmodel = {
   })
 }
 
-const filtersInit = () => filters.mount(vmodel).link('filters')
+const filtersInit = () => {
+  filters.mount(vmodel).link('filters')
+}
 
 module.exports = {
   filtersInit,

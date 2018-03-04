@@ -11,18 +11,20 @@
 
 	function inform() {
 	  for (let i=onChanges.length; i--; ) {
-	    onChanges[i](TODO_APP.todoList.list)
+	    onChanges[i](TODO_APP.todoList.base.model)
 	  }
 	}
 
 	var App = {
 		init: function() {
 
+			var self = this
+
 			TODO_APP = new todoApp(this)
 
-			this.todos = TODO_APP.todoList.list || []
+			this.todos = TODO_APP.todoList.base.model || []
 
-			this.filters = TODO_APP.filters.list
+			this.filters = TODO_APP.filters.base.model
 
 			this.renderFooter()
 
@@ -30,8 +32,8 @@
 
 			this.updating = false
 
-			this.subscribe(todos => {
-				this.intelliUpdate(todos, 'store')
+			this.subscribe(function(todos){
+				self.intelliUpdate(todos, 'store')
 			})
 
 		},
@@ -46,11 +48,11 @@
 		},
 		getActive: function(todos, store) {
 			if(TODO_APP.container.mainDisplay == 'none' && todos.length){
-				TODO_APP.main.toggleDisplay(todos.length)
+				TODO_APP.toggler.toggleDisplay(todos.length)
 				TODO_APP.container.toggleMain(todos.length)
 				TODO_APP.container.toggleFooter(todos.length)
 			} else if(TODO_APP.container.mainDisplay == 'block' && !todos.length){
-				TODO_APP.main.toggleDisplay(todos.length)
+				TODO_APP.toggler.toggleDisplay(todos.length)
 				TODO_APP.container.toggleMain(todos.length)
 				TODO_APP.container.toggleFooter(todos.length)
 			}
@@ -61,7 +63,7 @@
 
 			TODO_APP.footer.updateCount(actives.length)
 			// only store if requested
-			if(store) util.store('todos-keetjs', todos)
+			// store && util.store('todos-keetjs', todos)
 		},
 		getCompleted: function() {
 			var completed = this.filterTodos('completed', 'completed');
@@ -101,18 +103,11 @@
 			});
 			util.store('todos-keetjs', this.todos);
 			this.updateCheckAll();
-			this.focus();
+			this.focus()
 		},
 		create: function(value) {
-			let obj = {
-		      id: util.genId(),
-		      title: value,
-		      completed: '',
-		      display: window.location.hash == '#/all' || window.location.hash == '#/active' ? 'block' : 'none',
-		      checked: false
-		    }
-		    TODO_APP.todoList.list = TODO_APP.todoList.list.concat(obj)
-		    util.getId(TODO_APP.todoList.el).appendChild(util.genTemplate.call(TODO_APP.todoList, obj))
+		    // TODO_APP.todoList.model = TODO_APP.todoList.model.concat(obj)
+		    // util.getId(TODO_APP.todoList.el).appendChild(util.genTemplate.call(TODO_APP.todoList, obj))
 		    inform()
 		},
 		editTodos: function(id, ele) {
@@ -161,26 +156,33 @@
 				}
 			};
 		},
-		todoCheck: function(id, node) {
+		todoCheck: function(id, attr) {
 
-			TODO_APP.todoList.list = TODO_APP.todoList.list.map((todo, idx, todos) => {
-		      if(todo.id === id){
-		        todo.completed = todo.completed === '' ? 'completed' : ''
-		        todo.checked = todo.completed === '' ? false : true
-		        // evt.target.parentNode.parentNode.replaceWith(genTemplate.call(todoList, todo))
-		        util.updateElem(node, util.genTemplate.call(TODO_APP.todoList, todo))
-		      }
-		      return todo
-		    })
+			// TODO_APP.todoList.model = TODO_APP.todoList.model.map((todo, idx, todos) => {
+		 //      if(todo.id === id){
+		 //        todo.completed = todo.completed === '' ? 'completed' : ''
+		 //        todo.checked = todo.completed === '' ? false : true
+		 //        // evt.target.parentNode.parentNode.replaceWith(genTemplate.call(todoList, todo))
+		 //        util.updateElem(node, util.genTemplate.call(TODO_APP.todoList, todo))
+		 //      }
+		 //      return todo
+		 //    })
+		 	// var idx = TODO_APP.todoList.base.model.map(function(model){
+		 	// 	return model.id
+		 	// }).indexOf(id)
+
+		 	// var todo = TODO_APP.todoList.base.model[idx]
+		 	var todoUpdate = function(todo){
+		 		todo.completed = todo.completed === '' ? 'completed' : ''
+		 		todo.checked = todo.completed === '' ? false : true
+		 		return todo
+		 	}
+		 	// todo.completed = todo.completed === '' ? 'completed' : ''
+		 	// todo.checked = todo.completed === '' ? false : true
+		 	TODO_APP.todoList.update(id, attr, todoUpdate)
 			inform()
 		},
-		destroy: function(id, node) {
-			TODO_APP.todoList.list = TODO_APP.todoList.list.filter(function(todo, index){
-		      if(id == todo.id)
-		        node.remove()
-		      else
-		        return todo
-		    })
+		todoDestroy: function() {
 		    inform()
 		},
 		clearCompleted: function() {

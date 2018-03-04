@@ -3,6 +3,8 @@ const { main, mainInit } = require('./main')
 const { footer, footerInit } = require('./footer')
 const { filters } = require('./filters')
 
+const log = console.log.bind(console)
+
 class Container extends Keet {
   constructor(){
     super()
@@ -11,8 +13,10 @@ class Container extends Keet {
     this.subscribe(todos => {
       if(todos.length && !this.gen){
         this.gen = true
-        this.mountChild('main', { tag: 'section', id: 'main'}, main)
-        this.mountChild('footer', { tag: 'footer', id: 'footer'}, footer)
+        this.mountChild('main', { tag: 'section', id: 'main'})
+        this.mountChild('footer', { tag: 'footer', id: 'footer'})
+        this.render()
+        this.subRender()
       } 
       else if(!todos.length && this.gen){
         this.gen = false
@@ -27,12 +31,15 @@ class Container extends Keet {
   }
   mountChild(child, prop, component){
     this.baseProxy[child] = prop
-    component.render()
-    filters.render()
+  }
+  subRender() {
+    main.render()
+    footer.render()
   }
   removeTodoContainer(){
     delete this.baseProxy.main
     delete this.baseProxy.footer
+    this.render()
   }
   subscribe(fn) {
     this.onChanges.push(fn)

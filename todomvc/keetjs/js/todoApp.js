@@ -33,29 +33,31 @@
 				editMode(id){
 					// App.editTodos(id, this)
 				}
-				destroy(id, evt){
-					App.destroy(id, evt.target.parentNode.parentNode)
+				todoDestroy(id, evt){
+					this.destroy(id, 'keet-id', evt.target.parentNode.parentNode)
+					App.todoDestroy()
 				}
 				completeTodo(id, evt){
-					App.todoCheck(id, evt.target.parentNode.parentNode)
+					App.todoCheck(id, 'keet-id', evt.target.parentNode.parentNode)
 				}
+
 			}
 			self.todoList = new TodoList('checked')
 			self.todoList.mount({
 				template: `
 					<li k-dblclick="editMode({{id}})" class="{{completed}}" data-id="{{id}}" style="display:{{display}}">
-						<div class="view"><input k-click="completeTodo({{id}})" class="toggle" type="checkbox" checked="{{checked}}">
+						<div class="view"><input k-click="completeTodo({{keet-id}})" class="toggle" type="checkbox" checked="{{checked}}">
 							<label>{{title}}</label>
-							<button k-click="destroy({{id}})" class="destroy"></button>
+							<button k-click="todoDestroy({{keet-id}})" class="destroy"></button>
 						</div>
 						<input class="edit" value="{{title}}">
 					</li>`,
-				list: util.store('todos-keetjs')
+				model: util.store('todos-keetjs')
 			}).link('todo-list')
 		}
 
-		var mainCluster = function() {
-			class Main extends Keet {
+		var toggleCluster = function() {
+			class Toggle extends Keet {
 				constructor(...args){
 					super()
 					this.args = args
@@ -63,7 +65,7 @@
 					this.isCheck = false
 				}
 				toggleDisplay(display){
-					this.display = display ? 'block' : 'none'
+					this.display = display === 'none' ? 'block' : 'none'
 				}
 				toggleCheck(check){
 					this.isCheck = check || false
@@ -72,9 +74,9 @@
 					App.checkedAll(evt)
 				}
 			}
-			self.main = new Main('checked')
-			self.main.mount({
-				toggleAll: {
+			self.toggler = new Toggle('checked')
+			self.toggler.mount({
+				toggler: {
 					tag: 'input',
 					id: 'toggle-all',
 					type: 'checkbox',
@@ -84,13 +86,24 @@
 					},
 					'k-click': 'completeAll()'
 					
+				}
+			}).link('toggleAllContainer')
+		}
+
+		var mainCluster = function() {
+			class Main extends Keet {}
+			self.main = new Main()
+			self.main.mount({
+				toggleAll: {
+					tag: 'div',
+					id: 'toggleAllContainer'	
 				},
 				toggleLabel: `<label for="toggle-all">Mark all as complete</label>`,
 				todoList: {
 					tag: 'ul',
 					id: 'todo-list'
 				}
-			}).link('main').cluster(todoListCluster)
+			}).link('main').cluster(toggleCluster, todoListCluster)
 		}
 
 		var filtersCluster = function() {
@@ -115,7 +128,7 @@
 					<li k-click="updateUrl({{hash}})">
 						<a class="{{className}}" href="{{hash}}">{{nodeValue}}</a>
 					</li>`.trim(),
-				list: filters
+				model: filters
 			}).link('filters')
 		}
 
@@ -176,7 +189,14 @@
 				}
 				create(evt){
 					if(evt.keyCode !== 13) return
-					App.create.call(App, evt.target.value.trim())
+					let obj = {
+				      title: evt.target.value.trim(),
+				      completed: '',
+				      display: window.location.hash == '#/all' || window.location.hash == '#/active' ? 'block' : 'none',
+				      checked: false
+				    }
+				    self.todoList.add(obj, 'createId')
+					App.create()
 					evt.target.value = ''
 				}
 			}

@@ -25,12 +25,11 @@ class App extends Keet {
   updateFilter(hash) {
   	let el = getId(filters.el)
   	if(!el) return
-
-    filters.list.map((f, i, r) => {
+    filters.base.model.map(f => {
       let c = {}
       c.className = f.hash === hash ? 'selected' : ''
       if (f.className === 'selected') this.page = f.nodeValue
-      r[i] = Object.assign(f, c)
+      filters.update(f.hash, 'hash', c)
     })
   }
 }
@@ -63,3 +62,9 @@ setTimeout(() => {
   inform(footer, [{completed: 'completed'}, {completed: ''}])
   app.routeUpdate()
 }, 2000)
+
+setTimeout(() => {
+  // inform(container, [])
+  // inform(footer, [{completed: 'completed'}, {completed: ''}])
+  // app.routeUpdate()
+}, 4000)

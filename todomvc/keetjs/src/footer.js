@@ -13,6 +13,7 @@ class Footer extends Keet {
       let actives = todos.filter(f => f.completed !== 'completed')
       this.updateCount(actives.length)
       this.toggleClearComplete(actives.length !== todos.length ? true : false)
+      filtersInit()
     })
   }
   toggleClearComplete (display) {
@@ -53,7 +54,7 @@ const vmodel = {
   }
 }
 
-const footerInit = () => footer.mount(vmodel).link('footer').cluster(filtersInit)
+const footerInit = () => footer.mount(vmodel).link('footer')//.cluster(filtersInit)
 
 module.exports = {
   footerInit,
