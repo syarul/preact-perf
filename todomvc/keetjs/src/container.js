@@ -2,6 +2,7 @@ const Keet = require('keet')
 const { main, mainInit } = require('./main')
 const { footer, footerInit } = require('./footer')
 const { filters } = require('./filters')
+const { todoList } = require('./todoList')
 
 const log = console.log.bind(console)
 
@@ -26,7 +27,14 @@ class Container extends Keet {
   }
   create (evt) {
     if(evt.keyCode !== 13) return
-    todoList.addTodo.call(todoList, evt.target.value.trim())
+    let obj = {
+      title: evt.target.value.trim(),
+      completed: '',
+      display: window.location.hash == '#/all' || window.location.hash == '#/active' ? 'block' : 'none',
+      checked: false
+    }
+    log(todoList)
+    todoList.add(obj)
     evt.target.value = ''
   }
   mountChild(child, prop, component){

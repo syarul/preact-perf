@@ -1,5 +1,7 @@
 const Keet = require('keet')
-//import todoListInit from './todoList'
+const { todoListInit } = require('./todoList')
+
+const log = console.log.bind(console)
 
 class Main extends Keet {
   constructor (...args) {
@@ -48,7 +50,9 @@ const vmodel = {
   }
 }
 
-const mainInit = () => main.mount(vmodel).link('main')//.cluster(todoListInit)
+log(todoListInit)
+
+const mainInit = () => main.mount(vmodel).link('main').cluster(todoListInit)
 
 module.exports = {
   mainInit,
