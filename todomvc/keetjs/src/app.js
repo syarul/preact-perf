@@ -1,45 +1,123 @@
 const Keet = require('keet')
-const { containerInit, container } = require('./container')
+const { camelCase } = require('./util')
+// const { containerInit, container } = require('./container')
 const { inform, getId } = require('./util')
 
-const { footer } = require('./footer')
-const { filters } = require('./filters')
+// const { footer } = require('./footer')
+// const { filters } = require('./filters')
 
 const log = console.log.bind(console)
+
+const filterPage = ['all', 'active', 'completed']
 
 class App extends Keet {
   constructor() {
     super()
+
+    this.onChanges = []
+    this.ignoreNodes = ['todo-list']
     this.page = 'All'
+    this.isChecked = ''
+    this.count = 0
+    this.plural = ''
+    this.clearToggle = 'none'
+
+    filterPage.map(f => this[`c_${f}`] = '')
+
+    let gen = false
+
+    this.subscribe(todos => {
+      if(todos.length){
+        if(!gen) {
+          gen = true
+          this.base.todoapp.template = tmpl(gen)
+          // log(this.base)
+          this.flush().render()
+        }
+      } 
+      else if(!todos.length){
+        if(gen){
+          gen = false
+          this.base.todoapp.template = tmpl(gen)
+          this.flush().render()
+        }
+      }
+    })
+
   }
-  routeUpdate() {
-    if (window.location.hash !== '') {
-      this.updateFilter(window.location.hash)
-    } else {
-      this.updateFilter('#/all')
+  componentDidMount(){
+    if (window.location.hash == '') {
+      this.updateUrl('#/all')
       window.history.pushState({}, null, '#/all')
     }
-
-    window.onpopstate = () => this.updateFilter(window.location.hash)
+    window.onpopstate = () => this.updateUrl(window.location.hash)
   }
-  updateFilter(hash) {
-  	let el = getId(filters.el)
-  	if(!el) return
-    filters.base.model.map(f => {
-      let c = {}
-      c.className = f.hash === hash ? 'selected' : ''
-      if (f.className === 'selected') this.page = f.nodeValue
-      filters.update(f.hash, 'hash', c)
+  updateUrl(hash) {
+    filterPage.map(f => {
+      this[`c_${f}`] = hash.split('#/')[1] === f ? 'selected' : ''
+      if(hash.split('#/')[1] === f) this.page = f.name
     })
+  }
+  completeAll(){
+
+  }
+  clearCompleted(){
+
+  }
+  subscribe(stack) {
+    this.onChanges.push(stack)
   }
 }
 
 const app = new App
 
+let filtersTmpl = ''
+
+const filters = page => {
+  let f = {
+    className: `{{c_${page}}}`,
+    hash: '#/' + page,
+    name: camelCase(page)
+  }
+  filtersTmpl += `<li k-click="updateUrl(${f.hash})"><a class="${f.className}" href="${f.hash}">${f.name}</a></li>`
+}
+
+filterPage.map(page => filters(page))
+
+const tmpl = todoLength => {
+  let static = `
+    <header id="header">
+      <h1>todos</h1>
+      <input id="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>
+    </header>
+  `
+  let main = `
+    <section id="main">
+      <input id="toggle-all" type="checkbox" {{isChecked}} k-click="completeAll()">
+      <label for="toggle-all">Mark all as complete</label>
+      <!-- todo list component dom entry-->
+      <ul id="todo-list"></ul>
+    </section>
+  `
+  let footer = `
+    <footer id="footer">
+      <span id="todo-count">
+        <strong>{{count}}</strong> item{{plural}} left
+      </span>
+      <ul id="filters">
+        ${filtersTmpl}
+      </ul>
+      <button id="clear-completed" style="display: {{clearToggle}}" k-clicked="clearCompleted()">Clear completed</button>
+    </footer>
+  `
+  return todoLength ?  static.concat(main, footer) : static
+}
+
 const todo = {
   todoapp: {
     tag: 'section',
-    id: 'todoapp'
+    id: 'todoapp',
+    template: tmpl(false)
   },
   info: {
     tag: 'footer',
@@ -51,16 +129,17 @@ const todo = {
   }
 }
 
-app.mount(todo).link('todo').cluster(containerInit)
+app.mount(todo).link('todo')//.cluster(containerInit)
 
-app.routeUpdate()
+// app.routeUpdate()
 
 module.exports = app
 
 setTimeout(() => {
-  inform(container, [1])
-  inform(footer, [{completed: 'completed'}, {completed: ''}])
-  app.routeUpdate()
+  inform(app, [1])
+  // inform(container, [1])
+  // inform(footer, [{completed: 'completed'}, {completed: ''}])
+  app.updateUrl(window.location.hash)
 }, 2000)
 
 setTimeout(() => {
