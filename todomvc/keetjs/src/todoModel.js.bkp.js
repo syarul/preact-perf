@@ -1,9 +1,9 @@
-const Keet = require('keet')
+const Keet = require('../keet')
 const { store } = require('./util')
 
 const log = console.log.bind(console)
 
-class TodoList extends Keet {
+class TodoApp extends Keet {
   constructor() {
     super()
     this.args = [].slice.call(arguments)
@@ -21,7 +21,7 @@ class TodoList extends Keet {
 
 }
 
-const todoList = new TodoList('checked')
+const todoApp = new TodoApp('checked')
 
 const vmodel = {
   template: `
@@ -35,9 +35,11 @@ const vmodel = {
   model: store('todos-keetjs')
 }
 
-const todoListInit = () => todoList.mount(vmodel).link('todo-list')
+const todoInit = () => {
+  todoApp.mount(vmodel).link('todo-list')
+}
 
 module.exports = {
-  todoListInit,
-  todoList
+  todoInit,
+  todoApp
 }

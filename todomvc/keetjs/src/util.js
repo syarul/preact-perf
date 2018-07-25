@@ -18,7 +18,7 @@ exports.camelCase = function(s) {
 }
 
 exports.genId = function() {
-  return (Math.round(Math.random() * 0x1000)).toString(32)
+  return (Math.round(Math.random() * 0x1*1e12)).toString(32)
 }
 
 exports.getId = function (id) {
