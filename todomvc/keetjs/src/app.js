@@ -1,10 +1,10 @@
 const Keet = require('../keet')
-const { camelCase } = require('./util')
-const { inform, getId } = require('./util')
 
-// const createTodoModel = require('./todoModel')
+const { camelCase, html } = require('./util')
 
-const { createTodoModel, todoApp } = require('./todo')
+const createTodoModel = require('./todoModel')
+
+const todoApp = require('./todo')
 
 const log = console.log.bind(console)
 
@@ -12,7 +12,7 @@ const filterPage = ['all', 'active', 'completed']
 
 class App extends Keet {
 
-  model = createTodoModel(this)
+  model = createTodoModel(todoApp)
 
   page = 'All'
 
@@ -27,14 +27,13 @@ class App extends Keet {
   componentWillMount() {
 
     filterPage.map(f => this[`c_${f}`] = '')
-    log(this.model)
-    // this.model.subscribe( store => {
-    //   let m = store.todos
-    //   let c = m.filter(c => !c.completed)
-    //   this.todoState = m.length ? true : false
-    //   this.plural = c.length === 1 ? '' : 's'
-    //   this.count = c.length
-    // })
+    
+    this.model.subscribe( store => {
+      let c = store.filter(c => !c.completed)
+      this.todoState = store.length ? true : false
+      this.plural = c.length === 1 ? '' : 's'
+      this.count = c.length
+    })
   }
 
   componentDidMount(){
@@ -55,15 +54,8 @@ class App extends Keet {
 
   create (evt) {
     if(evt.keyCode !== 13) return
-
-    // let obj = {
-    //   title: evt.target.value.trim(),
-    //   completed: '',
-    //   display: window.location.hash == '#/all' || window.location.hash == '#/active' ? 'block' : 'none',
-    //   checked: false
-    // }
     this.model.addTodo(evt.target.value.trim())
-    evt.target.value = ''
+    evt.target.value = ""
   }
 
   completeAll(){
@@ -90,7 +82,7 @@ const filters = page => {
 
 filterPage.map(page => filters(page))
 
-const vmodel = `
+const vmodel = html`
   <section id="todoapp">
     <header id="header">
       <h1>todos</h1>
@@ -100,7 +92,7 @@ const vmodel = `
     <section id="main">
       <input id="toggle-all" type="checkbox" {{isChecked}} k-click="completeAll()">
       <label for="toggle-all">Mark all as complete</label>
-      <ul id="todo-list"></ul>
+      <ul id="todo-list" data-ignore></ul>
     </section>
     <footer id="footer">
       <span id="todo-count">
@@ -119,8 +111,4 @@ const vmodel = `
     <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
   </footer>`
 
-app.mount(vmodel).register(todoApp).link('todo')//.cluster(todoInit)
-
-// console.log(app)
-
-module.exports = app
+app.mount(vmodel).link('todo')

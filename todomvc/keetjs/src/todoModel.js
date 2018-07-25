@@ -1,36 +1,38 @@
 // const Keet = require('../keet')
-const { store, genId } = require('./util')
+const { store } = require('./util')
 
 // note: copy with modification from preact-todomvc
 
 // const todo = require('./todo')
 
-module.exports = function () {
-  
+module.exports = todo => {
+
   let onChanges = []
 
   function inform () {
     for (let i = onChanges.length; i--;) {
-      onChanges[i](model)
+      console.log(this)
+      this && onChanges[i](this.base.model)
     }
   }
 
   let model = {
-    todos: [],
+    // todos: [],
 
-    onChanges: [],
+    // onChanges: [],
 
     subscribe (fn) {
       onChanges.push(fn)
     },
 
     addTodo (title) {
-      model.todos = model.todos.concat({
-        id: genId(),
+      let m = {
         title,
-        completed: false
-      })
-      inform()
+        completed: ''
+      }
+      // model.todos = model.todos.concat(m)
+      todo.add(m, inform)
+      // console.log(todo)
     }
 
     /* toggleAll(completed) {

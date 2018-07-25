@@ -1,9 +1,7 @@
 const Keet = require('../keet')
-const { store, inform } = require('./util')
+const { store, inform, genId, html } = require('./util')
 
 const log = console.log.bind(console)
-
-let main = null
 
 class TodoApp extends Keet {
   
@@ -23,26 +21,24 @@ class TodoApp extends Keet {
   completeTodo(id, evt) {
     // App.todoCheck(id, 'keet-id', evt.target.parentNode.parentNode)
   }
-  addTodo (title) {
-    this.add({
-      id: genId(),
-      title,
-      completed: false
-    })
-    inform(main, this.base.model)
-  }
-  subscribe(stack) {
-    this.onChanges.push(stack)
-  }
+  // addTodo (title) {
+  //   this.add({
+  //     id: genId(),
+  //     title,
+  //     completed: false
+  //   })
+  //   inform(main, this.base.model)
+  // }
+  // subscribe(stack) {
+  //   this.onChanges.push(stack)
+  // }
 }
-
-log(store('todos-keetjs'))
 
 const todoApp = new TodoApp('checked')
 
 const vmodel = {
-  template: `
-	<li k-dblclick="editMode({{id}})" class="{{completed}}" data-id="{{id}}" style="display: {{display}}">
+  template: html`
+	<li k-dblclick="editMode({{keet-id}})" class="{{completed}}">
 		<div class="view"><input k-click="completeTodo({{keet-id}})" class="toggle" type="checkbox" checked="{{checked}}">
 			<label>{{title}}</label>
 			<button k-click="todoDestroy({{keet-id}})" class="destroy"></button>
@@ -52,13 +48,12 @@ const vmodel = {
   model: store('todos-keetjs')
 }
 
+todoApp.mount(vmodel)
 
+module.exports = todoApp
 
-module.exports = {
-  createTodoModel: function(app) {
-    console.log(2)
-    main = app
-    todoApp.mount(vmodel)
-  },
-  todoApp: todoApp
-}
+// module.exports = function(app) {
+//   main = app
+//   todoApp.mount(vmodel)
+//   return todoApp
+// }
