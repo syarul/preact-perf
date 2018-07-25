@@ -1,33 +1,20 @@
 const Keet = require('../keet')
-
 const { camelCase, html } = require('./util')
-
 const createTodoModel = require('./todoModel')
-
 const todoApp = require('./todo')
-
-const log = console.log.bind(console)
-
 const filterPage = ['all', 'active', 'completed']
 
 class App extends Keet {
 
   model = createTodoModel(todoApp)
-
   page = 'All'
-
   isChecked = ''
-
   count = 0
-
   plural = ''
-
   clearToggle = 'none'
 
   componentWillMount() {
-
     filterPage.map(f => this[`c_${f}`] = '')
-    
     this.model.subscribe( store => {
       let c = store.filter(c => !c.completed)
       this.todoState = store.length ? true : false
@@ -35,9 +22,7 @@ class App extends Keet {
       this.count = c.length
     })
   }
-
   componentDidMount(){
-
     if (window.location.hash == '') {
       this.updateUrl('#/all')
       window.history.pushState({}, null, '#/all')
@@ -59,7 +44,9 @@ class App extends Keet {
   }
 
   completeAll(){
-
+    this.isChecked = this.isChecked === '' ? 'checked' : ''
+    console.log(this.isChecked)
+    this.model.toggleAll(this.isChecked === '' ? '' : 'completed')
   }
 
   clearCompleted(){
@@ -77,7 +64,7 @@ const filters = page => {
     hash: '#/' + page,
     name: camelCase(page)
   }
-  filtersTmpl += `<li k-click="updateUrl(${f.hash})"><a class="${f.className}" href="${f.hash}">${f.name}</a></li>`
+  filtersTmpl += html`<li k-click="updateUrl(${f.hash})"><a class="${f.className}" href="${f.hash}">${f.name}</a></li>`
 }
 
 filterPage.map(page => filters(page))
