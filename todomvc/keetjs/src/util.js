@@ -60,3 +60,11 @@ exports.html = function (literalSections, ...substs) {
 
   return result;
 }
+
+exports.intelliUpdate = function(state, callback) {
+  // only update when necessary
+  if (state) clearTimeout(state)
+  state = setTimeout(function() {
+    callback()
+  }, 10)
+}

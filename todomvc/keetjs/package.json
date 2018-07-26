@@ -7,7 +7,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server -d",
-    "build": "gulp"
+    "build": "browserify src/app.js --debug -o build.js",
+    "dist": "browserify src/app.js | uglifyjs --mangle --compress > build.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

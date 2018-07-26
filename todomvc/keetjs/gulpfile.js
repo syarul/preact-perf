@@ -7,7 +7,7 @@ gulp.task('bundle', function() {
       ignoreInitial: false
     })
     // .pipe(shell('browserify src/app.js | uglifyjs --compress --mangle > build.js'))
-    .pipe(shell('browserify src/app.js --debug -o build.js'))
+    .pipe(shell('rm build.js && browserify src/app.js --debug -o build.js'))
 })
 
 gulp.task('default', ['bundle'])

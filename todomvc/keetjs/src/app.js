@@ -12,10 +12,11 @@ class App extends Keet {
   count = 0
   plural = ''
   clearToggle = 'none'
+  // todoState = true
 
   componentWillMount() {
     filterPage.map(f => this[`c_${f}`] = '')
-    this.model.subscribe( store => {
+    todoApp.subscribe( store => {
       let c = store.filter(c => !c.completed)
       this.todoState = store.length ? true : false
       this.plural = c.length === 1 ? '' : 's'
@@ -39,14 +40,14 @@ class App extends Keet {
 
   create (evt) {
     if(evt.keyCode !== 13) return
-    this.model.addTodo(evt.target.value.trim())
-    evt.target.value = ""
+    todoApp.addTodo(evt.target.value.trim())
+    evt.target.value = ''
   }
 
   completeAll(){
     this.isChecked = this.isChecked === '' ? 'checked' : ''
     console.log(this.isChecked)
-    this.model.toggleAll(this.isChecked === '' ? '' : 'completed')
+    // this.model.toggleAll(this.isChecked === '' ? '' : 'completed')
   }
 
   clearCompleted(){

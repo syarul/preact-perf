@@ -1,7 +1,24 @@
 const Keet = require('../keet')
-const { store, inform, genId, html } = require('./util')
+const { store, genId, html, intelliUpdate } = require('./util')
 
 const log = console.log.bind(console)
+
+// log(intelliUpdate)
+
+// intelliUpdate(function(){
+//   console.log(1)
+// })
+
+let onChanges = []
+
+// let flag = false
+
+function inform () {
+  for (let i = onChanges.length; i--;) {
+    // if(flag) 
+    onChanges[i](this.base.model)
+  }
+}
 
 class TodoApp extends Keet {
   
@@ -9,7 +26,13 @@ class TodoApp extends Keet {
   
   el = 'todo-list'
 
-  onChanges = []
+  addTodo (title) {
+    let m = {
+      title,
+      completed: false
+    }
+    this.add(m, inform)
+  }
 
   editMode(id) {
     // App.editTodos(id, this)
@@ -18,8 +41,8 @@ class TodoApp extends Keet {
     // this.destroy(id, 'keet-id', evt.target.parentNode.parentNode)
     // App.todoDestroy()
   }
-  completeTodo(id, evt) {
-    // App.todoCheck(id, 'keet-id', evt.target.parentNode.parentNode)
+  toggleTodo(id, evt) {
+    this.update(id, 'keet-id', { completed: evt.target.checked ? true : false }, inform)
   }
   // addTodo (title) {
   //   this.add({
@@ -32,14 +55,18 @@ class TodoApp extends Keet {
   // subscribe(stack) {
   //   this.onChanges.push(stack)
   // }
+
+  subscribe (fn) {
+    onChanges.push(fn)
+  }
 }
 
 const todoApp = new TodoApp('checked')
 
 const vmodel = {
   template: html`
-	<li k-dblclick="editMode({{keet-id}})" class="{{completed}}">
-		<div class="view"><input k-click="completeTodo({{keet-id}})" class="toggle" type="checkbox" checked="{{checked}}">
+	<li k-dblclick="editMode({{keet-id}})" class="{{completed?completed:''}}">
+		<div class="view"><input k-click="toggleTodo({{keet-id}})" class="toggle" type="checkbox" {{complete?checked:''}}>
 			<label>{{title}}</label>
 			<button k-click="todoDestroy({{keet-id}})" class="destroy"></button>
 		</div>
