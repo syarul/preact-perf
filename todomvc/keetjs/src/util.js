@@ -17,6 +17,10 @@ exports.camelCase = function(s) {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
+exports.selector = function (id) {
+  return document.querySelector('[keet-id="' + id + '"]')
+}
+
 exports.genId = function() {
   return (Math.round(Math.random() * 0x1*1e12)).toString(32)
 }

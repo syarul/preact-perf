@@ -1,5 +1,5 @@
 const Keet = require('../keet')
-const { store, html } = require('./util')
+const { store, html, selector } = require('./util')
 
 const log = console.log.bind(console)
 
@@ -31,7 +31,13 @@ class TodoApp extends Keet {
   }
 
   clearCompleted(){
-    console.log('clearCompleted')
+    this.base.model = this.base.model.filter(model => {
+      if (model.completed) {
+        let node = selector(model['keet-id'])
+        node && node.remove() 
+      } else { return model }
+    })
+    inform.call(this)
   }
 
   editMode(id) {

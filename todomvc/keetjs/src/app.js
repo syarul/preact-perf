@@ -50,7 +50,6 @@ class App extends Keet {
   }
 
   clearCompleted() {
-    console.log('do')
     todoApp.clearCompleted()
   }
 }
@@ -75,7 +74,7 @@ const vmodel = html`
         ${filtersTmpl}
       </ul>
       {{?clearToggle}}
-      <button id="clear-completed" k-clicked="clearCompleted()">Clear completed</button>
+      <button id="clear-completed" k-click="clearCompleted()">Clear completed</button>
       {{/clearToggle}}
     </footer>
     {{/todoState}}
