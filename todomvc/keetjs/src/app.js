@@ -1,26 +1,26 @@
 const Keet = require('../keet')
 const { camelCase, html } = require('./util')
-const createTodoModel = require('./todoModel')
 const todoApp = require('./todo')
 const filterPage = ['all', 'active', 'completed']
+const filtersTmpl = require('./filters')(filterPage)
 
 class App extends Keet {
 
-  model = createTodoModel(todoApp)
   page = 'All'
-  isChecked = ''
+  isChecked = false
   count = 0
   plural = ''
-  clearToggle = 'none'
-  // todoState = true
+  clearToggle = false
 
   componentWillMount() {
-    filterPage.map(f => this[`c_${f}`] = '')
+    filterPage.map(f => this[`page${camelCase(f)}`] = '')
     todoApp.subscribe( store => {
-      let c = store.filter(c => !c.completed)
+      let filterUncomplete = store.filter(c => !c.completed)
+      let filterCompleted = store.filter(c => c.completed)
+      this.clearToggle = filterCompleted.length ? true : false
       this.todoState = store.length ? true : false
-      this.plural = c.length === 1 ? '' : 's'
-      this.count = c.length
+      this.plural = filterUncomplete.length === 1 ? '' : 's'
+      this.count = filterUncomplete.length
     })
   }
   componentDidMount(){
@@ -33,7 +33,7 @@ class App extends Keet {
 
   updateUrl(hash) {
     filterPage.map(f => {
-      this[`c_${f}`] = hash.split('#/')[1] === f ? 'selected' : ''
+      this[`page${camelCase(f)}`] = hash.split('#/')[1] === f ? 'selected' : ''
       if(hash.split('#/')[1] === f) this.page = f.name
     })
   }
@@ -45,30 +45,15 @@ class App extends Keet {
   }
 
   completeAll(){
-    this.isChecked = this.isChecked === '' ? 'checked' : ''
-    console.log(this.isChecked)
-    // this.model.toggleAll(this.isChecked === '' ? '' : 'completed')
+    this.isChecked = !this.isChecked
+    todoApp.updateAll(this.isChecked)
   }
 
-  clearCompleted(){
-
+  clearCompleted() {
+    console.log('do')
+    todoApp.clearCompleted()
   }
 }
-
-const app = new App()
-
-let filtersTmpl = ''
-
-const filters = page => {
-  let f = {
-    className: `{{c_${page}}}`,
-    hash: '#/' + page,
-    name: camelCase(page)
-  }
-  filtersTmpl += html`<li k-click="updateUrl(${f.hash})"><a class="${f.className}" href="${f.hash}">${f.name}</a></li>`
-}
-
-filterPage.map(page => filters(page))
 
 const vmodel = html`
   <section id="todoapp">
@@ -78,7 +63,7 @@ const vmodel = html`
     </header>
     {{?todoState}}
     <section id="main">
-      <input id="toggle-all" type="checkbox" {{isChecked}} k-click="completeAll()">
+      <input id="toggle-all" type="checkbox" {{isChecked?checked:''}} k-click="completeAll()">
       <label for="toggle-all">Mark all as complete</label>
       <ul id="todo-list" data-ignore></ul>
     </section>
@@ -89,7 +74,9 @@ const vmodel = html`
       <ul id="filters">
         ${filtersTmpl}
       </ul>
-      <button id="clear-completed" style="display: {{clearToggle}}" k-clicked="clearCompleted()">Clear completed</button>
+      {{?clearToggle}}
+      <button id="clear-completed" k-clicked="clearCompleted()">Clear completed</button>
+      {{/clearToggle}}
     </footer>
     {{/todoState}}
   </section>
@@ -98,5 +85,7 @@ const vmodel = html`
     <p>Created by <a href="https://github.com/syarul">Shahrul Nizam Selamat</a></p>
     <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
   </footer>`
+
+const app = new App()
 
 app.mount(vmodel).link('todo')

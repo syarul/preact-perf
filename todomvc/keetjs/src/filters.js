@@ -1,37 +1,15 @@
-const Keet = require('keet')
-const app = require('./app')
-const { camelCase } = require('./util')
+const { camelCase, html } = require('./util')
 
-let filterPage = ['all', 'active', 'completed']
-
-class Filters extends Keet {
-  updateUrl (uri) {
-    // console.log(app)
-    // app.updateFilter(uri)
-  }
-}
-
-const filters = new Filters()
-
-const vmodel = {
-  template: `
-    <li k-click="updateUrl({{hash}})">
-      <a class="{{className}}" href="{{hash}}">{{nodeValue}}</a>
-    </li>`.trim(),
-  model: filterPage.map((f, i) => {
-    return {
-      className: '',
-      hash: '#/' + f,
-      nodeValue: camelCase(f)
+module.exports = function(filterPage) {
+  let str = ''
+  const filters = page => {
+    let f = {
+      className: `{{page${camelCase(page)}}}`,
+      hash: '#/' + page,
+      name: camelCase(page)
     }
-  })
-}
-
-const filtersInit = () => {
-  filters.mount(vmodel).link('filters')
-}
-
-module.exports = {
-  filtersInit,
-  filters
+    str += html`<li k-click="updateUrl(${f.hash})"><a class="${f.className}" href="${f.hash}">${f.name}</a></li>`
+  }
+  filterPage.map(page => filters(page))
+  return str
 }
