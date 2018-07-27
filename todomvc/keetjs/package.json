@@ -8,7 +8,7 @@
   "scripts": {
     "start": "webpack-dev-server -d",
     "build": "browserify src/app.js --debug -o build.js",
-    "dist": "browserify src/app.js | uglifyjs --mangle --compress > build.js"
+    "dist": "browserify src/app.js | uglifyjs -m -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code --pure-funcs classCallCheck Object.freeze invariant warning > build.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -51,7 +51,8 @@
       ]
     ],
     "plugins": [
-      "transform-class-properties"
+      "transform-class-properties",
+      "transform-object-rest-spread"
     ]
   }
 }

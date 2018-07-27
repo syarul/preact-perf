@@ -1,59 +1,117 @@
+'use strict';
+/*global m */
+
 var app = app || {};
+app.controller = function () {
 
-(function () {
-    'use strict';
+	// Todo collection
+	this.list = app.storage.get();
 
-    app.controller = function() {
+	// Update with props
+	this.list = this.list.map(function (item) {
+		return new app.Todo(item);
+	});
 
-        this.list = new app.TodoList(); // Todo collection
-        this.title = m.prop('');        // Temp title placeholder
-        this.filter = m.prop(m.route.param('filter') || '');       // TodoList filter
+	// Temp title placeholder
+	this.title = m.prop('');
 
-        // Add a Todo 
-        this.add = function(title) {
-            if(this.title()) {
-                this.list.push(new app.Todo({title: title()}));
-                this.title('');
-            }
-        };
+	// Todo list filter
+	this.filter = m.prop(m.route.param('filter') || '');
 
-        //check whether a todo is visible
-        this.isVisible = function(todo) {
-            if(this.filter() == '')
-                return true;
-            if (this.filter() == 'active')
-                return !todo.completed();
-            if (this.filter() == 'completed')
-                return todo.completed();
-        }
-        
-        this.clearTitle = function() {
-            this.title('')
-        }
+	this.add = function () {
+		var title = this.title().trim();
+		if (title) {
+			this.list.push(new app.Todo({title: title}));
+			app.storage.put(this.list);
+		}
+		this.title('');
+	};
 
-        // Removing a Todo from the list
-        this.remove = function(key) {
-            this.list.splice(key, 1)
-        }
+	this.isVisible = function (todo) {
+		switch (this.filter()) {
+			case 'active':
+				return !todo.completed();
+			case 'completed':
+				return todo.completed();
+			default:
+				return true;
+		}
+	};
 
-        // Remove all Todos where Completed == true
-        this.clearCompleted = function() {
-            for(var i = 0; i < this.list.length; i++) {
-                if(this.list[i].completed())
-                    this.list.splice(i, 1)
-            }
-        }
+	this.complete = function (todo) {
+		if (todo.completed()) {
+			todo.completed(false);
+		} else {
+			todo.completed(true);
+		}
+		app.storage.put(this.list);
+	};
 
-        // Total amount of Todos completed
-        this.amountCompleted = function() {
-            var amount = 0;
-            
-            for(var i = 0; i < this.list.length; i++)
-                if(this.list[i].completed())
-                    amount++;
+	this.edit = function (todo) {
+		todo.previousTitle = todo.title();
+		todo.editing(true);
+	};
 
-            return amount;
-        }
-    };
-    
-})();
+	this.doneEditing = function (todo, index) {
+		if (!todo.editing()) {
+			return;
+		}
+
+		todo.editing(false);
+		todo.title(todo.title().trim());
+		if (!todo.title()) {
+			this.list.splice(index, 1);
+		}
+		app.storage.put(this.list);
+	};
+
+	this.cancelEditing = function (todo) {
+		todo.title(todo.previousTitle);
+		todo.editing(false);
+	};
+
+	this.clearTitle = function () {
+		this.title('');
+	};
+
+	this.remove = function (key) {
+		this.list.splice(key, 1);
+		app.storage.put(this.list);
+	};
+
+	this.clearCompleted = function () {
+		for (var i = this.list.length - 1; i >= 0; i--) {
+			if (this.list[i].completed()) {
+				this.list.splice(i, 1);
+			}
+		}
+		app.storage.put(this.list);
+	};
+
+	this.amountCompleted = function () {
+		var amount = 0;
+		for (var i = 0; i < this.list.length; i++) {
+			if (this.list[i].completed()) {
+				amount++;
+			}
+		}
+		return amount;
+	};
+
+	this.allCompleted = function () {
+		for (var i = 0; i < this.list.length; i++) {
+			if (!this.list[i].completed()) {
+				return false;
+			}
+		}
+		return true;
+	};
+
+	this.completeAll = function () {
+		var allCompleted = this.allCompleted();
+		for (var i = 0; i < this.list.length; i++) {
+			this.list[i].completed(!allCompleted);
+		}
+		app.storage.put(this.list);
+	};
+};

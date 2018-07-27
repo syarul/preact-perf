@@ -170,7 +170,7 @@ Suites.push({
 Suites.push({
     name: 'Keet',
     url: 'todomvc/keetjs/index.html',
-    version: '3.2.4',
+    version: '3.5.2',
     prepare: function (runner, contentWindow, contentDocument) {
         return runner.waitForElement('#new-todo').then(function (element) {
             element.focus();
@@ -204,7 +204,7 @@ Suites.push({
     ]
 });
 
-Suites.push({
+/*Suites.push({
     name: 'Om 0.5',
     url: 'todomvc/om/index.html',
     version: '0.5.0 + React 0.9.0',
@@ -314,7 +314,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 
 
@@ -359,7 +359,7 @@ Suites.push({
 
 
 
-Suites.push({
+/*Suites.push({
     name: 'Knockout',
     url: 'todomvc/knockoutjs/index.html',
     version: '3.1.0',
@@ -396,7 +396,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 /*Suites.push({
     name: 'Ractive',
@@ -440,9 +440,9 @@ Suites.push({
 Suites.push({
     name: 'Mithril',
     url: 'todomvc/mithril/index.html',
-    version: '0.1.0',
+    version: '0.2.0',
     prepare: function (runner, contentWindow, contentDocument) {
-        return runner.waitForElement('#new-todo').then(function (element) {
+        return runner.waitForElement('.new-todo').then(function (element) {
             element.focus();
             return element;
         });
@@ -456,8 +456,8 @@ Suites.push({
                 newTodo.dispatchEvent(inputEvent);
 
                 var keydownEvent = document.createEvent('Event');
-                keydownEvent.initEvent('keypress', true, true);
-                keydownEvent.keyCode = 13; // VK_ENTER
+                keydownEvent.initEvent('keyup', true, true);
+                keydownEvent.keyCode = keydownEvent.which = 13; // VK_ENTER
                 newTodo.dispatchEvent(keydownEvent);
             }
         }),
@@ -476,10 +476,10 @@ Suites.push({
 
 Suites.push({
     name: 'Preact',
-    url: 'todomvc/preact/index.html',
-    version: '8.1.0',
+    url: 'todomvc/preact-todomvc/build/index.html',
+    version: '7.1.0',
     prepare: function (runner, contentWindow, contentDocument) {
-        return runner.waitForElement('#new-todo').then(function (element) {
+        return runner.waitForElement('.new-todo').then(function (element) {
             element.focus();
             return element;
         });

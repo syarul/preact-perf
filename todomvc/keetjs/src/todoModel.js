@@ -1,59 +1,55 @@
 
-const { store } = require('./util')
+const { store, genId } = require('./util')
 
 // note: copy with modification from preact-todomvc
 
-module.exports = todo => {
+module.exports = () => {
 
   let onChanges = []
 
   function inform () {
     for (let i = onChanges.length; i--;) {
-      onChanges[i](this.base.model)
+      onChanges[i](model.list)
     }
   }
 
   let model = {
+
+    list: [],
 
     subscribe (fn) {
       onChanges.push(fn)
     },
 
     addTodo (title) {
-      let m = {
+      model.list = model.list.concat({
+        id: genId(),
         title,
-        completed: ''
-      }
-      todo.add(m, inform)
+        completed: false
+      })
+      inform()
     },
 
     toggleAll(completed) {
-      todo.base.model.map(m => {
-        console.log(m)
-        todo.update(m['keet-id'], 'keet-id', { 
-          completed: completed, 
-          checked: completed === 'completed' ? 'checked' : ''
-        })
-      })
-      inform.call(todo)
-      // todo.base.model = model.todos.map(
-      //   todo => ({ ...todo, completed })
-      // );
-      // inform();
+      model.list= model.list.map(
+        todo => ({ ...todo, completed })
+      );
+      inform()
     },
     
     toggle(todoToToggle) {
-      // model.todos = model.todos.map( todo => (
-      //   todo !== todoToToggle ? todo : ({ ...todo, completed: !todo.completed })
-      // ) );
-      // inform();
+      model.list = model.list.map(todo =>
+        todo.id !== todoToToggle.id ? todo : ({ ...todo, ...todoToToggle})
+      )
+      inform()
+    },
+    
+    destroy(id) {
+      console.log(id)
+      model.list = model.list.filter(t => t.id !== id)
+      inform()
     },
     /*
-    destroy(todo) {
-      model.todos = model.todos.filter( t => t !== todo );
-      inform();
-    },
-
     save(todoToSave, title) {
       model.todos = model.todos.map( todo => (
         todo !== todoToSave ? todo : ({ ...todo, title })

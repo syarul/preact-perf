@@ -3,6 +3,14 @@ const { store, html, selector } = require('./util')
 
 const log = console.log.bind(console)
 
+let onChanges = []
+
+function inform () {
+  for (let i = onChanges.length; i--;) {
+    onChanges[i](this.base.model)
+  }
+}
+
 class TodoApp extends Keet {
 
   el = 'todo-list'
@@ -41,6 +49,10 @@ class TodoApp extends Keet {
   }
   toggleTodo(id, evt) {
     this.update(id, 'keet-id', { completed: evt.target.checked ? true : false }, inform)
+  }
+
+  subscribe (fn) {
+    onChanges.push(fn)
   }
 }
 
