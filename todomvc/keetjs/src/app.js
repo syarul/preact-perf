@@ -1,30 +1,33 @@
-const Keet = require('../keet')
+const Keet = require('../keet-morp')
 const { camelCase, html } = require('./util')
-const todo = require('./todo')
 const createTodoModel = require('./todoModel')
 const filterPage = ['all', 'active', 'completed']
 const filtersTmpl = require('./filters')(filterPage)
+const filterApp = require('./filter')
 
 class App extends Keet {
   todoModel = createTodoModel()
+  filter = filterApp
   page = 'All'
   isChecked = false
   count = 0
   plural = ''
   clearToggle = false
+  // todoState = true
 
   componentWillMount() {
     filterPage.map(f => this[`page${camelCase(f)}`] = '')
 
     this.todoState = this.todoModel.list.length ? true : false
 
-    this.todoModel.subscribe( todos => {
+    this.todoModel.subscribe( m => {
+      let todos = m.list
       let uncompleted = todos.filter(c => !c.completed)
       let completed = todos.filter(c => c.completed)
-      // this.clearToggle = filterCompleted.length ? true : false
+      this.clearToggle = completed.length ? true : false
       this.todoState = todos.length ? true : false
-      // this.plural = filterUncomplete.length === 1 ? '' : 's'
-      // this.count = filterUncomplete.length
+      this.plural = uncompleted.length === 1 ? '' : 's'
+      this.count = uncompleted.length
     })
   }
   componentDidMount(){
@@ -44,9 +47,11 @@ class App extends Keet {
 
   create (evt) {
     if(evt.keyCode !== 13) return
-    // todoApp.addTodo(evt.target.value.trim())
-    this.todoModel.addTodo(evt.target.value.trim())
-    evt.target.value = ''
+    let val = evt.target.value.trim()
+    if(val){
+      this.todoModel.addTodo(val)
+      evt.target.value = ''
+    }
   }
 
   toggleTodo(id, evt) {
@@ -56,20 +61,23 @@ class App extends Keet {
     })
   }
 
-  // todoDestroy(id) {
-  //   console.log(id)
-  //   this.todoModel.destroy(id)
-  // }
+  todoDestroy(id) {
+    this.todoModel.destroy(id)
+  }
 
   completeAll(){
     this.isChecked = !this.isChecked
-    todoApp.updateAll(this.isChecked)
+    this.todoModel.updateAll(this.isChecked)
   }
 
   clearCompleted() {
-    todoApp.clearCompleted()
+    this.todoModel.clearCompleted()
   }
 }
+
+// <ul id="filters">
+// ${filtersTmpl}
+// </ul>
 
 const vmodel = html`
   <section id="todoapp">
@@ -83,7 +91,7 @@ const vmodel = html`
       <label for="toggle-all">Mark all as complete</label>
       <ul id="todo-list">
         {{model:todoModel}}
-          <li keet-id="{{id}}" k-dblclick="editMode({{id}})" class="{{completed?completed:''}}">
+          <li id="{{id}}" k-dblclick="editMode({{id}})" class="{{completed?completed:''}}">
             <div class="view"><input k-click="toggleTodo({{id}})" class="toggle" type="checkbox" {{completed?checked:''}}>
               <label>{{title}}</label>
               <button k-click="todoDestroy({{id}})" class="destroy"></button>
@@ -97,9 +105,7 @@ const vmodel = html`
       <span id="todo-count">
         <strong>{{count}}</strong> item{{plural}} left
       </span>
-      <ul id="filters">
-        ${filtersTmpl}
-      </ul>
+      {{component:filter}}
       {{?clearToggle}}
       <button id="clear-completed" k-click="clearCompleted()">Clear completed</button>
       {{/clearToggle}}
@@ -115,5 +121,3 @@ const vmodel = html`
 const app = new App()
 
 app.mount(vmodel).link('todo')
-
-// console.log(app)

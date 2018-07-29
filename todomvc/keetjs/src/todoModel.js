@@ -1,5 +1,5 @@
 
-const { store, genId } = require('./util')
+const { genId } = require('./util')
 
 // note: copy with modification from preact-todomvc
 
@@ -9,7 +9,7 @@ module.exports = () => {
 
   function inform () {
     for (let i = onChanges.length; i--;) {
-      onChanges[i](model.list)
+      onChanges[i](model)
     }
   }
 
@@ -17,12 +17,15 @@ module.exports = () => {
 
     list: [],
 
+    // ops: null,
+
     subscribe (fn) {
       onChanges.push(fn)
     },
 
     addTodo (title) {
-      model.list = model.list.concat({
+      // this.ops = 'add'
+      this.list = this.list.concat({
         id: genId(),
         title,
         completed: false
@@ -31,22 +34,24 @@ module.exports = () => {
     },
 
     toggleAll(completed) {
-      model.list= model.list.map(
+      this.ops = 'toggleAll'
+      this.list = this.list.map(
         todo => ({ ...todo, completed })
       );
       inform()
     },
     
     toggle(todoToToggle) {
-      model.list = model.list.map(todo =>
+      // this.ops = 'toggle'
+      this.list = this.list.map(todo =>
         todo.id !== todoToToggle.id ? todo : ({ ...todo, ...todoToToggle})
       )
       inform()
     },
     
     destroy(id) {
-      console.log(id)
-      model.list = model.list.filter(t => t.id !== id)
+      // this.ops = 'destroy'
+      this.list = this.list.filter(t => t.id !== id)
       inform()
     },
     /*

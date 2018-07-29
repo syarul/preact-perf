@@ -66,17 +66,22 @@
 		// note there's no DOM manipulation here at all.
 		methods: {
 
+			pluralize: function (word, count) {
+				return word + (count === 1 ? '' : 's');
+			},
+
 			addTodo: function () {
 				var value = this.newTodo && this.newTodo.trim();
 				if (!value) {
 					return;
 				}
-				this.todos.push({ title: value, completed: false });
+				this.todos.push({ id: this.todos.length + 1, title: value, completed: false });
 				this.newTodo = '';
 			},
 
 			removeTodo: function (todo) {
-				this.todos.$remove(todo);
+				var index = this.todos.indexOf(todo);
+				this.todos.splice(index, 1);
 			},
 
 			editTodo: function (todo) {
@@ -109,14 +114,10 @@
 		// before focusing on the input field.
 		// http://vuejs.org/guide/custom-directive.html
 		directives: {
-			'todo-focus': function (value) {
-				if (!value) {
-					return;
-				}
-				var el = this.el;
-				Vue.nextTick(function () {
+			'todo-focus': function (el, binding) {
+				if (binding.value) {
 					el.focus();
-				});
+				}
 			}
 		}
 	});

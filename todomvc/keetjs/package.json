@@ -2,17 +2,22 @@
   "private": true,
   "dependencies": {
     "gulp": "^3.9.1",
+    "morphdom": "^2.3.3",
     "todomvc-app-css": "~1.0.1",
     "todomvc-common": "~1.0.1"
   },
   "scripts": {
     "start": "webpack-dev-server -d",
+    "build:rollup": "rollup -c rollup.config.js",
+    "p-postbuild": "uglifyjs build.js -m -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code --pure-funcs classCallCheck Object.freeze invariant warning -o build.js",
     "build": "browserify src/app.js --debug -o build.js",
-    "dist": "browserify src/app.js | uglifyjs -m -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code --pure-funcs classCallCheck Object.freeze invariant warning > build.js"
+    "dist": "browserify src/app.js | uglifyjs -m -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code --pure-funcs classCallCheck Object.freeze invariant warning > build.js",
+    "test": "browserify test-setdom.js --debug -o build.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.2",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-istanbul": "^4.1.5",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -32,7 +37,12 @@
     "html-loader": "^0.5.5",
     "html-template-tag": "^2.0.0",
     "html-webpack-plugin": "^2.30.1",
-    "keet": "^3.4.6",
+    "keet": "git+https://git@github.com/syarul/keet.git#morph",
+    "nanohtml": "^1.2.4",
+    "rollup": "^0.63.4",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-commonjs": "^9.1.4",
+    "rollup-plugin-node-resolve": "^2.0.0",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"

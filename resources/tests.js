@@ -1,7 +1,43 @@
 var numberOfItemsToAdd = 100;
 var Suites = [];
 
-/*
+Suites.push({
+    name: 'Riotjs',
+    url: 'todomvc/riotjs/index.html',
+    version: '2.2.4',
+    prepare: function (runner, contentWindow, contentDocument) {
+        return runner.waitForElement('.new-todo').then(function (element) {
+            element.focus();
+            return element;
+        });
+    },
+    tests: [
+        new BenchmarkTestStep('Adding' + numberOfItemsToAdd + 'Items', function (newTodo, contentWindow, contentDocument) {
+            for (var i = 0; i < numberOfItemsToAdd; i++) {
+                var inputEvent = document.createEvent('Event');
+                inputEvent.initEvent('input', true, true);
+                newTodo.value = 'Something to do ' + i;
+                newTodo.dispatchEvent(inputEvent);
+
+                var keydownEvent = document.createEvent('Event');
+                keydownEvent.initEvent('keyup', true, true);
+                keydownEvent.keyCode = keydownEvent.which = 13; // VK_ENTER
+                newTodo.dispatchEvent(keydownEvent);
+            }
+        }),
+        new BenchmarkTestStep('CompletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var checkboxes = contentDocument.querySelectorAll('.toggle');
+            for (var i = 0; i < checkboxes.length; i++)
+                checkboxes[i].click();
+        }),
+        new BenchmarkTestStep('DeletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var deleteButtons = contentDocument.querySelectorAll('.destroy');
+            for (var i = 0; i < deleteButtons.length; i++)
+                deleteButtons[i].click();
+        })
+    ]
+});
+
 Suites.push({
     name: 'Backbone 1.1.2',
     url: 'todomvc/backbone/index.html',
@@ -165,12 +201,12 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});*/
+});
 
 Suites.push({
     name: 'Keet',
     url: 'todomvc/keetjs/index.html',
-    version: '3.5.2',
+    version: '4.0.0',
     prepare: function (runner, contentWindow, contentDocument) {
         return runner.waitForElement('#new-todo').then(function (element) {
             element.focus();
@@ -204,7 +240,7 @@ Suites.push({
     ]
 });
 
-/*Suites.push({
+Suites.push({
     name: 'Om 0.5',
     url: 'todomvc/om/index.html',
     version: '0.5.0 + React 0.9.0',
@@ -314,7 +350,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});*/
+});
 
 
 
@@ -359,7 +395,7 @@ Suites.push({
 
 
 
-/*Suites.push({
+Suites.push({
     name: 'Knockout',
     url: 'todomvc/knockoutjs/index.html',
     version: '3.1.0',
@@ -396,7 +432,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});*/
+});
 
 /*Suites.push({
     name: 'Ractive',
@@ -511,42 +547,79 @@ Suites.push({
     ]
 });
 
+/*Suites.push({
+    name: 'Preact-old',
+    url: 'todomvc/preact_old/index.html',
+    version: '8.2.0',
+    prepare: function (runner, contentWindow, contentDocument) {
+        return runner.waitForElement('#new-todo').then(function (element) {
+            element.focus();
+            return element;
+        });
+    },
+    tests: [
+        new BenchmarkTestStep('Adding' + numberOfItemsToAdd + 'Items', function (newTodo, contentWindow, contentDocument) {
+            for (var i = 0; i < numberOfItemsToAdd; i++) {
+                var inputEvent = document.createEvent('Event');
+                inputEvent.initEvent('input', true, true);
+                newTodo.value = 'Something to do ' + i;
+                newTodo.dispatchEvent(inputEvent);
 
-// Suites.push({
-//     name: 'Vanilla',
-//     url: 'todomvc/vanilla-es6/index.html',
-//     version: '0.0.0',
-//     prepare: function (runner, contentWindow, contentDocument) {
-//         return runner.waitForElement('.new-todo').then(function (element) {
-//             element.focus();
-//             return element;
-//         });
-//     },
-//     tests: [
-//         new BenchmarkTestStep('Adding' + numberOfItemsToAdd + 'Items', function (newTodo, contentWindow, contentDocument) {
-//             for (var i = 0; i < numberOfItemsToAdd; i++) {
-//                 var inputEvent = document.createEvent('Event');
-//                 inputEvent.initEvent('input', true, true);
-//                 newTodo.value = 'Something to do ' + i;
-//                 newTodo.dispatchEvent(inputEvent);
+                var keydownEvent = document.createEvent('Event');
+                keydownEvent.initEvent('keydown', true, true);
+                keydownEvent.keyCode = keydownEvent.which = 13; // VK_ENTER
+                newTodo.dispatchEvent(keydownEvent);
+            }
+        }),
+        new BenchmarkTestStep('CompletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var checkboxes = contentDocument.querySelectorAll('.toggle');
+            for (var i = 0; i < checkboxes.length; i++)
+                checkboxes[i].click();
+        }),
+        new BenchmarkTestStep('DeletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var deleteButtons = contentDocument.querySelectorAll('.destroy');
+            for (var i = 0; i < deleteButtons.length; i++)
+                deleteButtons[i].click();
+        })
+    ]
+});*/
 
-//                 var changeEvent = document.createEvent('Event');
-//                 changeEvent.initEvent('change', true, true);
-//                 newTodo.dispatchEvent(changeEvent);
-//             }
-//         }),
-//         new BenchmarkTestStep('CompletingAllItems', function (newTodo, contentWindow, contentDocument) {
-//             var checkboxes = contentDocument.querySelectorAll('.toggle');
-//             for (var i = 0; i < checkboxes.length; i++)
-//                 checkboxes[i].click();
-//         }),
-//         new BenchmarkTestStep('DeletingAllItems', function (newTodo, contentWindow, contentDocument) {
-//             var deleteButtons = contentDocument.querySelectorAll('.destroy');
-//             for (var i = 0; i < deleteButtons.length; i++)
-//                 deleteButtons[i].click();
-//         })
-//     ]
-// });
+
+Suites.push({
+    name: 'Vanilla',
+    url: 'todomvc/vanilla-es6/index.html',
+    version: '0.0.0',
+    prepare: function (runner, contentWindow, contentDocument) {
+        return runner.waitForElement('.new-todo').then(function (element) {
+            element.focus();
+            return element;
+        });
+    },
+    tests: [
+        new BenchmarkTestStep('Adding' + numberOfItemsToAdd + 'Items', function (newTodo, contentWindow, contentDocument) {
+            for (var i = 0; i < numberOfItemsToAdd; i++) {
+                var inputEvent = document.createEvent('Event');
+                inputEvent.initEvent('input', true, true);
+                newTodo.value = 'Something to do ' + i;
+                newTodo.dispatchEvent(inputEvent);
+
+                var changeEvent = document.createEvent('Event');
+                changeEvent.initEvent('change', true, true);
+                newTodo.dispatchEvent(changeEvent);
+            }
+        }),
+        new BenchmarkTestStep('CompletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var checkboxes = contentDocument.querySelectorAll('.toggle');
+            for (var i = 0; i < checkboxes.length; i++)
+                checkboxes[i].click();
+        }),
+        new BenchmarkTestStep('DeletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var deleteButtons = contentDocument.querySelectorAll('.destroy');
+            for (var i = 0; i < deleteButtons.length; i++)
+                deleteButtons[i].click();
+        })
+    ]
+});
 
 
 
