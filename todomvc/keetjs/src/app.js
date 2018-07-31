@@ -1,27 +1,28 @@
-const Keet = require('../keet-morp')
-const { camelCase, html } = require('./util')
+const Keet = require('../keet')
+const { html } = require ('../keet/utils')
+const { camelCase , genId } = require('./util')
 const createTodoModel = require('./todoModel')
 const filterPage = ['all', 'active', 'completed']
-const filtersTmpl = require('./filters')(filterPage)
+// const filtersTmpl = require('./filters')(filterPage)
 const filterApp = require('./filter')
+const todos = require('./todo')
 
 class App extends Keet {
-  todoModel = createTodoModel()
+  todoModel = todos
   filter = filterApp
   page = 'All'
   isChecked = false
   count = 0
   plural = ''
   clearToggle = false
-  // todoState = true
+  todoState = true
 
   componentWillMount() {
     filterPage.map(f => this[`page${camelCase(f)}`] = '')
 
-    this.todoState = this.todoModel.list.length ? true : false
+    // this.todoState = this.todoModel.list.length ? true : false
 
-    this.todoModel.subscribe( m => {
-      let todos = m.list
+    this.todoModel.subscribe(todos => {
       let uncompleted = todos.filter(c => !c.completed)
       let completed = todos.filter(c => c.completed)
       this.clearToggle = completed.length ? true : false
@@ -30,39 +31,22 @@ class App extends Keet {
       this.count = uncompleted.length
     })
   }
-  componentDidMount(){
-    if (window.location.hash == '') {
-      this.updateUrl('#/all')
-      window.history.pushState({}, null, '#/all')
-    }
-    window.onpopstate = () => this.updateUrl(window.location.hash)
-  }
-
-  updateUrl(hash) {
-    filterPage.map(f => {
-      this[`page${camelCase(f)}`] = hash.split('#/')[1] === f ? 'selected' : ''
-      if(hash.split('#/')[1] === f) this.page = f.name
-    })
-  }
 
   create (evt) {
     if(evt.keyCode !== 13) return
-    let val = evt.target.value.trim()
-    if(val){
-      this.todoModel.addTodo(val)
+    let title = evt.target.value.trim()
+    if(title){
+      this.todoModel.add({ id: genId(), title, completed: false })
       evt.target.value = ''
     }
   }
 
   toggleTodo(id, evt) {
-    this.todoModel.toggle({ 
-      id: id,
-      completed: !!evt.target.checked
-    })
+    this.todoModel.update( 'id', { id, completed: !!evt.target.checked })
   }
 
   todoDestroy(id) {
-    this.todoModel.destroy(id)
+    this.todoModel.destroy('id', id)
   }
 
   completeAll(){
@@ -121,3 +105,5 @@ const vmodel = html`
 const app = new App()
 
 app.mount(vmodel).link('todo')
+
+console.log(app)
