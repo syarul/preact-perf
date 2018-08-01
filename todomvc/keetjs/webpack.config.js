@@ -9,7 +9,7 @@ const config = {
     fs: 'empty'
   },
   entry: [
-    './src/app.js',
+    './src2/app.js',
     //'./view/layout.pug'
   ],
   output: {

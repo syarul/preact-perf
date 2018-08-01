@@ -1,7 +1,7 @@
 var numberOfItemsToAdd = 100;
 var Suites = [];
 
-Suites.push({
+/*Suites.push({
     name: 'Riotjs',
     url: 'todomvc/riotjs/index.html',
     version: '2.2.4',
@@ -36,9 +36,9 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
-Suites.push({
+/*Suites.push({
     name: 'Backbone 1.1.2',
     url: 'todomvc/backbone/index.html',
     version: '1.1.2',
@@ -201,7 +201,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 Suites.push({
     name: 'Keet',
@@ -240,7 +240,7 @@ Suites.push({
     ]
 });
 
-Suites.push({
+/*Suites.push({
     name: 'Om 0.5',
     url: 'todomvc/om/index.html',
     version: '0.5.0 + React 0.9.0',
@@ -276,7 +276,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 Suites.push({
     name: 'Mercury',
@@ -315,7 +315,7 @@ Suites.push({
     ]
 });
 
-Suites.push({
+/*Suites.push({
     name: 'Elm 0.17',
     url: 'todomvc/elm17/index.html',
     version: '0.17',
@@ -350,7 +350,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 
 
@@ -395,7 +395,7 @@ Suites.push({
 
 
 
-Suites.push({
+/*Suites.push({
     name: 'Knockout',
     url: 'todomvc/knockoutjs/index.html',
     version: '3.1.0',
@@ -433,7 +433,7 @@ Suites.push({
         })
     ]
 });
-
+*/
 /*Suites.push({
     name: 'Ractive',
     url: 'todomvc/ractive/index.html',
@@ -585,7 +585,7 @@ Suites.push({
 });*/
 
 
-Suites.push({
+/*Suites.push({
     name: 'Vanilla',
     url: 'todomvc/vanilla-es6/index.html',
     version: '0.0.0',
@@ -619,7 +619,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 
 

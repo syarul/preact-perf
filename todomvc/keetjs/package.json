@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
+    "cross-env": "^5.2.0",
     "gulp": "^3.9.1",
     "morphdom": "^2.3.3",
     "todomvc-app-css": "~1.0.1",
@@ -12,7 +13,8 @@
     "p-postbuild": "uglifyjs build.js -m -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code --pure-funcs classCallCheck Object.freeze invariant warning -o build.js",
     "build": "browserify src/app.js --debug -o build.js",
     "dist": "browserify src/app.js | uglifyjs -m -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code --pure-funcs classCallCheck Object.freeze invariant warning > build.js",
-    "test": "browserify test-setdom.js --debug -o build.js"
+    "test": "browserify test-setdom.js --debug -o build.js",
+    "build:webpack": "cross-env NODE_ENV=production webpack --progress --hide-modules --color --display minimal"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

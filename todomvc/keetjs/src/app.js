@@ -15,12 +15,12 @@ class App extends Keet {
   count = 0
   plural = ''
   clearToggle = false
-  todoState = true
+  // todoState = true
 
   componentWillMount() {
     filterPage.map(f => this[`page${camelCase(f)}`] = '')
 
-    // this.todoState = this.todoModel.list.length ? true : false
+    this.todoState = this.todoModel.list.length ? true : false
 
     this.todoModel.subscribe(todos => {
       let uncompleted = todos.filter(c => !c.completed)
@@ -106,4 +106,4 @@ const app = new App()
 
 app.mount(vmodel).link('todo')
 
-console.log(app)
+// console.log(app)

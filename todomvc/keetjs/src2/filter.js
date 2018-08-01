@@ -1,7 +1,7 @@
-const Keet = require('../keet')
-const { camelCase, html } = require('./util')
-const filters = require('./filter-model')
-
+import Keet from'../keet'
+import { html } from'../keet/utils'
+import { camelCase } from'./util'
+import filters from'./filter-model'
 
 class App extends Keet {
   el = 'filters'
@@ -40,4 +40,4 @@ let vmodel = html`
 
 filterApp.mount(vmodel)
 
-module.exports = filterApp
+export default filterApp
