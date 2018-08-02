@@ -41,6 +41,15 @@ class App extends Keet {
     }
   }
 
+  evtTodo(evt){
+    // console.log(evt)
+    if(evt.target.className === 'toggle'){
+      this.toggleTodo(evt.target.parentNode.parentNode.id, evt)
+    } else if(evt.target.className === 'destroy'){
+      this.todoDestroy(evt.target.parentNode.parentNode.id)
+    }
+  }
+
   toggleTodo(id, evt) {
     this.todoModel.update( 'id', { id, completed: !!evt.target.checked })
   }
@@ -73,12 +82,13 @@ const vmodel = html`
     <section id="main">
       <input id="toggle-all" type="checkbox" {{isChecked?checked:''}} k-click="completeAll()">
       <label for="toggle-all">Mark all as complete</label>
-      <ul id="todo-list">
+      <ul id="todo-list" k-click="evtTodo()" k-dblclick="editMode()" evt-node>
         {{model:todoModel}}
-          <li id="{{id}}" k-dblclick="editMode({{id}})" class="{{completed?completed:''}}">
-            <div class="view"><input k-click="toggleTodo({{id}})" class="toggle" type="checkbox" {{completed?checked:''}}>
+          <li id="{{id}}" class="{{completed?completed:''}}">
+            <div class="view">
+              <input class="toggle" type="checkbox" {{completed?checked:''}}>
               <label>{{title}}</label>
-              <button k-click="todoDestroy({{id}})" class="destroy"></button>
+              <button class="destroy"></button>
             </div>
             <input class="edit" value="{{title}}">
           </li>
