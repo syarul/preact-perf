@@ -1,7 +1,7 @@
-var numberOfItemsToAdd = 100;
+var numberOfItemsToAdd = 500;
 var Suites = [];
 
-Suites.push({
+/*Suites.push({
     name: 'Riotjs',
     url: 'todomvc/riotjs/index.html',
     version: '2.2.4',
@@ -36,9 +36,9 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
-Suites.push({
+/*Suites.push({
     name: 'Backbone 1.1.2',
     url: 'todomvc/backbone/index.html',
     version: '1.1.2',
@@ -75,7 +75,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 Suites.push({
     name: 'Ember 1.4.0',

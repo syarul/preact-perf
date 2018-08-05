@@ -15,12 +15,12 @@ class App extends Keet {
   count = 0
   plural = ''
   clearToggle = false
-  // todoState = true
+  todoState = true
 
   componentWillMount() {
     filterPage.map(f => this[`page${camelCase(f)}`] = '')
 
-    this.todoState = this.todoModel.list.length ? true : false
+    // this.todoState = this.todoModel.list.length ? true : false
 
     this.todoModel.subscribe(todos => {
       let uncompleted = todos.filter(c => !c.completed)
@@ -42,7 +42,7 @@ class App extends Keet {
   }
 
   evtTodo(evt){
-    // console.log(evt)
+    console.log(1)
     if(evt.target.className === 'toggle'){
       this.toggleTodo(evt.target.parentNode.parentNode.id, evt)
     } else if(evt.target.className === 'destroy'){
@@ -66,6 +66,9 @@ class App extends Keet {
   clearCompleted() {
     this.todoModel.clearCompleted()
   }
+  editMode(){
+
+  }
 }
 
 // <ul id="filters">
@@ -80,13 +83,13 @@ const vmodel = html`
     </header>
     {{?todoState}}
     <section id="main">
-      <input id="toggle-all" type="checkbox" {{isChecked?checked:''}} k-click="completeAll()">
+      <input id="toggle-all" type="checkbox" checked="{{isChecked?checked:''}}" k-click="completeAll()">
       <label for="toggle-all">Mark all as complete</label>
-      <ul id="todo-list" k-click="evtTodo()" k-dblclick="editMode()" evt-node>
+      <ul id="todo-list" k-click="evtTodo()" k-dblclick="editMode()">
         {{model:todoModel}}
           <li id="{{id}}" class="{{completed?completed:''}}">
             <div class="view">
-              <input class="toggle" type="checkbox" {{completed?checked:''}}>
+              <input class="toggle" type="checkbox" checked="{{completed?checked:''}}">
               <label>{{title}}</label>
               <button class="destroy"></button>
             </div>
@@ -116,4 +119,4 @@ const app = new App()
 
 app.mount(vmodel).link('todo')
 
-// console.log(app)
+console.log(app)
