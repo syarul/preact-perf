@@ -1,4 +1,4 @@
-var numberOfItemsToAdd = 500;
+var numberOfItemsToAdd = 100;
 var Suites = [];
 
 /*Suites.push({
@@ -77,7 +77,7 @@ var Suites = [];
     ]
 });*/
 
-Suites.push({
+/*Suites.push({
     name: 'Ember 1.4.0',
     url: 'todomvc/emberjs/index.html',
     version: '1.4.0 + Handlebars 1.3.0',
@@ -201,7 +201,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 Suites.push({
     name: 'Keet',
@@ -240,7 +240,7 @@ Suites.push({
     ]
 });
 
-Suites.push({
+/*Suites.push({
     name: 'Om 0.5',
     url: 'todomvc/om/index.html',
     version: '0.5.0 + React 0.9.0',
@@ -350,7 +350,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 
 
@@ -395,7 +395,7 @@ Suites.push({
 
 
 
-Suites.push({
+/*Suites.push({
     name: 'Knockout',
     url: 'todomvc/knockoutjs/index.html',
     version: '3.1.0',
@@ -432,7 +432,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+});*/
 
 /*Suites.push({
     name: 'Ractive',
@@ -585,7 +585,7 @@ Suites.push({
 });*/
 
 
-Suites.push({
+/*Suites.push({
     name: 'Vanilla',
     url: 'todomvc/vanilla-es6/index.html',
     version: '0.0.0',
@@ -620,7 +620,7 @@ Suites.push({
         })
     ]
 });
-
+*/
 
 
 // Suites.push({

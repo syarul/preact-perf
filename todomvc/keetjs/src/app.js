@@ -7,6 +7,12 @@ const filterPage = ['all', 'active', 'completed']
 const filterApp = require('./filter')
 const todos = require('./todo')
 
+let c = 0
+
+// let start
+
+// let time
+
 class App extends Keet {
   todoModel = todos
   filter = filterApp
@@ -15,25 +21,29 @@ class App extends Keet {
   count = 0
   plural = ''
   clearToggle = false
-  todoState = true
+  // todoState = true
 
   componentWillMount() {
     filterPage.map(f => this[`page${camelCase(f)}`] = '')
 
-    // this.todoState = this.todoModel.list.length ? true : false
+    this.todoState = this.todoModel.list.length ? true : false
 
     this.todoModel.subscribe(todos => {
-      let uncompleted = todos.filter(c => !c.completed)
-      let completed = todos.filter(c => c.completed)
-      this.clearToggle = completed.length ? true : false
+      // let uncompleted = todos.filter(c => !c.completed)
+      // let completed = todos.filter(c => c.completed)
+      // this.clearToggle = completed.length ? true : false
       this.todoState = todos.length ? true : false
-      this.plural = uncompleted.length === 1 ? '' : 's'
-      this.count = uncompleted.length
+      // this.plural = uncompleted.length === 1 ? '' : 's'
+      // this.count = uncompleted.length
     })
   }
 
   create (evt) {
     if(evt.keyCode !== 13) return
+    // if(!start){
+    //   start = true
+    //   time = Date.now()
+    // }
     let title = evt.target.value.trim()
     if(title){
       this.todoModel.add({ id: genId(), title, completed: false })
@@ -41,13 +51,15 @@ class App extends Keet {
     }
   }
 
-  evtTodo(evt){
-    console.log(1)
-    if(evt.target.className === 'toggle'){
-      this.toggleTodo(evt.target.parentNode.parentNode.id, evt)
-    } else if(evt.target.className === 'destroy'){
-      this.todoDestroy(evt.target.parentNode.parentNode.id)
-    }
+  evtTodo(...args){
+    let target = args[0]
+    let id = args[args.length - 2]
+    let evt = args[args.length - 1]
+
+    if(target === 'toggle')  
+      this.toggleTodo(id, evt)
+    else if(target === 'destroy')  
+      this.todoDestroy(id)
   }
 
   toggleTodo(id, evt) {
@@ -59,8 +71,9 @@ class App extends Keet {
   }
 
   completeAll(){
+    console.log(this)
     this.isChecked = !this.isChecked
-    this.todoModel.updateAll(this.isChecked)
+    // this.todoModel.updateAll(this.isChecked)
   }
 
   clearCompleted() {
@@ -69,6 +82,10 @@ class App extends Keet {
   editMode(){
 
   }
+  // componentDidUpdate(){
+  //   c++
+  //   console.log(c/*, time, Date.now() - time*/)
+  // }
 }
 
 // <ul id="filters">
@@ -119,4 +136,4 @@ const app = new App()
 
 app.mount(vmodel).link('todo')
 
-console.log(app)
+// console.log(app)
