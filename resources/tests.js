@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var numberOfItemsToAdd = 1000;
+=======
+var numberOfItemsToAdd = 100;
+>>>>>>> fix
 var Suites = [];
 
 var Riotjs = {
@@ -77,7 +81,11 @@ var Backbone = {
     ]
 }
 
+<<<<<<< HEAD
 var Ember = {
+=======
+/*Suites.push({
+>>>>>>> fix
     name: 'Ember 1.4.0',
     url: 'todomvc/emberjs/index.html',
     version: '1.4.0 + Handlebars 1.3.0',
@@ -201,7 +209,11 @@ var React = {
                 deleteButtons[i].click();
         })
     ]
+<<<<<<< HEAD
 }
+=======
+});*/
+>>>>>>> fix
 
 var Keet = {
     name: 'Keet',
