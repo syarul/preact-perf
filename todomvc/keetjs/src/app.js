@@ -29,12 +29,12 @@ class App extends Keet {
     this.todoState = this.todoModel.list.length ? true : false
 
     this.todoModel.subscribe(todos => {
-      // let uncompleted = todos.filter(c => !c.completed)
-      // let completed = todos.filter(c => c.completed)
-      // this.clearToggle = completed.length ? true : false
+      let uncompleted = todos.filter(c => !c.completed)
+      let completed = todos.filter(c => c.completed)
+      this.clearToggle = completed.length ? true : false
       this.todoState = todos.length ? true : false
-      // this.plural = uncompleted.length === 1 ? '' : 's'
-      // this.count = uncompleted.length
+      this.plural = uncompleted.length === 1 ? '' : 's'
+      this.count = uncompleted.length
     })
   }
 
@@ -121,7 +121,7 @@ const vmodel = html`
       </span>
       {{component:filter}}
       {{?clearToggle}}
-      <button id="clear-completed" k-click="clearCompleted()">Clear completed</button>
+      <button id="clear-completed">Clear completed</button>
       {{/clearToggle}}
     </footer>
     {{/todoState}}
