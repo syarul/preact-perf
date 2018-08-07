@@ -37,11 +37,27 @@ class App extends Keet {
     let title = evt.target.value.trim()
     if(title){
       this.todoModel.add({ id: genId(), title, completed: false })
-      evt.target.value = ''
     }
   }
 
-  evtTodo(evt){
+  evtTodo(...args){
+    // if(evt.target.className === 'toggle'){
+    //   this.toggleTodo(evt.target.parentNode.parentNode.id, evt)
+    // } else if(evt.target.className === 'destroy'){
+    //   this.todoDestroy(evt.target.parentNode.parentNode.id)
+    // }
+    let target = args[0]
+    let id = args[args.length - 2]
+    let evt = args[args.length - 1]
+
+    if(target === 'toggle')  
+      this.toggleTodo(id, evt)
+    else if(target === 'destroy')  
+      this.todoDestroy(id)
+  }
+
+  _evtTodo(evt){
+
     if(evt.target.className === 'toggle'){
       this.toggleTodo(evt.target.parentNode.parentNode.id, evt)
     } else if(evt.target.className === 'destroy'){
