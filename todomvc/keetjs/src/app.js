@@ -40,10 +40,6 @@ class App extends Keet {
 
   create (evt) {
     if(evt.keyCode !== 13) return
-    // if(!start){
-    //   start = true
-    //   time = Date.now()
-    // }
     let title = evt.target.value.trim()
     if(title){
       this.todoModel.add({ id: genId(), title, completed: false })

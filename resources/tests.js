@@ -1,7 +1,7 @@
 var numberOfItemsToAdd = 100;
 var Suites = [];
 
-/*Suites.push({
+var Riotjs = {
     name: 'Riotjs',
     url: 'todomvc/riotjs/index.html',
     version: '2.2.4',
@@ -36,9 +36,9 @@ var Suites = [];
                 deleteButtons[i].click();
         })
     ]
-});*/
+}
 
-/*Suites.push({
+var Backbone = {
     name: 'Backbone 1.1.2',
     url: 'todomvc/backbone/index.html',
     version: '1.1.2',
@@ -75,9 +75,9 @@ var Suites = [];
                 deleteButtons[i].click();
         })
     ]
-});*/
+}
 
-/*Suites.push({
+var Ember = {
     name: 'Ember 1.4.0',
     url: 'todomvc/emberjs/index.html',
     version: '1.4.0 + Handlebars 1.3.0',
@@ -127,9 +127,9 @@ var Suites = [];
                 params.emberRun(function () { deleteButtons[i].click(); });
         })
     ]
-});
+}
 
-Suites.push({
+var Angular = {
     name: 'Angular 1.5.3',
     url: 'todomvc/angularjs-perf/index.html',
     version: '1.5.3',
@@ -163,9 +163,9 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+}
 
-Suites.push({
+var React = {
     name: 'React 15.0.2',
     url: 'todomvc/react/index.html',
     version: '15.0.2',
@@ -201,9 +201,9 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});*/
+}
 
-Suites.push({
+var Keet = {
     name: 'Keet',
     url: 'todomvc/keetjs/index.html',
     version: '4.0.0',
@@ -238,9 +238,9 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+}
 
-/*Suites.push({
+var Om = {
     name: 'Om 0.5',
     url: 'todomvc/om/index.html',
     version: '0.5.0 + React 0.9.0',
@@ -276,9 +276,9 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+}
 
-Suites.push({
+var Mercury = {
     name: 'Mercury',
     url: 'todomvc/mercury/index.html',
     version: '3.1.7 + virtual-dom 0.8',
@@ -313,9 +313,9 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+}
 
-Suites.push({
+var Elm = {
     name: 'Elm 0.17',
     url: 'todomvc/elm17/index.html',
     version: '0.17',
@@ -350,11 +350,11 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});*/
+}
 
 
 
-Suites.push({
+var Vue = {
     name: 'Vue',
     url: 'todomvc/vue/index.html',
     version: '1.0.24',
@@ -391,7 +391,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+}
 
 
 
@@ -473,7 +473,7 @@ Suites.push({
 
 
 
-Suites.push({
+var Mithril = {
     name: 'Mithril',
     url: 'todomvc/mithril/index.html',
     version: '0.2.0',
@@ -508,9 +508,9 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+}
 
-Suites.push({
+var Preact = {
     name: 'Preact',
     url: 'todomvc/preact-todomvc/build/index.html',
     version: '7.1.0',
@@ -545,7 +545,7 @@ Suites.push({
                 deleteButtons[i].click();
         })
     ]
-});
+}
 
 /*Suites.push({
     name: 'Preact-old',
@@ -659,5 +659,26 @@ Suites.push({
 //         })
 //     ]
 // });
+
+// framework
+
+var framework = [
+    // Riotjs,
+    // Backbone,
+    // Ember,
+    // Angular,
+    // React,
+    Keet,
+    // Om,
+    Mercury,
+    Elm,
+    Vue,
+    Mithril,
+    Preact
+]
+
+framework.map(function(f){
+  Suites.push(f)  
+})
 
 
