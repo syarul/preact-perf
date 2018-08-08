@@ -3,7 +3,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 
 export default {
-	input: 'src-rollup/app.js',
+	input: 'src/app.js',
 	output: {
 		file: 'build.js',
 		format: 'iife',
@@ -14,7 +14,8 @@ export default {
 			module: true
 		}),
 		commonjs({
-			include: 'node_modules/**'
+			include: 'node_modules/**',
+			namedExports: { '../keet/utils.js': [ 'html' ] }
 		}),
 		babel({
 			babelrc: false,

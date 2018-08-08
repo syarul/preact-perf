@@ -1,5 +1,5 @@
-const { camelCase } = require('./util')
-const { createModel } = require('../keet/utils')
+import { camelCase } from './util'
+import { createModel } from '../keet/utils'
 
 class CreateFilterModel extends createModel {
   switch(hash, obj){

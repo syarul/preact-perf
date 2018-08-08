@@ -1,17 +1,8 @@
-const Keet = require('../keet')
-const { html } = require ('../keet/utils')
-const { camelCase , genId } = require('./util')
-const createTodoModel = require('./todoModel')
-const filterPage = ['all', 'active', 'completed']
-// const filtersTmpl = require('./filters')(filterPage)
-const filterApp = require('./filter')
-const todos = require('./todo')
-
-let c = 0
-
-// let start
-
-// let time
+import Keet from '../keet'
+import { html } from '../keet/utils'
+import { genId } from './util'
+import filterApp  from './filter'
+import todos from './todo'
 
 class App extends Keet {
   todoModel = todos
@@ -24,7 +15,6 @@ class App extends Keet {
   // todoState = true
 
   componentWillMount() {
-    filterPage.map(f => this[`page${camelCase(f)}`] = '')
 
     this.todoState = this.todoModel.list.length ? true : false
 
@@ -40,6 +30,7 @@ class App extends Keet {
 
   create (evt) {
     if(evt.keyCode !== 13) return
+    evt.preventDefault()
     let title = evt.target.value.trim()
     if(title){
       this.todoModel.add({ id: genId(), title, completed: false })
@@ -48,9 +39,9 @@ class App extends Keet {
   }
 
   evtTodo(...args){
-    let target = args[0]
-    let id = args[args.length - 2]
-    let evt = args[args.length - 1]
+    let target = args.shift()
+    let evt = args.pop()
+    let id = args.pop()
 
     if(target === 'toggle')  
       this.toggleTodo(id, evt)
@@ -67,7 +58,6 @@ class App extends Keet {
   }
 
   completeAll(){
-    console.log(this)
     this.isChecked = !this.isChecked
     // this.todoModel.updateAll(this.isChecked)
   }
@@ -84,21 +74,17 @@ class App extends Keet {
   // }
 }
 
-// <ul id="filters">
-// ${filtersTmpl}
-// </ul>
-
 const vmodel = html`
-  <section id="todoapp">
+  <section class="todoapp">
     <header id="header">
       <h1>todos</h1>
-      <input id="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>
+      <input class="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>
     </header>
     {{?todoState}}
-    <section id="main">
-      <input id="toggle-all" type="checkbox" checked="{{isChecked?checked:''}}" k-click="completeAll()">
+    <section class="main">
+      <input id="toggle-all" class="toggle-all" type="checkbox" checked="{{isChecked?checked:''}}" k-click="completeAll()">
       <label for="toggle-all">Mark all as complete</label>
-      <ul id="todo-list" k-click="evtTodo()" k-dblclick="editMode()">
+      <ul id="todo-list" class="todo-list" k-click="evtTodo()" k-dblclick="editMode()">
         {{model:todoModel}}
           <li id="{{id}}" class="{{completed?completed:''}}">
             <div class="view">
@@ -111,18 +97,18 @@ const vmodel = html`
         {{/model:todoModel}}
       </ul>
     </section>
-    <footer id="footer">
-      <span id="todo-count">
+    <footer class="footer">
+      <span class="todo-count">
         <strong>{{count}}</strong> item{{plural}} left
       </span>
       {{component:filter}}
       {{?clearToggle}}
-      <button id="clear-completed">Clear completed</button>
+      <button id="clear-completed" class="clear-completed">Clear completed</button>
       {{/clearToggle}}
     </footer>
     {{/todoState}}
   </section>
-  <footer id="info">
+  <footer class="info">
     <p>Double-click to edit a todo</p>
     <p>Created by <a href="https://github.com/syarul">Shahrul Nizam Selamat</a></p>
     <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
@@ -131,5 +117,3 @@ const vmodel = html`
 const app = new App()
 
 app.mount(vmodel).link('todo')
-
-// console.log(app)

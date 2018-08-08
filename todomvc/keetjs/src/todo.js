@@ -1,5 +1,5 @@
-const Keet = require('../keet')
-const { createModel } = require('../keet/utils')
+import Keet from '../keet'
+import { createModel } from '../keet/utils'
 
 class CreateModel extends createModel {
 
@@ -10,4 +10,4 @@ class CreateModel extends createModel {
 
 const todos = new CreateModel()
 
-module.exports = todos
+export default todos

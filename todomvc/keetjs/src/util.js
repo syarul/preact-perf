@@ -1,10 +1,4 @@
-exports.inform = function(base, input) {
-  for (var i = base.onChanges.length; i--;) {
-    base.onChanges[i](input)
-  }
-}
-
-exports.store = function(namespace, data) {
+const store = function(namespace, data) {
   if (arguments.length > 1) {
     return localStorage.setItem(namespace, JSON.stringify(data))
   } else {
@@ -13,23 +7,15 @@ exports.store = function(namespace, data) {
   }
 }
 
-exports.camelCase = function(s) {
-  return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
-exports.selector = function (id) {
-  return document.querySelector('[keet-id="' + id + '"]')
-}
-
-exports.genId = function() {
+const genId = function() {
   return (Math.round(Math.random() * 0x1*1e12)).toString(32)
 }
 
-exports.getId = function (id) {
-  return document.getElementById(id)
+const camelCase = function(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-exports.html = function (literalSections, ...substs) {
+const html = function (literalSections, ...substs) {
   // Use raw literal sections: we don’t want
   // backslashes (\n etc.) to be interpreted
   let raw = literalSections.raw;
@@ -65,10 +51,9 @@ exports.html = function (literalSections, ...substs) {
   return result;
 }
 
-exports.intelliUpdate = function(state, callback) {
-  // only update when necessary
-  if (state) clearTimeout(state)
-  state = setTimeout(function() {
-    callback()
-  }, 10)
+export {
+  html as default,
+  genId,
+  store,
+  camelCase
 }

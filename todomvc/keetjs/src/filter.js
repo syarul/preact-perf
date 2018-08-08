@@ -1,6 +1,6 @@
-const Keet = require('../keet')
-const { camelCase, html } = require('./util')
-const filters = require('./filter-model')
+import Keet from '../keet'
+import { html } from '../keet/utils'
+import filters from './filter-model'
 
 
 class App extends Keet {
@@ -15,6 +15,7 @@ class App extends Keet {
     }
   }
   componentDidMount(){
+    console.log(1)
     this.updateUrl(window.location.hash)
     window.onpopstate = () => this.updateUrl(window.location.hash)
   }
@@ -40,4 +41,4 @@ let vmodel = html`
 
 filterApp.mount(vmodel)
 
-module.exports = filterApp
+export default filterApp
