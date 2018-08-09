@@ -3,7 +3,7 @@ import { html } from '../keet/utils'
 import { genId } from './util'
 import filterApp  from './filter'
 import todos from './todo'
-
+let x 
 class App extends Keet {
   todoModel = todos
   filter = filterApp
@@ -12,20 +12,20 @@ class App extends Keet {
   count = 0
   plural = ''
   clearToggle = false
-  // todoState = true
+  todoState = true
 
   componentWillMount() {
+    this.todoModel.subscribe(todos => this.callBatchPoolUpdate())
+    // this.todoState = this.todoModel.list.length ? true : false
 
-    this.todoState = this.todoModel.list.length ? true : false
-
-    this.todoModel.subscribe(todos => {
-      let uncompleted = todos.filter(c => !c.completed)
-      let completed = todos.filter(c => c.completed)
-      this.clearToggle = completed.length ? true : false
-      this.todoState = todos.length ? true : false
-      this.plural = uncompleted.length === 1 ? '' : 's'
-      this.count = uncompleted.length
-    })
+    // this.todoModel.subscribe(todos => {
+    //   let uncompleted = todos.filter(c => !c.completed)
+    //   let completed = todos.filter(c => c.completed)
+    //   this.clearToggle = completed.length ? true : false
+    //   this.todoState = todos.length ? true : false
+    //   this.plural = uncompleted.length === 1 ? '' : 's'
+    //   this.count = uncompleted.length
+    // })
   }
 
   create (evt) {
@@ -54,6 +54,10 @@ class App extends Keet {
   }
 
   todoDestroy(id) {
+    // if(!x) {
+    //   x = true
+    //   window.ttt = new Date()
+    // }
     this.todoModel.destroy('id', id)
   }
 
@@ -101,7 +105,7 @@ const vmodel = html`
       <span class="todo-count">
         <strong>{{count}}</strong> item{{plural}} left
       </span>
-      {{component:filter}}
+      <!-- component:filter -->
       {{?clearToggle}}
       <button id="clear-completed" class="clear-completed">Clear completed</button>
       {{/clearToggle}}
