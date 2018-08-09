@@ -15,7 +15,6 @@ class App extends Keet {
     }
   }
   componentDidMount(){
-    console.log(1)
     this.updateUrl(window.location.hash)
     window.onpopstate = () => this.updateUrl(window.location.hash)
   }
