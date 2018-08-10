@@ -3,9 +3,7 @@
   "dependencies": {
     "cross-env": "^5.2.0",
     "gulp": "^3.9.1",
-    "morphdom": "^2.3.3",
-    "todomvc-app-css": "^2.1.2",
-    "todomvc-common": "^1.0.5"
+    "morphdom": "^2.3.3"
   },
   "scripts": {
     "start": "webpack-dev-server -d",
@@ -45,6 +43,8 @@
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-commonjs": "^9.1.4",
     "rollup-plugin-node-resolve": "^2.0.0",
+    "todomvc-app-css": "^2.1.2",
+    "todomvc-common": "^1.0.5",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"

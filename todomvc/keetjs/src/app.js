@@ -15,17 +15,18 @@ class App extends Keet {
   todoState = true
 
   componentWillMount() {
-    this.todoModel.subscribe(todos => this.callBatchPoolUpdate())
+    // this.todoModel.subscribe(todos => this.callBatchPoolUpdate())
     // this.todoState = this.todoModel.list.length ? true : false
 
-    // this.todoModel.subscribe(todos => {
-    //   let uncompleted = todos.filter(c => !c.completed)
-    //   let completed = todos.filter(c => c.completed)
-    //   this.clearToggle = completed.length ? true : false
-    //   this.todoState = todos.length ? true : false
-    //   this.plural = uncompleted.length === 1 ? '' : 's'
-    //   this.count = uncompleted.length
-    // })
+    this.todoModel.subscribe(todos => {
+      this.callBatchPoolUpdate()
+      // let uncompleted = todos.filter(c => !c.completed)
+      // let completed = todos.filter(c => c.completed)
+      // this.clearToggle = completed.length ? true : false
+      // this.todoState = todos.length ? true : false
+      // this.plural = uncompleted.length === 1 ? '' : 's'
+      // this.count = uncompleted.length
+    })
   }
 
   create (evt) {
@@ -38,26 +39,22 @@ class App extends Keet {
     }
   }
 
-  evtTodo(...args){
-    let target = args.shift()
-    let evt = args.pop()
-    let id = args.pop()
-
-    if(target === 'toggle')  
-      this.toggleTodo(id, evt)
-    else if(target === 'destroy')  
-      this.todoDestroy(id)
+  evtTodo(target){
+    if(target.className === 'toggle')  
+      this.toggleTodo(target.getAttribute('data-id'), !!target.checked)
+    else if(target.className === 'destroy')  
+      this.todoDestroy(target.getAttribute('data-id'))
   }
 
-  toggleTodo(id, evt) {
-    this.todoModel.update( 'id', { id, completed: !!evt.target.checked })
+  toggleTodo(id, completed) {
+    if(!x){
+      x = true
+      window.time = new Date()
+    }
+    this.todoModel.update( 'id', { id, completed })
   }
 
   todoDestroy(id) {
-    // if(!x) {
-    //   x = true
-    //   window.ttt = new Date()
-    // }
     this.todoModel.destroy('id', id)
   }
 
@@ -92,11 +89,11 @@ const vmodel = html`
         {{model:todoModel}}
           <li id="{{id}}" class="{{completed?completed:''}}">
             <div class="view">
-              <input class="toggle" type="checkbox" checked="{{completed?checked:''}}">
+              <input class="toggle" data-id="{{id}}" type="checkbox" checked="{{completed?checked:''}}">
               <label>{{title}}</label>
-              <button class="destroy"></button>
+              <button class="destroy" data-id="{{id}}"></button>
             </div>
-            <input class="edit" value="{{title}}">
+            <input class="edit" data-id="{{id}}" value="{{title}}">
           </li>
         {{/model:todoModel}}
       </ul>
@@ -106,9 +103,9 @@ const vmodel = html`
         <strong>{{count}}</strong> item{{plural}} left
       </span>
       <!-- component:filter -->
-      {{?clearToggle}}
+      <!-- {{?clearToggle}} -->
       <button id="clear-completed" class="clear-completed">Clear completed</button>
-      {{/clearToggle}}
+      <!-- {{/clearToggle}} -->
     </footer>
     {{/todoState}}
   </section>

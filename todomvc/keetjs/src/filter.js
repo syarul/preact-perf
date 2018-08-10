@@ -31,7 +31,7 @@ class App extends Keet {
 const filterApp = new App()
 
 let vmodel = html`
-	<ul id="filters">
+	<ul id="filters" class="filters">
 		{{model:filterModel}}
 		<li k-click="updateUrl({{hash}})"><a class="{{selected?selected:''}}" href="{{hash}}">{{name}}</a></li>
 		{{/model:filterModel}}
