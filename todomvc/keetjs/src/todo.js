@@ -2,11 +2,20 @@ import Keet from '../keet'
 import { html } from '../keet/utils'
 import todoModel from './todo-model'
 
+let onChanges = []
+
+const subscribe = fn => onChanges.push(fn)
+
 class App extends Keet {
   el = 'todo-list'
   todoModel = todoModel
   componentWillMount() {
-    this.todoModel.subscribe(model => this.callBatchPoolUpdate())
+    this.todoModel.subscribe(model => {
+      for (let i = onChanges.length; i--;) {
+        onChanges[i](model)
+      }
+      this.callBatchPoolUpdate()
+    })
   }
   addTodo(newTodo){
     this.todoModel.add(newTodo)
@@ -25,6 +34,9 @@ class App extends Keet {
   }
   editMode(){
     
+  }
+  inform(){
+
   }
 }
 
@@ -47,4 +59,7 @@ let vmodel = html`
 
 todoApp.mount(vmodel)
 
-export default todoApp
+export {
+  todoApp as default,
+  subscribe
+}
