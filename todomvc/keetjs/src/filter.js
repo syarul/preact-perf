@@ -1,15 +1,13 @@
 import Keet from '../keet'
 import { html } from '../keet/utils'
-import filters from './filter-model'
+import filterModel from './filter-model'
 
 
 class App extends Keet {
   el = 'filters'
-  filterModel = filters
+  filterModel = filterModel
   componentWillMount() {
-    this.filterModel.subscribe(model => {
-      this.callBatchPoolUpdate()
-    })
+    this.filterModel.subscribe(model => this.callBatchPoolUpdate())
     if(window.location.hash == '') {
       window.history.pushState({}, null, '#/all')
     }
@@ -18,11 +16,6 @@ class App extends Keet {
     this.updateUrl(window.location.hash)
     window.onpopstate = () => this.updateUrl(window.location.hash)
   }
-
-  // componentDidUnMount(){
-    //
-  // }
-
   updateUrl(hash) {
     this.filterModel.switch(hash, { selected: true })
   }
@@ -32,9 +25,9 @@ const filterApp = new App()
 
 let vmodel = html`
 	<ul id="filters" class="filters">
-		{{model:filterModel}}
-		<li k-click="updateUrl({{hash}})"><a class="{{selected?selected:''}}" href="{{hash}}">{{name}}</a></li>
-		{{/model:filterModel}}
+		<!-- {{model:filterModel}} -->
+		<li id="{{name}}" k-click="updateUrl({{hash}})"><a class="{{selected?selected:''}}" href="{{hash}}">{{name}}</a></li>
+		<!-- {{/model:filterModel}} -->
 	</ul>
 `
 

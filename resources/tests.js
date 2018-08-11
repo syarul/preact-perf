@@ -229,8 +229,11 @@ var Keet = {
         }),
         new BenchmarkTestStep('CompletingAllItems', function (newTodo, contentWindow, contentDocument) {
             var checkboxes = contentDocument.querySelectorAll('.toggle');
+            // setTimeout(() => {
+
             for (var i = 0; i < checkboxes.length; i++)
                 checkboxes[i].click();
+            // }, 100)
         }),
         new BenchmarkTestStep('DeletingAllItems', function (newTodo, contentWindow, contentDocument) {
             var deleteButtons = contentDocument.querySelectorAll('.destroy');
@@ -675,7 +678,7 @@ var framework = [
     Vue,
     Mithril,
     Preact,
-    Knockout,
+    // Knockout,
     // Ractive,
     // choo,
     // Vanilla

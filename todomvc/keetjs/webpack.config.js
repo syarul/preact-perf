@@ -45,7 +45,7 @@ const config = {
     new HtmlWebpackPlugin({
       title: 'index.html',
       // favicon: 'favicon.ico',
-      template: './index.html'
+      template: './webpack.html'
     }),
     new webpack.optimize.OccurrenceOrderPlugin()
   ],

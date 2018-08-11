@@ -11,12 +11,12 @@ class CreateFilterModel extends createModel {
 
 const filterModel = new CreateFilterModel()
 
-Array.from(['all', 'active', 'completed']).map(page => {
+Array.from(['all', 'active', 'completed']).map(page =>
 	filterModel.add({
-      hash: '#/' + page,
-      name: camelCase(page),
-      selected: false
-    })
-})
+    hash: `#/${page}`,
+    name: camelCase(page),
+    selected: false
+  })
+)
 
-module.exports = filterModel
+export default filterModel
