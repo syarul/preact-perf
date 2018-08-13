@@ -9,29 +9,19 @@ export default {
 		format: 'iife',
 		sourcemap: true
 	},
+	external: [],
 	plugins: [
-		nodeResolve({ 
-			module: true
-		}),
-		commonjs({
-			include: 'node_modules/**',
-			namedExports: { '../keet/utils.js': [ 'html' ] }
-		}),
 		babel({
 			babelrc: false,
 			presets: [
-				[
-					'env',
-					{
-				        "modules": false
-				    }
-				],
+				['es2015', { loose:true, modules:false }],
+				'stage-0'
 			],
 			plugins: [
-				'external-helpers',
-				'transform-class-properties',
-      			'transform-object-rest-spread'
+				'external-helpers'
 			]
-		})
+		}),
+		nodeResolve({ jsnext:true }),
+		commonjs()
 	]
 };
