@@ -7,7 +7,7 @@ export default {
 	output: {
 		file: 'build.js',
 		format: 'iife',
-		sourcemap: true
+		sourcemap: false
 	},
 	external: [],
 	plugins: [

@@ -11,9 +11,10 @@
   },
   "scripts": {
     "start": "webpack-dev-server -d",
+    "build": "npm run build:rollup",
     "build:rollup": "rollup -c rollup.config.js",
-    "p-postbuild": "uglifyjs build.js -m -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code --pure-funcs classCallCheck Object.freeze invariant warning -o build.js",
-    "build": "browserify src/app.js --debug -o build.js",
+    "postbuild": "uglifyjs build.js -m -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code --pure-funcs classCallCheck Object.freeze invariant warning -o build.js",
+    "build:browserify": "browserify src/app.js --debug -o build.js",
     "dist": "browserify src/app.js | uglifyjs -m -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code --pure-funcs classCallCheck Object.freeze invariant warning > build.js",
     "test": "browserify test-setdom.js --debug -o build.js",
     "build:webpack": "cross-env NODE_ENV=production webpack --progress --hide-modules --color --display minimal"
