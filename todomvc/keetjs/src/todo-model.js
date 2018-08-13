@@ -10,4 +10,10 @@ class CreateModel extends createModel {
 
 const todoModel = new CreateModel()
 
+// todoModel.add({
+// 	id: '12345',
+// 	title: 'what the',
+// 	completed: false
+// })
+
 export default todoModel

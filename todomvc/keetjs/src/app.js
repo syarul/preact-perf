@@ -2,7 +2,7 @@ import Keet from '../keet'
 import { html } from '../keet/utils'
 import { genId } from './util'
 import filterApp  from './filter'
-import todoApp, { subscribe } from './todo'
+import todoApp from './todo'
 
 class App extends Keet {
   todoApp = todoApp
@@ -11,14 +11,14 @@ class App extends Keet {
   count = 0
   plural = ''
   clearToggle = false
-  // todoState = false
+  todoState = true
 
   componentWillMount() {
     // this.todoModel.subscribe(todos => this.callBatchPoolUpdate())
-    this.todoState = this.todoApp.todoModel.list.length ? true : false
+    // this.todoState = this.todoApp.todoModel.list.length ? true : false
     // const self = this
-    subscribe(todos => {
-      // console.log(todos)
+    todoApp.subscribe(todos => {
+      console.log(todos)
       // let uncompleted = todos.filter(c => !c.completed)
       // let completed = todos.filter(c => c.completed)
       // this.clearToggle = completed.length ? true : false
@@ -26,7 +26,7 @@ class App extends Keet {
       // this.plural = uncompleted.length === 1 ? '' : 's'
       // this.count = uncompleted.length
       // console.log(this)
-      // this.callBatchPoolUpdate()
+      // this.todoApp.callBatchPoolUpdate()
     })
   }
 
@@ -65,7 +65,7 @@ const vmodel = html`
   <section class="todoapp">
     <header id="header">
       <h1>todos</h1>
-      <input class="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>
+      <input id="new-todo" class="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>
     </header>
     <!-- {{?todoState}} -->
     <section class="main">
