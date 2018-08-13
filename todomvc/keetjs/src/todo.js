@@ -6,17 +6,14 @@ class App extends Keet {
   el = 'todo-list'
   todoModel = todoModel
   componentWillMount() {
-    this.todoModel.subscribe(model => {
-      // console.log(model)
-      // this.callBatchPoolUpdate()
+    this.todoModel.subscribe(model =>
      this.inform(model)
-    })
+    )
   }
   addTodo(newTodo){
     this.todoModel.add(newTodo)
   }
   evtTodo(target){
-    console.log('clicked!')
     if(target.className === 'toggle')  
       this.toggleTodo(target.getAttribute('data-id'), !!target.checked)
     else if(target.className === 'destroy')  
