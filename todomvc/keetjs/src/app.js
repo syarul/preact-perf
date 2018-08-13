@@ -11,20 +11,20 @@ class App extends Keet {
   count = 0
   plural = ''
   clearToggle = false
-  // todoState = true
+  // todoState = false
 
   componentWillMount() {
     // this.todoModel.subscribe(todos => this.callBatchPoolUpdate())
-    // this.todoState = this.todoApp.todoModel.list.length ? true : false
+    this.todoState = this.todoApp.todoModel.list.length ? true : false
     // const self = this
     subscribe(todos => {
       // console.log(todos)
-      let uncompleted = todos.filter(c => !c.completed)
+      // let uncompleted = todos.filter(c => !c.completed)
       // let completed = todos.filter(c => c.completed)
       // this.clearToggle = completed.length ? true : false
-      // this.todoState = todos.length ? true : false
+      this.todoState = todos.length ? true : false
       // this.plural = uncompleted.length === 1 ? '' : 's'
-      this.count = uncompleted.length
+      // this.count = uncompleted.length
       // console.log(this)
       // this.callBatchPoolUpdate()
     })
@@ -38,6 +38,10 @@ class App extends Keet {
       this.todoApp.addTodo({ id: genId(), title, completed: false })
       evt.target.value = ''
     }
+  }
+
+  createFromFn (title) {
+    this.todoApp.addTodo({ id: genId(), title, completed: false })
   }
 
   completeAll(){
@@ -73,7 +77,7 @@ const vmodel = html`
       <span class="todo-count">
         <strong>{{count}}</strong> item{{plural}} left
       </span>
-      <!-- {{component:filter}} -->
+      <!-- component:filter -->
       <!-- {{?clearToggle}} -->
       <button id="clear-completed" class="clear-completed">Clear completed</button>
       <!-- {{/clearToggle}} -->
@@ -89,3 +93,9 @@ const vmodel = html`
 const app = new App()
 
 app.mount(vmodel).link('todo')
+
+let i = 1
+while(i > 0){
+  // app.createFromFn(`NEW TODO ${i}`)
+  i--
+}
