@@ -1,5 +1,5 @@
-import Keet from '../keet'
-import { createModel } from '../keet/utils'
+import Keet from '../../keet'
+import { createModel } from '../../keet/utils'
 
 class CreateModel extends createModel {
   clearCompleted() {

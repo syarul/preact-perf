@@ -1,5 +1,5 @@
-import Keet from '../keet'
-import { html } from '../keet/utils'
+import Keet from '../../keet'
+import { html } from '../../keet/utils'
 import { genId } from './util'
 import filterApp  from './filter'
 import todoApp from './todo'
@@ -79,3 +79,5 @@ const vmodel = html`
 const app = new App()
 
 app.mount(vmodel).link('todo')
+
+console.log(app)

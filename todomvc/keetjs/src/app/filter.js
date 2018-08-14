@@ -1,5 +1,5 @@
-import Keet from '../keet'
-import { html } from '../keet/utils'
+import Keet from '../../keet'
+import { html } from '../../keet/utils'
 import filterModel from './filter-model'
 
 

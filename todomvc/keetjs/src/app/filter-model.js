@@ -1,5 +1,5 @@
 import { camelCase } from './util'
-import { createModel } from '../keet/utils'
+import { createModel } from '../../keet/utils'
 
 class CreateFilterModel extends createModel {
   switch(hash, obj){
@@ -11,12 +11,12 @@ class CreateFilterModel extends createModel {
 
 const filterModel = new CreateFilterModel()
 
-Array.from(['all', 'active', 'completed']).map(page => {
+Array.from(['all', 'active', 'completed']).map(page =>
 	filterModel.add({
-      hash: '#/' + page,
-      name: camelCase(page),
-      selected: false
-    })
-})
+    hash: `#/${page}`,
+    name: camelCase(page),
+    selected: false
+  })
+)
 
 export default filterModel

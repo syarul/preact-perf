@@ -1,5 +1,5 @@
-import Keet from '../keet'
-import { html } from '../keet/utils'
+import Keet from '../../keet'
+import { html } from '../../keet/utils'
 import todoModel from './todo-model'
 
 class App extends Keet {

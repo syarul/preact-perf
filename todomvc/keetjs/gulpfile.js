@@ -6,8 +6,7 @@ gulp.task('bundle', function() {
   return watch(['src/**/*.js', 'keet/**/*.js'], {
       ignoreInitial: false
     })
-    // .pipe(shell('browserify src/app.js | uglifyjs --compress --mangle > build.js'))
-    .pipe(shell('rm build.js && browserify src/app.js --debug -o build.js'))
+    .pipe(shell('npm run build:rollup'))
 })
 
 gulp.task('default', ['bundle'])

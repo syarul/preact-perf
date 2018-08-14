@@ -3,11 +3,11 @@ import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 
 export default {
-	input: 'src/app.js',
+	input: 'src/app/app.js',
 	output: {
-		file: 'build.js',
+		file: 'build/app.js',
 		format: 'iife',
-		sourcemap: false
+		sourcemap: true
 	},
 	external: [],
 	plugins: [
@@ -21,7 +21,7 @@ export default {
 				'external-helpers'
 			]
 		}),
-		nodeResolve({ jsnext:true }),
+		nodeResolve(),
 		commonjs()
 	]
 };
