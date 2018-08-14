@@ -1,7 +1,7 @@
 import Keet from '../../keet'
 import { html } from '../../keet/utils'
 import todoModel from './todo-model'
-
+let x
 class App extends Keet {
   el = 'todo-list'
   todoModel = todoModel
@@ -13,18 +13,27 @@ class App extends Keet {
   addTodo(newTodo){
     this.todoModel.add(newTodo)
   }
-  evtTodo(target){
-    if(target.className === 'toggle')  
-      this.toggleTodo(target.getAttribute('data-id'), !!target.checked)
+  evtTodo(obj, target){
+    if(!x){
+      x = true
+      window.t = new Date()
+    }
+    // console.log(obj)
+    if(target.className === 'toggle')
+      this.todoModel.update({ ...obj,  completed: !obj.completed })
     else if(target.className === 'destroy')  
-      this.todoDestroy(target.getAttribute('data-id'))
+      this.todoModel.destroy(obj)
   }
-  toggleTodo(id, completed) {
-    this.todoModel.update( 'id', { id, completed })
-  }
-  todoDestroy(id) {
-    this.todoModel.destroy('id', id)
-  }
+  // toggleTodo(obj) {
+  //   console.log(obj)
+  //   this.todoModel.update({ ...obj,  completed: !obj.completed })
+  // }
+  // toggleTodo(id, completed) {
+  //   this.todoModel.update( 'id', { id, completed })
+  // }
+  // todoDestroy(obj) {
+  //   this.todoModel.destroy(obj)
+  // }
   editMode(){
     
   }
@@ -35,13 +44,13 @@ const todoApp = new App()
 let vmodel = html`
   <ul id="todo-list" class="todo-list" k-click="evtTodo()">
     <!-- {{model:todoModel}} -->
-      <li id="{{id}}" class="{{completed?completed:''}}">
+      <li class="{{completed?completed:''}}">
         <div class="view">
-          <input class="toggle" data-id="{{id}}" type="checkbox" checked="{{completed?checked:''}}">
+          <input class="toggle" type="checkbox" checked="{{completed?checked:''}}">
           <label>{{title}}</label>
-          <button class="destroy" data-id="{{id}}"></button>
+          <button class="destroy"></button>
         </div>
-        <input class="edit" data-id="{{id}}" value="{{title}}">
+        <input class="edit" value="{{title}}">
       </li>
     <!-- {{/model:todoModel}} -->
   </ul>

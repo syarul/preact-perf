@@ -21,6 +21,7 @@ class App extends Keet {
       this.todoState = todos.length ? true : false
       this.plural = uncompleted.length === 1 ? '' : 's'
       this.count = uncompleted.length
+      // console.log(todos)
     })
   }
 
@@ -29,7 +30,7 @@ class App extends Keet {
     evt.preventDefault()
     let title = evt.target.value.trim()
     if(title){
-      this.todoApp.addTodo({ id: genId(), title, completed: false })
+      this.todoApp.addTodo({ title, completed: false })
       evt.target.value = ''
     }
   }
@@ -80,4 +81,4 @@ const app = new App()
 
 app.mount(vmodel).link('todo')
 
-console.log(app)
+// console.log(app)
