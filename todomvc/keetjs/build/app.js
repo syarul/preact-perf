@@ -1,2 +1,1701 @@
-!function(){"use strict";function t(t){if(t.match(/([^?]*)\?([^:]*):([^;]*)|(\s*=\s*)[^;]*/g)){var e=t.split("?"),n=e[0],o=e[1].split(":")[0],i=e[1].split(":")[1];return!!this&&(this[n]?{value:T(o),state:n}:{value:T(i),state:n})}return!1}function e(t,e){"function"==typeof e&&e(t)}function n(t,e,n,o){e=e.replace(n,o),t&&(t.nodeValue=e)}function o(o,i,r,l,a,c){for(var d=o.match(_),s=d.length,u=void 0,f=void 0,p=void 0;s;)if(s--,u=d[s].replace(_,"$1"),f=t.call(r,u),p=E(u))e(u,l),n(i,o,"{{"+u+"}}",r[p[0]][p[1]]);else if(f){if(e(f.state,l),c)return f.value;n(i,o,"{{"+u+"}}",f.value)}else if(void 0!==r[u]){if(e(u,l),c)return r[u];n(i,o,"{{"+u+"}}",r[u])}}function i(t,e){nt=Q(t,e),ot=tt.createContextualFragment(nt),ot.firstChild.setAttribute("kdata-id",e["kdata-id"])}function r(t,e,n){var o=void 0,r=void 0,l=void 0,a=void 0,c=void 0,d=void 0,s=void 0,u=void 0,f=void 0,p=void 0,h=void 0,m=void 0,v=void 0;if(et[e]=et[e]||{},et[e].list||(et[e].list=t.nextSibling.cloneNode(!0)),p=et[e].list,et[e].str||(et[e].str=t.nextSibling.cloneNode(!0).outerHTML,t.nextSibling.remove(),(v=this.__pristineFragment__.getElementById(t.parentNode.id))&&v.childNodes[1].remove()),h=et[e].str,void 0!==this[e]&&this[e].hasOwnProperty("list"))if(a=t.parentNode,tt&&!a.hasAttribute("data-ignore")&&a.setAttribute("data-ignore",""),o=this[e].list,m=et[e].oldModel||[],tt){c=X(o,m),d=X(m,o);var g=function(){for(var t=arguments.length,n=Array(t),l=0;l<t;l++)n[l]=arguments[l];if(s=n.pop(),u=m.length===o.length)for(r=0;r<c.length;)f=s.querySelector('[kdata-id="'+c[r]["kdata-id"]+'"]'),i(h,c[r]),s.replaceChild(ot,f),r++;else if(c.length>0&&0===d.length)for(r=0;r<c.length;)i(h,c[r]),s.insertBefore(ot,s.lastChild),r++;else if(0===c.length&&d.length>0)for(r=0;r<d.length;)f=s.querySelector('[kdata-id="'+d[r]["kdata-id"]+'"]'),s.removeChild(f),r++;et[e].oldModel=JSON.parse(JSON.stringify(o))};a.hasAttribute("id")&&(s=F(a.id),s?g.call(this,null,null,s):L({el:a.id},e,g.bind(this),function(){et[e].oldModel=[]}))}else for(r=0;r<o.length;)l=p.cloneNode(!0),n(this,null,l,o[r]),l.setAttribute("kdata-id",o[r]["kdata-id"]),a.insertBefore(l,null),r++;else H(!1,'Model "'+e+'" does not exist.')}function l(t,e,n){for(var o=document.createDocumentFragment(),i=void 0,r=void 0,l=void 0,a=void 0;t;)r=t,t=t.nextSibling,r.nodeType!==lt?r.nodeValue.match(it)?i=r:r.nodeValue.match(rt)&&(r.remove(),l||(l=!0,n(this,null,null,null,o)),this[e]&&i.parentNode.insertBefore(o,i),i.remove(),t=null):(a=r.cloneNode(!0),o.appendChild(a),r.remove())}function a(t,e){var n=t.replace("component:",""),o=this[n];void 0!==o?(at[o.ID]?F(this[n].el)?e.parentNode.replaceChild(at[o.ID].cloneNode(!0),e):(o.base=o.__pristineFragment__.cloneNode(!0),o.render.call(o,!0),e.parentNode.replaceChild(o.base,e)):(o.render.call(o,!0),at[o.ID]=o.base.cloneNode(!0),e.parentNode.replaceChild(o.base,e)),o.callBatchPoolUpdate()):H(!1,"Component "+n+" does not exist.")}function c(t,n,o,i,c){var d=void 0,s=void 0,u=void 0;t.match(ct)&&(s=t.replace(ct,"$1").trim(),s.match(dt)?(u=s.replace("model:",""),r.call(this,n,u,c)):s.match(st)?(d=s.replace("?",""),void 0!==o[d]&&(e(d,i),l.call(this,n,d,c))):s.match(ut)&&a.call(this,s,n))}function d(t,e){for(var n=void 0;e;){if(n=e,e=e.parentNode,n.nodeType===ft&&n.hasAttribute("kdata-id"))return n.getAttribute("kdata-id");n.isEqualNode(t)&&(e=null)}}function s(t){if(vt=t.attributes,mt(t));else for(gt=vt.length;gt--;)if(bt=vt[gt],St=bt.localName,yt=bt.nodeValue,/^k-/.test(St)&&(xt=St.replace(/^k-/,""),Mt=yt.match(/[a-zA-Z]+(?![^(]*\))/)[0],void 0!==(kt=this[Mt])&&"function"==typeof kt)){if(Ct=yt.match(/\(([^{}]+)\)/),Nt=Ct?Ct[1]:"",wt=Nt.split(",").filter(function(t){return""!==t}),t.hasChildNodes()&&t.firstChild.nodeType!==ft&&t.firstChild.nodeValue.match(ht)){var e=function(e){e.stopPropagation(),e.target!==e.currentTarget&&(_t=d(t,e.target),kt.apply(this,[Tt.list[Dt(_t)],e.target,e]))};Et=t.firstChild.nodeValue.replace(pt,"$1").trim(),Et=Et.replace("model:",""),Tt=this[Et],t.addEventListener(xt,e.bind(this),!1)}else t.addEventListener(xt,kt.bind.apply(kt.bind(this),[t].concat(wt)),!1);t.hasAttribute("evt-node")||(t.setAttribute("evt-node",""),t.hasAttribute("id")&&(At=this.__pristineFragment__.getElementById(t.id),At.setAttribute("evt-node","")))}}function u(t,e,n,i,r){var l=void 0,a=void 0,d=void 0,f=void 0,p=0,h=void 0,m=void 0,v=void 0;i?d=n:r?d=r.firstChild:(a=t.base,d=a.firstChild);var g=i||t,b=function(t){for(f=t.attributes,p=f.length;p--;)h=f[p],v=h.localName,m=h.nodeValue,Pt.test(v)?(t.removeAttribute(v),v=o(v,t,g,null,null,!0),t.setAttribute(v,m)):Pt.test(m)&&(m=o(m,t,g,null,null,!0),""===m?t.removeAttribute(v):"checked"===v?t.setAttribute(v,""):t.setAttribute(v,m))};!function n(i){for(;i;)l=i,l.nodeType===It?(l.hasAttributes()&&(s.call(t,l),b(l)),n(l.firstChild)):l.nodeValue.match(Pt)&&(l.nodeType===Ot?c.call(t,l.nodeValue,l,g,e,u):o.call(t,l.nodeValue,l,g,e,u)),i=i.nextSibling}(d)}function f(t,e){var n=Ut.parseFromString(t,Ft);return n.body?e===Vt?n.documentElement:n.body.firstChild:p(t,e)}function p(t,e){if(e===Vt){if(Bt)return Kt.innerHTML=t,Kt;var n=t.match(Yt);if(n){var o=n[2],i=n.index+n[1].length,r=i+o.length;t=t.slice(0,i)+t.slice(r),qt.innerHTML=o}for(var l=Ut.parseFromString(t,Lt),a=l.body;qt.firstChild;)a.appendChild(qt.firstChild);return l.documentElement}return qt.innerHTML=t,qt.firstChild}function h(t,e){M(t&&t.nodeType,"You must provide a valid node to update."),t.nodeType===Zt&&(t=t.documentElement),e.nodeType===Qt?g(t,e):m(t,"string"==typeof e?$t(e,t.nodeName):e),t[Gt]||(t[Gt]=!0,C(t))}function m(t,e){if(t.nodeType===e.nodeType)if(t.nodeType===Jt){if(y(t,e))return;if(g(t,e),t.nodeName===e.nodeName)v(t.attributes,e.attributes);else{for(var n=e.cloneNode();t.firstChild;)n.appendChild(t.firstChild);t.parentNode.replaceChild(n,t)}}else t.nodeValue!==e.nodeValue&&(t.nodeValue=e.nodeValue);else t.parentNode.replaceChild(e,N(t)),C(e)}function v(t,e){var n,o,i,r,l;for(n=t.length;n--;)o=t[n],r=o.namespaceURI,l=o.localName,(i=e.getNamedItemNS(r,l))||t.removeNamedItemNS(r,l);for(n=e.length;n--;)o=e[n],r=o.namespaceURI,l=o.localName,i=t.getNamedItemNS(r,l),i?i.value!==o.value&&(i.value=o.value):(e.removeNamedItemNS(r,l),t.setNamedItemNS(o))}function g(t,e){for(var n,o,i,r,l,a,c=t.firstChild,d=e.firstChild,s=0;c;)s++,n=c,o=b(n),c=c.nextSibling,o&&(a||(a={}),a[o]=n);for(c=t.firstChild;d;)s--,i=d,d=d.nextSibling,a&&(r=b(i))&&(l=a[r])?(delete a[r],l!==c?t.insertBefore(l,c):c=c.nextSibling,m(l,i)):c?(n=c,c=c.nextSibling,b(n)?(t.insertBefore(i,n),C(i)):m(n,i)):(t.appendChild(i),C(i));for(o in a)s--,t.removeChild(N(a[o]));for(;--s>=0;)t.removeChild(N(t.lastChild))}function b(t){if(t.nodeType===Jt){var e=t.getAttribute(h.KEY)||t.id;return e?zt+e:void 0}}function y(t,e){return k(t)&&k(e)||x(t)===x(e)||t.isEqualNode(e)}function x(t){return t.getAttribute(h.CHECKSUM)||NaN}function k(t){return null!=t.getAttribute(h.IGNORE)}function C(t){return w(t,"mount")}function N(t){return w(t,"dismount")}function w(t,e){if(b(t)){var n=document.createEvent("Event"),o={value:t};n.initEvent(e,!1,!1),Object.defineProperty(n,"target",o),Object.defineProperty(n,"srcElement",o),t.dispatchEvent(n)}for(var i=t.firstChild;i;)i=w(i,e).nextSibling;return t}function M(t,e){if(!t)throw Error("set-dom: "+e)}function S(t){u(this,ce);var e=t||F(this.el);e?(e.nodeType===se?e.setAttribute("data-ignore",""):(H(1===this.base.childNodes.length,"Sub-component should only has a single rootNode."),!this.base.firstChild.hasAttribute("data-ignore")&&this.base.firstChild.setAttribute("data-ignore","")),re.call(this),t||e.appendChild(this.base),this.componentDidMount&&"function"==typeof this.componentDidMount&&this.componentDidMount()):H(!1,'No element with id: "'+this.el+'" exist.')}function A(t){var e=void 0,n=void 0,o=document.createDocumentFragment();if("string"==typeof t)for(e=t.trim().replace(/\s+/g," "),n=document.createElement("div"),n.innerHTML=e;n.firstChild;)o.appendChild(n.firstChild);else"object"===(void 0===t?"undefined":D(t))&&t.nodeType?t.nodeType===pe?o.appendChild(t):t.nodeType===ue?o=t:t.nodeType===fe?o.appendChild(t):assert(!1,"Unable to parse instance, unknown type."):assert(!1,"Parameter is not a string or a html element.");return this.__pristineFragment__=o.cloneNode(!0),this.base=o,ae(),this}var T=function(t){return"''"===t||'""'===t||"null"===t?"":t},E=function(t){var e=t.match(/\.*\./g);if(e&&e.length>0)return t.split(".")},_=/{{([^{}]+)}}/g,D="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},I=function(){function t(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}return function(e,n,o){return n&&t(e.prototype,n),o&&t(e,o),e}}(),O=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(t[o]=n[o])}return t},P=function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)},U=function(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e},V=function(t,e){return t.raw=e,t},j=function(){var t=function(){return(1*Math.random()*1e17).toString(36)};return"KDATA-"+t()+"-"+t()},B=function(){return(1*Math.random()*1e17).toString(36)},F=function(t){return document.getElementById(t)},L=function(t,e,n,o){function i(){(l=F(t.el))&&(clearInterval(c),a=!0,n(t,e,l))}function r(){clearInterval(c),!a&&o&&"function"==typeof o&&o()}var l=F(t.el),a=!1,c=void 0;if(l)return l;c=setInterval(i,0),setTimeout(r,5)},H=function(t,e){if(!t)throw Error("(keet) "+e)},R=function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];var o=e.shift(),i=e.slice(),r=o.raw.reduce(function(t,e,n){return t+i[n-1]+e});return r=r.split(/\n+/),r=r.map(function(t){return t.trim()}).join("")},W=function(t,e){return t["kdata-id"]!==e["kdata-id"]},K=function(){function t(){this.model=[],Object.defineProperty(this,"list",{enumerable:!1,configurable:!0,get:function(){return this.model},set:function(t){this.model=t,this.inform(this.model)}})}return t.prototype.inform=function(t){this.exec&&"function"==typeof this.exec&&this.exec(t)},t.prototype.subscribe=function(t){this.exec=t},t.prototype.add=function(t){this.list=this.list.concat(O({},t,{"kdata-id":B()}))},t.prototype.update=function(t){this.list=this.list.map(function(e){return W(e,t)?e:t})},t.prototype.destroy=function(t){this.list=this.list.filter(function(e){return W(e,t)})},t}(),q=RegExp(/(\schecked=")(.*?)(?=")/g),Y="",$=void 0,z=void 0,G=void 0,J=void 0,Z=void 0,Q=function(e,n){var o=e.match(/{{([^{}]+)}}/g);for(Y=e,G=0,J=o.length;G<J;G++)$=o[G].replace(/{{([^{}]+)}}/g,"$1"),z=t.call(n,$),Y=z?Y.replace("{{"+$+"}}",z.value):Y.replace("{{"+$+"}}",n[$]),(Z=Y.match(q))&&(Y=17===Z[0].length?Y.replace(' checked="checked"'," checked"):Y.replace(' checked=""',""));return Y},X=function(t,e){return t.filter(function(t){return!e.some(function(e){var n=!0;for(var o in e)t[o]!==e[o]&&(n=!1);return n})})},tt=void 0;"function"==typeof document.createRange&&(tt=document.createRange());var et={},nt=void 0,ot=void 0,it=/\{\{\?([^{}]+)\}\}/g,rt=/\{\{\/([^{}]+)\}\}/g,lt=1,at={},ct=/{{([^{}]+)}}/g,dt=/^model:/g,st=/^\?/g,ut=/^component:([^{}]+)/g,ft=1,pt=/{{([^{}]+)}}/g,ht=/\{\{model:([^{}]+)\}\}/g,mt=function(t){return!!(t.hasAttribute("id")&&F(t.id)&&t.hasAttribute("evt-node"))},vt=void 0,gt=0,bt=void 0,yt=void 0,xt=void 0,kt=void 0,Ct=void 0,Nt=void 0,wt=void 0,Mt=void 0,St=void 0,At=void 0,Tt=void 0,Et=void 0,_t=void 0,Dt=function(t){return Tt.list.map(function(t){return t["kdata-id"]}).indexOf(t)},It=1,Ot=8,Pt=/{{([^{}]+)}}/g,Ut=window.DOMParser&&new window.DOMParser,Vt="HTML",jt=!1,Bt=!1,Ft="text/html",Lt="application/xhtml+xml";try{var Ht=Ut.parseFromString('<wbr class="A"/>',Ft).body.firstChild,Rt=document.createElement("div");if(Rt.appendChild(Ht),"A"!==Rt.firstChild.classList[0])throw Error();jt=!0}catch(t){}var Wt=document.implementation.createHTMLDocument(""),Kt=Wt.documentElement,qt=Wt.body;try{Kt.innerHTML+="",Bt=!0}catch(t){Ut.parseFromString('<wbr class="A"/>',Lt);var Yt=/(<body[^>]*>)([\s\S]*)<\/body>/}var $t=jt?f:p;h.KEY="data-key",h.IGNORE="data-ignore",h.CHECKSUM="data-checksum";var zt="_set-dom-",Gt=zt+"mounted",Jt=1,Zt=9,Qt=11,Xt=h;Xt.KEY="kdata-id";var te=void 0,ee=function(){te=F(this.el),de.call(this),te&&(this.IS_STUB?Xt(te,this.base.firstChild):Xt(te,this.base)),this.componentDidUpdate&&"function"==typeof this.componentDidUpdate&&this.componentDidUpdate()},ne={},oe=function(t,e){var n=this;ne[this.ID]=ne[this.ID]||null,clearTimeout(ne[this.ID]),ne[this.ID]=setTimeout(function(){return t.call(n)},e)},ie=function t(e){var n=void 0,o=void 0;if(e<le.length){if(n=le[e],o=this[n],void 0===o&&(o=E(n)),o&&Array.isArray(o)){var i=this[o[0]][o[1]];Object.defineProperty(this[o[0]],o[1],{enumerable:!1,configurable:!0,get:function(){return i},set:function(t){i=t,oe.call(this,ee,1)}})}else Object.defineProperty(this,n,{enumerable:!1,configurable:!0,get:function(){return o},set:function(t){o=t,oe.call(this,ee,1)}});e++,t.call(this,e)}},re=function(){ie.call(this,0)},le=[],ae=function(){le=[]},ce=function(t){-1===le.indexOf(t)&&(le=le.concat(t))},de=function(){this.base=this.__pristineFragment__.cloneNode(!0),u(this,ce)},se=1,ue=11,fe=3,pe=1,he=function(){function t(){this.ID=t.indentity}return t.prototype.mount=function(t){return A.call(this,t)},t.prototype.link=function(t){return t||H(t,"No id is given as parameter."),this.el=t,this.render(),this},t.prototype.render=function(t){this.componentWillMount&&"function"==typeof this.componentWillMount&&this.componentWillMount(),t&&(this.IS_STUB=!0),S.call(this,t)},t.prototype.callBatchPoolUpdate=function(){oe.call(this,ee,1)},t.prototype.subscribe=function(t){this.exec=t},t.prototype.inform=function(t){this.exec&&"function"==typeof this.exec&&this.exec(t)},I(t,null,[{key:"indentity",get:function(){return j()}}]),t}(),me=function(t){return t.charAt(0).toUpperCase()+t.slice(1)},ve=function(t){function e(){return U(this,t.apply(this,arguments))}return P(e,t),e.prototype.switch=function(t,e){this.list=this.list.map(function(n){return n.hash===t?O({},n,e):O({},n,{selected:!1})})},e}(K),ge=new ve;Array.from(["all","active","completed"]).map(function(t){return ge.add({hash:"#/"+t,name:me(t),selected:!1})});var be=V(['\n\t<ul id="filters" class="filters">\n\t\t\x3c!-- {{model:filterModel}} --\x3e\n\t\t<li id="{{name}}" k-click="updateUrl({{hash}})"><a class="{{selected?selected:\'\'}}" href="{{hash}}">{{name}}</a></li>\n\t\t\x3c!-- {{/model:filterModel}} --\x3e\n\t</ul>\n'],['\n\t<ul id="filters" class="filters">\n\t\t\x3c!-- {{model:filterModel}} --\x3e\n\t\t<li id="{{name}}" k-click="updateUrl({{hash}})"><a class="{{selected?selected:\'\'}}" href="{{hash}}">{{name}}</a></li>\n\t\t\x3c!-- {{/model:filterModel}} --\x3e\n\t</ul>\n']),ye=function(t){function e(){for(var e,n,o,i=arguments.length,r=Array(i),l=0;l<i;l++)r[l]=arguments[l];return e=n=U(this,t.call.apply(t,[this].concat(r))),n.el="filters",n.filterModel=ge,o=e,U(n,o)}return P(e,t),e.prototype.componentWillMount=function(){var t=this;this.filterModel.subscribe(function(){return t.callBatchPoolUpdate()}),""==window.location.hash&&window.history.pushState({},null,"#/all")},e.prototype.componentDidMount=function(){var t=this;this.updateUrl(window.location.hash),window.onpopstate=function(){return t.updateUrl(window.location.hash)}},e.prototype.updateUrl=function(t){this.filterModel.switch(t,{selected:!0})},e}(he),xe=new ye,ke=R(be);xe.mount(ke);var Ce=function(t){function e(){return U(this,t.apply(this,arguments))}return P(e,t),e.prototype.clearCompleted=function(){this.list=this.list.filter(function(t){return!t.completed})},e}(K),Ne=new Ce,we=V(['\n  <ul id="todo-list" class="todo-list" k-click="evtTodo()">\n    \x3c!-- {{model:todoModel}} --\x3e\n      <li class="{{completed?completed:\'\'}}">\n        <div class="view">\n          <input class="toggle" type="checkbox" checked="{{completed?checked:\'\'}}">\n          <label>{{title}}</label>\n          <button class="destroy"></button>\n        </div>\n        <input class="edit" value="{{title}}">\n      </li>\n    \x3c!-- {{/model:todoModel}} --\x3e\n  </ul>\n'],['\n  <ul id="todo-list" class="todo-list" k-click="evtTodo()">\n    \x3c!-- {{model:todoModel}} --\x3e\n      <li class="{{completed?completed:\'\'}}">\n        <div class="view">\n          <input class="toggle" type="checkbox" checked="{{completed?checked:\'\'}}">\n          <label>{{title}}</label>\n          <button class="destroy"></button>\n        </div>\n        <input class="edit" value="{{title}}">\n      </li>\n    \x3c!-- {{/model:todoModel}} --\x3e\n  </ul>\n']),Me=void 0,Se=function(t){function e(){for(var e,n,o,i=arguments.length,r=Array(i),l=0;l<i;l++)r[l]=arguments[l];return e=n=U(this,t.call.apply(t,[this].concat(r))),n.el="todo-list",n.todoModel=Ne,o=e,U(n,o)}return P(e,t),e.prototype.componentWillMount=function(){var t=this;this.todoModel.subscribe(function(e){return t.inform(e)})},e.prototype.addTodo=function(t){this.todoModel.add(t)},e.prototype.evtTodo=function(t,e){Me||(Me=!0,window.t=new Date),"toggle"===e.className?this.todoModel.update(O({},t,{completed:!t.completed})):"destroy"===e.className&&this.todoModel.destroy(t)},e.prototype.editMode=function(){},e}(he),Ae=new Se,Te=R(we);Ae.mount(Te);var Ee=V(['\n  <section class="todoapp">\n    <header id="header">\n      <h1>todos</h1>\n      <input id="new-todo" class="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>\n    </header>\n    \x3c!-- {{?todoState}} --\x3e\n    <section class="main">\n      <input id="toggle-all" class="toggle-all" type="checkbox" checked="{{isChecked?checked:\'\'}}" k-click="completeAll()">\n      <label for="toggle-all">Mark all as complete</label>\n      \x3c!-- {{component:todoApp}} --\x3e\n    </section>\n    <footer class="footer">\n      <span class="todo-count">\n        <strong>{{count}}</strong> item{{plural}} left\n      </span>\n      \x3c!-- {{component:filter}} --\x3e\n      \x3c!-- {{?clearToggle}} --\x3e\n      <button id="clear-completed" class="clear-completed">Clear completed</button>\n      \x3c!-- {{/clearToggle}} --\x3e\n    </footer>\n    \x3c!-- {{/todoState}} --\x3e\n  </section>\n  <footer class="info">\n    <p>Double-click to edit a todo</p>\n    <p>Created by <a href="https://github.com/syarul">Shahrul Nizam Selamat</a></p>\n    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>\n  </footer>'],['\n  <section class="todoapp">\n    <header id="header">\n      <h1>todos</h1>\n      <input id="new-todo" class="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>\n    </header>\n    \x3c!-- {{?todoState}} --\x3e\n    <section class="main">\n      <input id="toggle-all" class="toggle-all" type="checkbox" checked="{{isChecked?checked:\'\'}}" k-click="completeAll()">\n      <label for="toggle-all">Mark all as complete</label>\n      \x3c!-- {{component:todoApp}} --\x3e\n    </section>\n    <footer class="footer">\n      <span class="todo-count">\n        <strong>{{count}}</strong> item{{plural}} left\n      </span>\n      \x3c!-- {{component:filter}} --\x3e\n      \x3c!-- {{?clearToggle}} --\x3e\n      <button id="clear-completed" class="clear-completed">Clear completed</button>\n      \x3c!-- {{/clearToggle}} --\x3e\n    </footer>\n    \x3c!-- {{/todoState}} --\x3e\n  </section>\n  <footer class="info">\n    <p>Double-click to edit a todo</p>\n    <p>Created by <a href="https://github.com/syarul">Shahrul Nizam Selamat</a></p>\n    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>\n  </footer>']),_e=function(t){function e(){for(var e,n,o,i=arguments.length,r=Array(i),l=0;l<i;l++)r[l]=arguments[l];return e=n=U(this,t.call.apply(t,[this].concat(r))),n.todoApp=Ae,n.filter=xe,n.isChecked=!1,n.count=0,n.plural="",n.clearToggle=!1,n.todoState=!1,o=e,U(n,o)}return P(e,t),e.prototype.componentWillMount=function(){var t=this;Ae.subscribe(function(e){var n=e.filter(function(t){return!t.completed}),o=e.filter(function(t){return t.completed});t.clearToggle=!!o.length,t.todoState=!!e.length,t.plural=1===n.length?"":"s",t.count=n.length})},e.prototype.create=function(t){if(13===t.keyCode){t.preventDefault();var e=t.target.value.trim();e&&(this.todoApp.addTodo({title:e,completed:!1}),t.target.value="")}},e.prototype.completeAll=function(){this.isChecked=!this.isChecked},e.prototype.clearCompleted=function(){this.todoApp.clearCompleted()},e.prototype.editMode=function(){},e}(he),De=R(Ee);(new _e).mount(De).link("todo")}();
+(function () {
+  'use strict';
+
+  // function to resolve ternary operation
+
+  var test = function test(str) {
+    return str === '\'\'' || str === '""' || str === 'null' ? '' : str;
+  };
+
+  function ternaryOps (input) {
+    if (input.match(/([^?]*)\?([^:]*):([^;]*)|(\s*=\s*)[^;]*/g)) {
+      var t = input.split('?');
+      var condition = t[0];
+      var leftHand = t[1].split(':')[0];
+      var rightHand = t[1].split(':')[1];
+
+      // check the condition fulfillment
+
+      if (this) {
+        if (this[condition]) {
+          return {
+            value: test(leftHand),
+            state: condition
+          };
+        } else {
+          return {
+            value: test(rightHand),
+            state: condition
+          };
+        }
+      }
+      return false;
+    } else return false;
+  }
+
+  var strInterpreter = (function (str) {
+    var res = str.match(/\.*\./g);
+    var result = void 0;
+    if (res && res.length > 0) {
+      return str.split('.');
+    }
+    return result;
+  });
+
+  function updateState (state, updateStateList) {
+    if (typeof updateStateList === 'function') updateStateList(state);
+  }
+
+  function valAssign (node, value, replace, withTo) {
+    value = value.replace(replace, withTo);
+    if (node) node.nodeValue = value;
+  }
+
+  var re = /{{([^{}]+)}}/g;
+
+  function replaceHandleBars (value, node, ins, updateStateList, templateParse, isAttr) {
+    var props = value.match(re);
+    var ln = props.length;
+    var rep = void 0;
+    var tnr = void 0;
+    var isObjectNotation = void 0;
+    while (ln) {
+      ln--;
+      rep = props[ln].replace(re, '$1');
+      tnr = ternaryOps.call(ins, rep);
+      isObjectNotation = strInterpreter(rep);
+      if (isObjectNotation) {
+        updateState(rep, updateStateList);
+        valAssign(node, value, '{{' + rep + '}}', ins[isObjectNotation[0]][isObjectNotation[1]]);
+      } else {
+        if (tnr) {
+          updateState(tnr.state, updateStateList);
+          if (!isAttr) {
+            valAssign(node, value, '{{' + rep + '}}', tnr.value);
+          } else {
+            return tnr.value;
+          }
+        } else {
+          if (ins[rep] !== undefined) {
+            updateState(rep, updateStateList);
+            if (!isAttr) {
+              valAssign(node, value, '{{' + rep + '}}', ins[rep]);
+            } else {
+              return ins[rep];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  };
+
+  var classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+
+  var createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  var inherits = function (subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  };
+
+  var possibleConstructorReturn = function (self, call) {
+    if (!self) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+  };
+
+  var taggedTemplateLiteralLoose = function (strings, raw) {
+    strings.raw = raw;
+    return strings;
+  };
+
+  var genId = function genId() {
+    var rd = function rd() {
+      return (Math.random() * 1 * 1e17).toString(36);
+    };
+    return 'KDATA-' + rd() + '-' + rd();
+  };
+
+  var minId = function minId() {
+    return (Math.random() * 1 * 1e17).toString(36);
+  };
+
+  var getId = function getId(id) {
+    return document.getElementById(id);
+  };
+
+  /**
+   * @private
+   * @description
+   * Check a node availability in 100ms, if not found silenty skip the event
+   * or execute a callback
+   *
+   * @param {string} id - the node id
+   * @param {function} callback - the function to execute on success
+   * @param {function} notFound - the function to execute on failed
+   */
+  var checkNodeAvailability = function checkNodeAvailability(component, componentName, callback, notFound) {
+    var ele = getId(component.el);
+    var found = false;
+    var t = void 0;
+    function find() {
+      ele = getId(component.el);
+      if (ele) {
+        clearInterval(t);
+        found = true;
+        callback(component, componentName, ele);
+      }
+    }
+    function fail() {
+      clearInterval(t);
+      if (!found && notFound && typeof notFound === 'function') notFound();
+    }
+    if (ele) return ele;else {
+      t = setInterval(find, 0);
+      // ignore finding the node after sometimes
+      setTimeout(fail, 5);
+    }
+  };
+
+  /**
+   * @private
+   * @description
+   * Confirm that a value is truthy, throws an error message otherwise.
+   *
+   * @param {*} val - the val to test.
+   * @param {string} msg - the error message on failure.
+   * @throws {Error}
+   */
+  var assert$1 = function assert(val, msg) {
+    if (!val) throw new Error('(keet) ' + msg);
+  };
+
+  /**
+   * @private
+   * @description
+   * Simple html template literals MODIFIED from : http://2ality.com/2015/01/template-strings-html.html
+   * by Dr. Axel Rauschmayer
+   * no checking for wrapping in root element
+   * no strict checking
+   * remove spacing / indentation
+   * keep all spacing within html tags
+   * include handling ${} in the literals
+   */
+  var html = function html() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var literals = args.shift();
+    var substs = args.slice();
+
+    var result = literals.raw.reduce(function (acc, lit, i) {
+      return acc + substs[i - 1] + lit;
+    });
+    // remove spacing, indentation from every line
+    result = result.split(/\n+/);
+    result = result.map(function (t) {
+      return t.trim();
+    }).join('');
+    return result;
+  };
+
+  var notEqual = function notEqual(a, b) {
+    return a['kdata-id'] !== b['kdata-id'];
+  };
+
+  var inform = function inform(model) {
+    this.exec && typeof this.exec === 'function' && this.exec(model);
+  };
+
+  /**
+   * @private
+   * @description
+   * Copy with modification from preact-todomvc. Model constructor with
+   * registering callback listener in Object.defineProperty. Any modification
+   * to ```this.list``` instance will subsequently inform all registered listener.
+   *
+   * {{model:<myModel>}}<myModelTemplateString>{{/model:<myModel>}}
+   *
+   */
+
+  var createModel = function () {
+    function createModel() {
+      classCallCheck(this, createModel);
+
+      this.model = [];
+      this.exec = null;
+
+      /**
+       * @private
+       * @description
+       * Register callback listener of any changes
+       */
+      Object.defineProperty(this, 'list', {
+        enumerable: false,
+        configurable: true,
+        get: function get$$1() {
+          return this.model;
+        },
+        set: function set$$1(val) {
+          this.model = val;
+          inform.call(this, this.model);
+        }
+      });
+    }
+
+    /**
+    * @private
+    * @description
+    * Subscribe to the model changes (add/update/destroy)
+    *
+    * @param {Object} model - the model including all prototypes
+    *
+    */
+
+
+    createModel.prototype.subscribe = function subscribe(fn) {
+      this.exec = fn;
+    };
+
+    /**
+    * @private
+    * @description
+    * Add new object to the model list
+    *
+    * @param {Object} obj - new object to add into the model list
+    *
+    */
+
+
+    createModel.prototype.add = function add(obj) {
+      this.list = this.list.concat(_extends({}, obj, { 'kdata-id': minId() }));
+    };
+
+    /**
+    * @private
+    * @description
+    * Update existing object in the model list
+    *
+    * @param {String} lookupId - lookup id property name of the object
+    * @param {Object} updateObj - the updated properties
+    *
+    */
+    // update (lookupId, updateObj) {
+    //   this.list = this.list.map(obj =>
+    //     obj[lookupId] !== updateObj[lookupId] ? obj : Object.assign(obj, updateObj)
+    //   )
+    // }
+
+
+    createModel.prototype.update = function update(updateObj) {
+      this.list = this.list.map(function (obj) {
+        return notEqual(obj, updateObj) ? obj : updateObj;
+      }
+      // ( obj !== updateObj ? obj : updateObj)
+      );
+    };
+    // this.todos = this.todos.map( todo => (
+    //     todo !== todoToToggle ? todo : ({ ...todo, completed: !todo.completed })
+    //   ) );
+    /**
+    * @private
+    * @description
+    * Removed existing object in the model list
+    *
+    * @param {String} lookupId - lookup id property name of the object
+    * @param {String} objId - unique identifier of the lookup id
+    *
+    */
+
+
+    createModel.prototype.destroy = function destroy(destroyObj) {
+      this.list = this.list.filter(function (obj) {
+        return notEqual(obj, destroyObj);
+      });
+    };
+    // destroy (lookupId, objId) {
+    //   this.list = this.list.filter(obj =>
+    //     obj[lookupId] !== objId
+    //   )
+    // }
+
+
+    return createModel;
+  }();
+
+  var re$1 = new RegExp(/(\schecked=")(.*?)(?=")/g);
+
+  var tmpl = '';
+  var rep = void 0;
+  var isTernary = void 0;
+  var i = void 0;
+  var len = void 0;
+  var match = void 0;
+
+  var genModelTemplate = (function (string, obj) {
+    var arrProps = string.match(/{{([^{}]+)}}/g);
+    tmpl = string;
+    for (i = 0, len = arrProps.length; i < len; i++) {
+      rep = arrProps[i].replace(/{{([^{}]+)}}/g, '$1');
+      isTernary = ternaryOps.call(obj, rep);
+      if (isTernary) {
+        tmpl = tmpl.replace('{{' + rep + '}}', isTernary.value);
+      } else {
+        tmpl = tmpl.replace('{{' + rep + '}}', obj[rep]);
+      }
+
+      match = tmpl.match(re$1);
+      if (match) {
+        if (match[0].length === 17) {
+          tmpl = tmpl.replace(' checked="checked"', ' checked');
+        } else {
+          tmpl = tmpl.replace(' checked=""', '');
+        }
+      }
+    }
+    return tmpl;
+  });
+
+  // diffing two array of objects, including object properties differences
+  var diff = function diff(fst, sec) {
+    return fst.filter(function (obj) {
+      return !sec.some(function (inr) {
+        var predicate = true;
+        for (var attr in inr) {
+          if (obj[attr] !== inr[attr]) {
+            predicate = false;
+          }
+        }
+        return predicate;
+      });
+    });
+  };
+
+  // check if browser support createRange
+  var range = void 0;
+  if (typeof document.createRange === 'function') {
+    range = document.createRange();
+  }
+
+  // storage for model state
+  var cache = {};
+
+  var m = void 0;
+  var documentFragment = void 0;
+  function render(str, obj) {
+    m = genModelTemplate(str, obj);
+    documentFragment = range.createContextualFragment(m);
+    documentFragment.firstChild.setAttribute('kdata-id', obj['kdata-id']);
+  }
+
+  function genModelList (node, model, tmplHandler) {
+    // console.time('uu')
+    var modelList = void 0;
+    var i = void 0;
+    var listClone = void 0;
+    var parentNode = void 0;
+    var updateOfNew = void 0;
+    var diffOfOld = void 0;
+    var pNode = void 0;
+    var equalLength = void 0;
+    var child = void 0;
+    var list = void 0;
+    var str = void 0;
+    var oldModel = void 0;
+    var p = void 0;
+
+    cache[model] = cache[model] || {};
+
+    if (!cache[model].list) {
+      cache[model].list = node.nextSibling.cloneNode(true);
+    }
+    list = cache[model].list;
+
+    if (!cache[model].str) {
+      cache[model].str = node.nextSibling.cloneNode(true).outerHTML;
+      // remove the first prototype node
+      node.nextSibling.remove();
+      // also remove from pristine node
+      p = this.__pristineFragment__.getElementById(node.parentNode.id);
+      if (p) p.childNodes[1].remove();
+    }
+    str = cache[model].str;
+
+    if (this[model] !== undefined && this[model].hasOwnProperty('list')) {
+      parentNode = node.parentNode;
+
+      if (range && !parentNode.hasAttribute('data-ignore')) {
+        parentNode.setAttribute('data-ignore', '');
+      }
+
+      modelList = this[model].list;
+
+      oldModel = cache[model].oldModel || [];
+
+      // check if current browser doesn't support createRange()
+      if (!range) {
+        i = 0;
+        while (i < modelList.length) {
+          // fallback to regular node generation handler
+          listClone = list.cloneNode(true);
+          tmplHandler(this, null, listClone, modelList[i]);
+          listClone.setAttribute('kdata-id', modelList[i]['kdata-id']);
+          parentNode.insertBefore(listClone, null);
+          i++;
+        }
+      } else {
+        updateOfNew = diff(modelList, oldModel);
+        diffOfOld = diff(oldModel, modelList);
+
+        var diffModel = function diffModel() {
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+
+          pNode = args.pop();
+          // check if both models are equally in length
+          equalLength = oldModel.length === modelList.length;
+
+          // do properties update
+          if (equalLength) {
+            // console.log( new Date() - window.t)
+            // console.time('u')
+            i = 0;
+            while (i < updateOfNew.length) {
+              child = pNode.querySelector('[kdata-id="' + updateOfNew[i]['kdata-id'] + '"]');
+              render(str, updateOfNew[i]);
+              pNode.replaceChild(documentFragment, child);
+              i++;
+            }
+            // console.timeEnd('u')
+            // add new objects
+          } else if (updateOfNew.length > 0 && diffOfOld.length === 0) {
+            i = 0;
+            while (i < updateOfNew.length) {
+              render(str, updateOfNew[i]);
+              pNode.insertBefore(documentFragment, pNode.lastChild);
+              i++;
+            }
+            // destroy selected objects
+          } else if (updateOfNew.length === 0 && diffOfOld.length > 0) {
+            i = 0;
+            while (i < diffOfOld.length) {
+              child = pNode.querySelector('[kdata-id="' + diffOfOld[i]['kdata-id'] + '"]');
+              pNode.removeChild(child);
+              i++;
+            }
+          }
+          // replace oldModel after diffing
+          cache[model].oldModel = JSON.parse(JSON.stringify(modelList));
+        };
+
+        // check existing parentNode in the DOM
+        if (parentNode.hasAttribute('id')) {
+          pNode = getId(parentNode.id);
+
+          if (pNode) {
+            diffModel.call(this, null, null, pNode);
+          } else {
+            checkNodeAvailability({ el: parentNode.id }, model, diffModel.bind(this), function () {
+              // we cleanup cache on failed search
+              cache[model].oldModel = [];
+            });
+          }
+        }
+      }
+    } else {
+      assert$1(false, 'Model "' + model + '" does not exist.');
+    }
+    // console.timeEnd('uu')
+  }
+
+  var conditionalNodesRawStart = /\{\{\?([^{}]+)\}\}/g;
+  var conditionalNodesRawEnd = /\{\{\/([^{}]+)\}\}/g;
+  var DOCUMENT_ELEMENT_TYPE$1 = 1;
+  function conditionalNodes (node, conditional, tmplHandler) {
+    var frag = document.createDocumentFragment();
+    var entryNode = void 0;
+    var currentNode = void 0;
+    var isGen = void 0;
+    var cNode = void 0;
+    while (node) {
+      currentNode = node;
+      node = node.nextSibling;
+      if (currentNode.nodeType !== DOCUMENT_ELEMENT_TYPE$1) {
+        if (currentNode.nodeValue.match(conditionalNodesRawStart)) {
+          entryNode = currentNode;
+        } else if (currentNode.nodeValue.match(conditionalNodesRawEnd)) {
+          // currentNode.remove()
+          // star generating the conditional nodes range, if not yet
+          if (!isGen) {
+            isGen = true;
+            tmplHandler(this, null, null, null, frag);
+          }
+          if (this[conditional]) {
+            entryNode.parentNode.insertBefore(frag, entryNode);
+          }
+          // entryNode.remove()
+          node = null;
+        }
+      } else {
+        cNode = currentNode.cloneNode(true);
+        frag.appendChild(cNode);
+        currentNode.remove();
+      }
+    }
+  }
+
+  var cacheInit = {};
+
+  function componentParse (componentStr, node) {
+    var component = componentStr.replace('component:', '');
+    var c = this[component];
+
+    if (c !== undefined) {
+      // this is for initial component runner
+      if (!cacheInit[c.ID]) {
+        c.render.call(c, true);
+        cacheInit[c.ID] = c.base.cloneNode(true);
+        node.parentNode.replaceChild(c.base, node);
+      } else {
+        // we need to reattach event listeners if the node is not available on DOM
+        if (!getId(this[component].el)) {
+          c.base = c.__pristineFragment__.cloneNode(true);
+          c.render.call(c, true);
+          node.parentNode.replaceChild(c.base, node);
+        } else {
+          node.parentNode.replaceChild(cacheInit[c.ID].cloneNode(true), node);
+        }
+      }
+      // inform sub-component to update
+      c.callBatchPoolUpdate();
+    } else {
+      assert$1(false, 'Component ' + component + ' does not exist.');
+    }
+  }
+
+  var re$3 = /{{([^{}]+)}}/g;
+  var model = /^model:/g;
+  var conditionalRe = /^\?/g;
+  var component = /^component:([^{}]+)/g;
+
+  function replaceCommentBlock (value, node, ins, updateStateList, templateParse) {
+    var conditionalRep = void 0;
+    var rep = void 0;
+    var modelRep = void 0;
+    if (value.match(re$3)) {
+      rep = value.replace(re$3, '$1').trim();
+      if (rep.match(model)) {
+        modelRep = rep.replace('model:', '');
+        genModelList.call(this, node, modelRep, templateParse);
+      } else if (rep.match(conditionalRe)) {
+        conditionalRep = rep.replace('?', '');
+        if (ins[conditionalRep] !== undefined) {
+          updateState(conditionalRep, updateStateList);
+          conditionalNodes.call(this, node, conditionalRep, templateParse);
+        }
+      } else if (rep.match(component)) {
+        componentParse.call(this, rep, node);
+      }
+    }
+  }
+
+  var DOCUMENT_ELEMENT_TYPE$2 = 1;
+
+  var re$4 = /{{([^{}]+)}}/g;
+  var modelRaw = /\{\{model:([^{}]+)\}\}/g;
+
+  var lookUpEvtNode = function lookUpEvtNode(node) {
+    return !!(node.hasAttribute('id') && getId(node.id) && node.hasAttribute('evt-node'));
+  };
+
+  function lookupParentNode(rootNode, node) {
+    var cNode = void 0;
+    while (node) {
+      cNode = node;
+      node = node.parentNode;
+      if (cNode.nodeType === DOCUMENT_ELEMENT_TYPE$2 && cNode.hasAttribute('kdata-id')) {
+        return cNode.getAttribute('kdata-id');
+      }
+      if (cNode.isEqualNode(rootNode)) {
+        node = null;
+      }
+    }
+  }
+
+  var nodeAttributes = void 0;
+  var i$1 = 0;
+  var a = void 0;
+  var ns = void 0;
+  var evtName = void 0;
+  var c = void 0;
+  var h = void 0;
+  var handlerArgs = void 0;
+  var argv = void 0;
+  var handler = void 0;
+  var name = void 0;
+  var p = void 0;
+  var model$1 = void 0;
+  var rep$1 = void 0;
+  var t = void 0;
+
+  var getIndex = function getIndex(id) {
+    return model$1.list.map(function (m) {
+      return m['kdata-id'];
+    }).indexOf(id);
+  };
+
+  function addEvent (node) {
+
+    nodeAttributes = node.attributes;
+    if (lookUpEvtNode(node)) ; else {
+      // only add event when node does not has one
+      for (i$1 = nodeAttributes.length; i$1--;) {
+        a = nodeAttributes[i$1];
+        name = a.localName;
+        ns = a.nodeValue;
+        if (/^k-/.test(name)) {
+          evtName = name.replace(/^k-/, '');
+          handler = ns.match(/[a-zA-Z]+(?![^(]*\))/)[0];
+          c = this[handler];
+          if (c !== undefined && typeof c === 'function') {
+            h = ns.match(/\(([^{}]+)\)/);
+            handlerArgs = h ? h[1] : '';
+            argv = handlerArgs.split(',').filter(function (f) {
+              return f !== '';
+            });
+
+            // if node is the rootNode for model, we wrap the eventListener and
+            // rebuild the arguments by appending id/className util rootNode.
+            if (node.hasChildNodes() && node.firstChild.nodeType !== DOCUMENT_ELEMENT_TYPE$2 && node.firstChild.nodeValue.match(modelRaw)) {
+              var _fn = function _fn(e) {
+                e.stopPropagation();
+                if (e.target !== e.currentTarget) {
+                  t = lookupParentNode(node, e.target);
+                  c.apply(this, [model$1.list[getIndex(t)], e.target, e]);
+                }
+              };
+
+              rep$1 = node.firstChild.nodeValue.replace(re$4, '$1').trim();
+              rep$1 = rep$1.replace('model:', '');
+              model$1 = this[rep$1];
+
+              node.addEventListener(evtName, _fn.bind(this), false);
+            } else {
+              node.addEventListener(evtName, c.bind.apply(c.bind(this), [node].concat(argv)), false);
+            }
+            if (!node.hasAttribute('evt-node')) {
+              node.setAttribute('evt-node', '');
+              if (node.hasAttribute('id')) {
+                p = this.__pristineFragment__.getElementById(node.id);
+                p.setAttribute('evt-node', '');
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  var DOCUMENT_ELEMENT_TYPE$3 = 1;
+  var DOCUMENT_COMMENT_TYPE = 8;
+  var re$5 = /{{([^{}]+)}}/g;
+
+  function templateParse(ctx, updateStateList, modelInstance, modelObject, conditional) {
+
+    var currentNode = void 0;
+    var fragment = void 0;
+    var instance = void 0;
+    var nodeAttributes = void 0;
+    var i = 0;
+    var a = void 0;
+    var ns = void 0;
+    var name = void 0;
+
+    if (modelObject) {
+      instance = modelInstance;
+    } else if (conditional) {
+      instance = conditional.firstChild;
+    } else {
+      fragment = ctx.base;
+      instance = fragment.firstChild;
+    }
+
+    var ins = modelObject || ctx;
+
+    var inspectAttributes = function inspectAttributes(node) {
+      nodeAttributes = node.attributes;
+      for (i = nodeAttributes.length; i--;) {
+        a = nodeAttributes[i];
+        name = a.localName;
+        ns = a.nodeValue;
+        if (re$5.test(name)) {
+          node.removeAttribute(name);
+          name = replaceHandleBars(name, node, ins, null, null, true);
+          node.setAttribute(name, ns);
+        } else if (re$5.test(ns)) {
+          ns = replaceHandleBars(ns, node, ins, null, null, true);
+          if (ns === '') {
+            node.removeAttribute(name);
+          } else {
+            if (name === 'checked') {
+              node.setAttribute(name, '');
+            } else {
+              node.setAttribute(name, ns);
+            }
+          }
+        }
+      }
+    };
+
+    var check = function check(node) {
+      while (node) {
+        currentNode = node;
+        if (currentNode.nodeType === DOCUMENT_ELEMENT_TYPE$3) {
+          if (currentNode.hasAttributes()) {
+            addEvent.call(ctx, currentNode);
+            inspectAttributes(currentNode);
+          }
+          check(currentNode.firstChild);
+        } else if (currentNode.nodeValue.match(re$5)) {
+          if (currentNode.nodeType === DOCUMENT_COMMENT_TYPE) {
+            replaceCommentBlock.call(ctx, currentNode.nodeValue, currentNode, ins, updateStateList, templateParse);
+          } else {
+            replaceHandleBars.call(ctx, currentNode.nodeValue, currentNode, ins, updateStateList, templateParse);
+          }
+        }
+        node = node.nextSibling;
+      }
+    };
+
+    check(instance);
+  }
+
+  var parser = window.DOMParser && new window.DOMParser();
+  var documentRootName = 'HTML';
+  var supportsHTMLType = false;
+  var supportsInnerHTML = false;
+  var htmlType = 'text/html';
+  var xhtmlType = 'application/xhtml+xml';
+  var testClass = 'A';
+  var testCode = '<wbr class="' + testClass + '"/>';
+
+  try {
+    // Check if browser supports text/html DOMParser
+    var parsed = parser.parseFromString(testCode, htmlType).body.firstChild;
+    // Some browsers (iOS 9 and Safari 9) lowercase classes for parsed elements
+    // but only when appending to DOM, so use innerHTML instead
+    var d = document.createElement('div');
+    d.appendChild(parsed);
+    if (d.firstChild.classList[0] !== testClass) throw new Error();
+    supportsHTMLType = true;
+  } catch (e) {}
+
+  var mockDoc = document.implementation.createHTMLDocument('');
+  var mockHTML = mockDoc.documentElement;
+  var mockBody = mockDoc.body;
+  try {
+    // Check if browser supports documentElement.innerHTML
+    mockHTML.innerHTML += '';
+    supportsInnerHTML = true;
+  } catch (e) {
+    // Check if browser supports xhtml parsing.
+    parser.parseFromString(testCode, xhtmlType);
+    var bodyReg = /(<body[^>]*>)([\s\S]*)<\/body>/;
+  }
+
+  function DOMParserParse(markup, rootName) {
+    var doc = parser.parseFromString(markup, htmlType);
+    // Patch for iOS UIWebView not always returning doc.body synchronously
+    if (!doc.body) {
+      return fallbackParse(markup, rootName);
+    }
+
+    return rootName === documentRootName ? doc.documentElement : doc.body.firstChild;
+  }
+
+  function fallbackParse(markup, rootName) {
+    // Fallback to innerHTML for other older browsers.
+    if (rootName === documentRootName) {
+      if (supportsInnerHTML) {
+        mockHTML.innerHTML = markup;
+        return mockHTML;
+      } else {
+        // IE9 does not support innerhtml at root level.
+        // We get around this by parsing everything except the body as xhtml.
+        var bodyMatch = markup.match(bodyReg);
+        if (bodyMatch) {
+          var bodyContent = bodyMatch[2];
+          var startBody = bodyMatch.index + bodyMatch[1].length;
+          var endBody = startBody + bodyContent.length;
+          markup = markup.slice(0, startBody) + markup.slice(endBody);
+          mockBody.innerHTML = bodyContent;
+        }
+
+        var doc = parser.parseFromString(markup, xhtmlType);
+        var body = doc.body;
+        while (mockBody.firstChild) {
+          body.appendChild(mockBody.firstChild);
+        }return doc.documentElement;
+      }
+    } else {
+      mockBody.innerHTML = markup;
+      return mockBody.firstChild;
+    }
+  }
+
+  /**
+   * Returns the results of a DOMParser as an HTMLElement.
+   * (Shims for older browsers).
+   */
+  var parseHtml = supportsHTMLType ? DOMParserParse : fallbackParse;
+
+  setDOM.KEY = 'data-key';
+  setDOM.IGNORE = 'data-ignore';
+  setDOM.CHECKSUM = 'data-checksum';
+
+  var KEY_PREFIX = '_set-dom-';
+  var NODE_MOUNTED = KEY_PREFIX + 'mounted';
+  var ELEMENT_TYPE = 1;
+  var DOCUMENT_TYPE = 9;
+  var DOCUMENT_FRAGMENT_TYPE = 11;
+
+  // Expose api.
+  var src = setDOM;
+
+  /**
+   * @description
+   * Updates existing dom to match a new dom.
+   *
+   * @param {Node} oldNode - The html entity to update.
+   * @param {String|Node} newNode - The updated html(entity).
+   */
+  function setDOM(oldNode, newNode) {
+    // Ensure a realish dom node is provided.
+    assert$2(oldNode && oldNode.nodeType, 'You must provide a valid node to update.');
+
+    // Alias document element with document.
+    if (oldNode.nodeType === DOCUMENT_TYPE) oldNode = oldNode.documentElement;
+
+    // Document Fragments don't have attributes, so no need to look at checksums, ignored, attributes, or node replacement.
+    if (newNode.nodeType === DOCUMENT_FRAGMENT_TYPE) {
+      // Simply update all children (and subchildren).
+      setChildNodes(oldNode, newNode);
+    } else {
+      // Otherwise we diff the entire old node.
+      setNode(oldNode, typeof newNode === 'string'
+      // If a string was provided we will parse it as dom.
+      ? parseHtml(newNode, oldNode.nodeName) : newNode);
+    }
+
+    // Trigger mount events on initial set.
+    if (!oldNode[NODE_MOUNTED]) {
+      oldNode[NODE_MOUNTED] = true;
+      mount(oldNode);
+    }
+  }
+
+  /**
+   * @private
+   * @description
+   * Updates a specific htmlNode and does whatever it takes to convert it to another one.
+   *
+   * @param {Node} oldNode - The previous HTMLNode.
+   * @param {Node} newNode - The updated HTMLNode.
+   */
+  function setNode(oldNode, newNode) {
+    if (oldNode.nodeType === newNode.nodeType) {
+      // Handle regular element node updates.
+      if (oldNode.nodeType === ELEMENT_TYPE) {
+        // Checks if nodes are equal before diffing.
+        if (isEqualNode(oldNode, newNode)) return;
+
+        // Update all children (and subchildren).
+        setChildNodes(oldNode, newNode);
+
+        // Update the elements attributes / tagName.
+        if (oldNode.nodeName === newNode.nodeName) {
+          // If we have the same nodename then we can directly update the attributes.
+          setAttributes(oldNode.attributes, newNode.attributes);
+        } else {
+          // Otherwise clone the new node to use as the existing node.
+          var newPrev = newNode.cloneNode();
+          // Copy over all existing children from the original node.
+          while (oldNode.firstChild) {
+            newPrev.appendChild(oldNode.firstChild);
+          } // Replace the original node with the new one with the right tag.
+          oldNode.parentNode.replaceChild(newPrev, oldNode);
+        }
+      } else {
+        // Handle other types of node updates (text/comments/etc).
+        // If both are the same type of node we can update directly.
+        if (oldNode.nodeValue !== newNode.nodeValue) {
+          oldNode.nodeValue = newNode.nodeValue;
+        }
+      }
+    } else {
+      // we have to replace the node.
+      oldNode.parentNode.replaceChild(newNode, dismount(oldNode));
+      mount(newNode);
+    }
+  }
+
+  /**
+   * @private
+   * @description
+   * Utility that will update one list of attributes to match another.
+   *
+   * @param {NamedNodeMap} oldAttributes - The previous attributes.
+   * @param {NamedNodeMap} newAttributes - The updated attributes.
+   */
+  function setAttributes(oldAttributes, newAttributes) {
+    var i, a, b, ns, name;
+
+    // Remove old attributes.
+    for (i = oldAttributes.length; i--;) {
+      a = oldAttributes[i];
+      ns = a.namespaceURI;
+      name = a.localName;
+      b = newAttributes.getNamedItemNS(ns, name);
+      if (!b) oldAttributes.removeNamedItemNS(ns, name);
+    }
+
+    // Set new attributes.
+    for (i = newAttributes.length; i--;) {
+      a = newAttributes[i];
+      ns = a.namespaceURI;
+      name = a.localName;
+      b = oldAttributes.getNamedItemNS(ns, name);
+      if (!b) {
+        // Add a new attribute.
+        newAttributes.removeNamedItemNS(ns, name);
+        oldAttributes.setNamedItemNS(a);
+      } else if (b.value !== a.value) {
+        // Update existing attribute.
+        b.value = a.value;
+      }
+    }
+  }
+
+  /**
+   * @private
+   * @description
+   * Utility that will nodes childern to match another nodes children.
+   *
+   * @param {Node} oldParent - The existing parent node.
+   * @param {Node} newParent - The new parent node.
+   */
+  function setChildNodes(oldParent, newParent) {
+    var checkOld, oldKey, checkNew, newKey, foundNode, keyedNodes;
+    var oldNode = oldParent.firstChild;
+    var newNode = newParent.firstChild;
+    var extra = 0;
+
+    // Extract keyed nodes from previous children and keep track of total count.
+    while (oldNode) {
+      extra++;
+      checkOld = oldNode;
+      oldKey = getKey(checkOld);
+      oldNode = oldNode.nextSibling;
+
+      if (oldKey) {
+        if (!keyedNodes) keyedNodes = {};
+        keyedNodes[oldKey] = checkOld;
+      }
+    }
+
+    // Loop over new nodes and perform updates.
+    oldNode = oldParent.firstChild;
+    while (newNode) {
+      extra--;
+      checkNew = newNode;
+      newNode = newNode.nextSibling;
+
+      if (keyedNodes && (newKey = getKey(checkNew)) && (foundNode = keyedNodes[newKey])) {
+        delete keyedNodes[newKey];
+        // If we have a key and it existed before we move the previous node to the new position if needed and diff it.
+        if (foundNode !== oldNode) {
+          oldParent.insertBefore(foundNode, oldNode);
+        } else {
+          oldNode = oldNode.nextSibling;
+        }
+
+        setNode(foundNode, checkNew);
+      } else if (oldNode) {
+        checkOld = oldNode;
+        oldNode = oldNode.nextSibling;
+        if (getKey(checkOld)) {
+          // If the old child had a key we skip over it until the end.
+          oldParent.insertBefore(checkNew, checkOld);
+          mount(checkNew);
+        } else {
+          // Otherwise we diff the two non-keyed nodes.
+          setNode(checkOld, checkNew);
+        }
+      } else {
+        // Finally if there was no old node we add the new node.
+        oldParent.appendChild(checkNew);
+        mount(checkNew);
+      }
+    }
+
+    // Remove old keyed nodes.
+    for (oldKey in keyedNodes) {
+      extra--;
+      oldParent.removeChild(dismount(keyedNodes[oldKey]));
+    }
+
+    // If we have any remaining unkeyed nodes remove them from the end.
+    while (--extra >= 0) {
+      oldParent.removeChild(dismount(oldParent.lastChild));
+    }
+  }
+
+  /**
+   * @private
+   * @description
+   * Utility to try to pull a key out of an element.
+   * Uses 'data-key' if possible and falls back to 'id'.
+   *
+   * @param {Node} node - The node to get the key for.
+   * @return {string|void}
+   */
+  function getKey(node) {
+    if (node.nodeType !== ELEMENT_TYPE) return;
+    var key = node.getAttribute(setDOM.KEY) || node.id;
+    if (key) return KEY_PREFIX + key;
+  }
+
+  /**
+   * Checks if nodes are equal using the following by checking if
+   * they are both ignored, have the same checksum, or have the
+   * same contents.
+   *
+   * @param {Node} a - One of the nodes to compare.
+   * @param {Node} b - Another node to compare.
+   */
+  function isEqualNode(a, b) {
+    return (
+      // Check if both nodes are ignored.
+      isIgnored(a) && isIgnored(b) ||
+      // Check if both nodes have the same checksum.
+      getCheckSum(a) === getCheckSum(b) ||
+      // Fall back to native isEqualNode check.
+      a.isEqualNode(b)
+    );
+  }
+
+  /**
+   * @private
+   * @description
+   * Utility to try to pull a checksum attribute from an element.
+   * Uses 'data-checksum' or user specified checksum property.
+   *
+   * @param {Node} node - The node to get the checksum for.
+   * @return {string|NaN}
+   */
+  function getCheckSum(node) {
+    return node.getAttribute(setDOM.CHECKSUM) || NaN;
+  }
+
+  /**
+   * @private
+   * @description
+   * Utility to try to check if an element should be ignored by the algorithm.
+   * Uses 'data-ignore' or user specified ignore property.
+   *
+   * @param {Node} node - The node to check if it should be ignored.
+   * @return {boolean}
+   */
+  function isIgnored(node) {
+    return node.getAttribute(setDOM.IGNORE) != null;
+  }
+
+  /**
+   * Dispatches a mount event for the given node and children.
+   *
+   * @param {Node} node - the node to mount.
+   * @return {node}
+   */
+  function mount(node) {
+    return dispatch(node, 'mount');
+  }
+
+  /**
+   * Dispatches a dismount event for the given node and children.
+   *
+   * @param {Node} node - the node to dismount.
+   * @return {node}
+   */
+  function dismount(node) {
+    return dispatch(node, 'dismount');
+  }
+
+  /**
+   * Recursively trigger an event for a node and it's children.
+   * Only emits events for keyed nodes.
+   *
+   * @param {Node} node - the initial node.
+   * @return {Node}
+   */
+  function dispatch(node, type) {
+    // Trigger event for this element if it has a key.
+    if (getKey(node)) {
+      var ev = document.createEvent('Event');
+      var prop = { value: node };
+      ev.initEvent(type, false, false);
+      Object.defineProperty(ev, 'target', prop);
+      Object.defineProperty(ev, 'srcElement', prop);
+      node.dispatchEvent(ev);
+    }
+
+    // Dispatch to all children.
+    var child = node.firstChild;
+    while (child) {
+      child = dispatch(child, type).nextSibling;
+    }return node;
+  }
+
+  /**
+   * @private
+   * @description
+   * Confirm that a value is truthy, throws an error message otherwise.
+   *
+   * @param {*} val - the val to test.
+   * @param {string} msg - the error message on failure.
+   * @throws {Error}
+   */
+  function assert$2(val, msg) {
+    if (!val) throw new Error('set-dom: ' + msg);
+  }
+
+  src.KEY = 'kdata-id';
+
+  var DELAY = 1;
+  var el = void 0;
+
+  var morpher = function morpher() {
+    if (this.el === 'todo-list') ;
+    el = getId(this.el);
+    genElement.call(this);
+    if (this.el === 'todo-list') ;
+    if (el) {
+      this.IS_STUB ? src(el, this.base.firstChild) : src(el, this.base);
+    }
+    // exec life-cycle componentDidUpdate
+    if (this.componentDidUpdate && typeof this.componentDidUpdate === 'function') {
+      this.componentDidUpdate();
+    }
+  };
+
+  var timer = {};
+  var updateContext = function updateContext(fn, delay) {
+    var _this = this;
+
+    // if(this.el === 'todo-list'){
+    //   window.t = new Date()
+    // }
+    timer[this.ID] = timer[this.ID] || null;
+    clearTimeout(timer[this.ID]);
+    timer[this.ID] = setTimeout(function () {
+      return fn.call(_this);
+    }, delay);
+  };
+
+  var nextState = function nextState(i) {
+    var state = void 0;
+    var value = void 0;
+    if (i < stateList.length) {
+      state = stateList[i];
+      value = this[state];
+
+      // if value is undefined, likely has object notation we convert it to array
+      if (value === undefined) value = strInterpreter(state);
+
+      if (value && Array.isArray(value)) {
+        // using split object notation as base for state update
+        var inVal = this[value[0]][value[1]];
+        Object.defineProperty(this[value[0]], value[1], {
+          enumerable: false,
+          configurable: true,
+          get: function get() {
+            return inVal;
+          },
+          set: function set(val) {
+            inVal = val;
+            updateContext.call(this, morpher, DELAY);
+          }
+        });
+      } else {
+        // handle parent state update if the state is not an object
+        Object.defineProperty(this, state, {
+          enumerable: false,
+          configurable: true,
+          get: function get() {
+            return value;
+          },
+          set: function set(val) {
+            value = val;
+            updateContext.call(this, morpher, DELAY);
+          }
+        });
+      }
+      i++;
+      nextState.call(this, i);
+    }
+  };
+
+  var setState = function setState() {
+    nextState.call(this, 0);
+  };
+
+  var stateList = [];
+
+  var clearState = function clearState() {
+    stateList = [];
+  };
+
+  var addState = function addState(state) {
+    if (stateList.indexOf(state) === -1) {
+      stateList = stateList.concat(state);
+    }
+  };
+
+  var genElement = function genElement() {
+    this.base = this.__pristineFragment__.cloneNode(true);
+    templateParse(this, addState);
+  };
+
+  var DOCUMENT_ELEMENT_TYPE$4 = 1;
+
+  function parseStr (stub) {
+    templateParse(this, addState);
+    var el = stub || getId(this.el);
+    if (el) {
+      if (el.nodeType === DOCUMENT_ELEMENT_TYPE$4) {
+        el.setAttribute('data-ignore', '');
+      } else {
+        assert$1(this.base.childNodes.length === 1, 'Sub-component should only has a single rootNode.');
+        !this.base.firstChild.hasAttribute('data-ignore') && this.base.firstChild.setAttribute('data-ignore', '');
+      }
+      // listen to state changes
+      setState.call(this);
+
+      // mount fragment to DOM
+      if (!stub) {
+        el.appendChild(this.base);
+      }
+
+      // since component already rendered, trigger its life-cycle method
+      if (this.componentDidMount && typeof this.componentDidMount === 'function') {
+        this.componentDidMount();
+      }
+    } else {
+      assert$1(false, 'No element with id: "' + this.el + '" exist.');
+    }
+  }
+
+  var DOCUMENT_FRAGMENT_TYPE$1 = 11;
+  var DOCUMENT_TEXT_TYPE = 3;
+  var DOCUMENT_ELEMENT_TYPE$5 = 1;
+  /**
+   * @private
+   * @description
+   * Mount an instance of string or html elements
+   *
+   * @param {String|Object} instance - the html/string 
+   */
+  function _mount (instance) {
+    var base = void 0;
+    var tempDiv = void 0;
+    var frag = document.createDocumentFragment();
+    // Before we begin to parse an instance, do a run-down checks
+    // to clean up back-tick string which usually has line spacing.
+    if (typeof instance === 'string') {
+      base = instance.trim().replace(/\s+/g, ' ');
+      tempDiv = document.createElement('div');
+      tempDiv.innerHTML = base;
+      while (tempDiv.firstChild) {
+        frag.appendChild(tempDiv.firstChild);
+      }
+      // If instance is a html element process as html entities
+    } else if ((typeof instance === 'undefined' ? 'undefined' : _typeof(instance)) === 'object' && instance['nodeType']) {
+      if (instance['nodeType'] === DOCUMENT_ELEMENT_TYPE$5) {
+        frag.appendChild(instance);
+      } else if (instance['nodeType'] === DOCUMENT_FRAGMENT_TYPE$1) {
+        frag = instance;
+      } else if (instance['nodeType'] === DOCUMENT_TEXT_TYPE) {
+        frag.appendChild(instance);
+      } else {
+        assert(false, 'Unable to parse instance, unknown type.');
+      }
+    } else {
+      assert(false, 'Parameter is not a string or a html element.');
+    }
+    // we store the pristine instance in __pristineFragment__
+    this.__pristineFragment__ = frag.cloneNode(true);
+    this.base = frag;
+
+    // cleanup states on mount
+    clearState();
+    return this;
+  }
+
+  /**
+   * Keetjs v4.0.0 Alpha release: https://github.com/keetjs/keet.js
+   * Minimali4.0.0ew layer for the web
+   *
+   * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Keetjs >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   *
+   * Copyright 2018, Shahrul Nizam Selamat
+   * Released under the MIT License.
+   */
+
+  window.l = console.log.bind(console);
+
+  /**
+   * @description
+   * The main constructor of Keet
+   *
+   * Basic Usage :-
+   *
+   *    const App extends Keet {}
+   *    const app = new App()
+   *    app.mount('hello world').link('app')
+   *
+   */
+
+  var Keet = function () {
+    function Keet() {
+      classCallCheck(this, Keet);
+
+      this.ID = Keet.indentity;
+    }
+
+    // generate ID for the component
+
+
+    Keet.prototype.mount = function mount(instance) {
+      return _mount.call(this, instance);
+    };
+
+    Keet.prototype.link = function link(id) {
+      // The target DOM where the rendering will took place.
+      if (!id) assert$1(id, 'No id is given as parameter.');
+      this.el = id;
+      this.render();
+      return this;
+    };
+
+    Keet.prototype.render = function render(stub) {
+      // life-cycle method before rendering the component
+      if (this.componentWillMount && typeof this.componentWillMount === 'function') {
+        this.componentWillMount();
+      }
+
+      // Render this component to the target DOM
+      if (stub) {
+        this.IS_STUB = true;
+      }
+      parseStr.call(this, stub);
+    };
+
+    Keet.prototype.callBatchPoolUpdate = function callBatchPoolUpdate() {
+      // force component to update, if any state / non-state
+      // value changed DOM diffing will occur
+      updateContext.call(this, morpher, 1);
+    };
+
+    Keet.prototype.subscribe = function subscribe(fn) {
+      this.exec = fn;
+    };
+
+    Keet.prototype.inform = function inform(model) {
+      this.exec && typeof this.exec === 'function' && this.exec(model);
+    };
+
+    createClass(Keet, null, [{
+      key: 'indentity',
+      get: function get$$1() {
+        return genId();
+      }
+    }]);
+    return Keet;
+  }();
+
+  var camelCase = function camelCase(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
+
+  var CreateFilterModel = function (_createModel) {
+    inherits(CreateFilterModel, _createModel);
+
+    function CreateFilterModel() {
+      classCallCheck(this, CreateFilterModel);
+      return possibleConstructorReturn(this, _createModel.apply(this, arguments));
+    }
+
+    CreateFilterModel.prototype.switch = function _switch(hash, obj) {
+      this.list = this.list.map(function (filter) {
+        return filter.hash === hash ? _extends({}, filter, obj) : _extends({}, filter, { selected: false });
+      });
+    };
+
+    return CreateFilterModel;
+  }(createModel);
+
+  var filterModel = new CreateFilterModel();
+
+  Array.from(['all', 'active', 'completed']).map(function (page) {
+    return filterModel.add({
+      hash: '#/' + page,
+      name: camelCase(page),
+      selected: false
+    });
+  });
+
+  var _templateObject = taggedTemplateLiteralLoose(['\n\t<ul id="filters" class="filters">\n\t\t<!-- {{model:filterModel}} -->\n\t\t<li id="{{name}}" k-click="updateUrl({{hash}})"><a class="{{selected?selected:\'\'}}" href="{{hash}}">{{name}}</a></li>\n\t\t<!-- {{/model:filterModel}} -->\n\t</ul>\n'], ['\n\t<ul id="filters" class="filters">\n\t\t<!-- {{model:filterModel}} -->\n\t\t<li id="{{name}}" k-click="updateUrl({{hash}})"><a class="{{selected?selected:\'\'}}" href="{{hash}}">{{name}}</a></li>\n\t\t<!-- {{/model:filterModel}} -->\n\t</ul>\n']);
+
+  var App = function (_Keet) {
+    inherits(App, _Keet);
+
+    function App() {
+      var _temp, _this, _ret;
+
+      classCallCheck(this, App);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = possibleConstructorReturn(this, _Keet.call.apply(_Keet, [this].concat(args))), _this), _this.el = 'filters', _this.filterModel = filterModel, _temp), possibleConstructorReturn(_this, _ret);
+    }
+
+    App.prototype.componentWillMount = function componentWillMount() {
+      var _this2 = this;
+
+      this.filterModel.subscribe(function (model) {
+        return _this2.callBatchPoolUpdate();
+      });
+      if (window.location.hash == '') {
+        window.history.pushState({}, null, '#/all');
+      }
+    };
+
+    App.prototype.componentDidMount = function componentDidMount() {
+      var _this3 = this;
+
+      this.updateUrl(window.location.hash);
+      window.onpopstate = function () {
+        return _this3.updateUrl(window.location.hash);
+      };
+    };
+
+    App.prototype.updateUrl = function updateUrl(hash) {
+      this.filterModel.switch(hash, { selected: true });
+    };
+
+    return App;
+  }(Keet);
+
+  var filterApp = new App();
+
+  var vmodel = html(_templateObject);
+
+  filterApp.mount(vmodel);
+
+  var CreateModel = function (_createModel) {
+    inherits(CreateModel, _createModel);
+
+    function CreateModel() {
+      classCallCheck(this, CreateModel);
+      return possibleConstructorReturn(this, _createModel.apply(this, arguments));
+    }
+
+    CreateModel.prototype.clearCompleted = function clearCompleted() {
+      this.list = this.list.filter(function (todo) {
+        return !todo.completed;
+      });
+    };
+
+    return CreateModel;
+  }(createModel);
+
+  var todoModel = new CreateModel();
+
+  var _templateObject$1 = taggedTemplateLiteralLoose(['\n  <ul id="todo-list" class="todo-list" k-click="evtTodo()">\n    <!-- {{model:todoModel}} -->\n      <li class="{{completed?completed:\'\'}}">\n        <div class="view">\n          <input class="toggle" type="checkbox" checked="{{completed?checked:\'\'}}">\n          <label>{{title}}</label>\n          <button class="destroy"></button>\n        </div>\n        <input class="edit" value="{{title}}">\n      </li>\n    <!-- {{/model:todoModel}} -->\n  </ul>\n'], ['\n  <ul id="todo-list" class="todo-list" k-click="evtTodo()">\n    <!-- {{model:todoModel}} -->\n      <li class="{{completed?completed:\'\'}}">\n        <div class="view">\n          <input class="toggle" type="checkbox" checked="{{completed?checked:\'\'}}">\n          <label>{{title}}</label>\n          <button class="destroy"></button>\n        </div>\n        <input class="edit" value="{{title}}">\n      </li>\n    <!-- {{/model:todoModel}} -->\n  </ul>\n']);
+  var x = void 0;
+
+  var App$1 = function (_Keet) {
+    inherits(App, _Keet);
+
+    function App() {
+      classCallCheck(this, App);
+
+      var _this = possibleConstructorReturn(this, _Keet.call(this));
+
+      _this.el = 'todo-list';
+      _this.todoModel = todoModel;
+
+      _this.todoModel.subscribe(function (model) {
+        _this.inform(model);
+      });
+      return _this;
+    }
+
+    App.prototype.addTodo = function addTodo(newTodo) {
+      this.todoModel.add(newTodo);
+    };
+
+    App.prototype.evtTodo = function evtTodo(obj, target) {
+      if (!x) {
+        x = true;
+        window.t = new Date();
+      }
+      // console.log(obj)
+      if (target.className === 'toggle') this.todoModel.update(_extends({}, obj, { completed: !obj.completed }));else if (target.className === 'destroy') this.todoModel.destroy(obj);
+    };
+    // toggleTodo(obj) {
+    //   console.log(obj)
+    //   this.todoModel.update({ ...obj,  completed: !obj.completed })
+    // }
+    // toggleTodo(id, completed) {
+    //   this.todoModel.update( 'id', { id, completed })
+    // }
+    // todoDestroy(obj) {
+    //   this.todoModel.destroy(obj)
+    // }
+
+
+    App.prototype.editMode = function editMode() {};
+
+    return App;
+  }(Keet);
+
+  var todoApp = new App$1();
+
+  var vmodel$1 = html(_templateObject$1);
+
+  todoApp.mount(vmodel$1);
+
+  var _templateObject$2 = taggedTemplateLiteralLoose(['\n  <section class="todoapp">\n    <header id="header">\n      <h1>todos</h1>\n      <input id="new-todo" class="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>\n    </header>\n    <!-- {{?todoState}} -->\n    <section class="main">\n      <input id="toggle-all" class="toggle-all" type="checkbox" checked="{{isChecked?checked:\'\'}}" k-click="completeAll()">\n      <label for="toggle-all">Mark all as complete</label>\n      <!-- {{component:todoApp}} -->\n    </section>\n    <footer class="footer">\n      <span class="todo-count">\n        <strong>{{count}}</strong> item{{plural}} left\n      </span>\n      <!-- {{component:filter}} -->\n      <!-- {{?clearToggle}} -->\n      <button id="clear-completed" class="clear-completed">Clear completed</button>\n      <!-- {{/clearToggle}} -->\n    </footer>\n    <!-- {{/todoState}} -->\n  </section>\n  <footer class="info">\n    <p>Double-click to edit a todo</p>\n    <p>Created by <a href="https://github.com/syarul">Shahrul Nizam Selamat</a></p>\n    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>\n  </footer>'], ['\n  <section class="todoapp">\n    <header id="header">\n      <h1>todos</h1>\n      <input id="new-todo" class="new-todo" k-keydown="create()" placeholder="What needs to be done?" autofocus>\n    </header>\n    <!-- {{?todoState}} -->\n    <section class="main">\n      <input id="toggle-all" class="toggle-all" type="checkbox" checked="{{isChecked?checked:\'\'}}" k-click="completeAll()">\n      <label for="toggle-all">Mark all as complete</label>\n      <!-- {{component:todoApp}} -->\n    </section>\n    <footer class="footer">\n      <span class="todo-count">\n        <strong>{{count}}</strong> item{{plural}} left\n      </span>\n      <!-- {{component:filter}} -->\n      <!-- {{?clearToggle}} -->\n      <button id="clear-completed" class="clear-completed">Clear completed</button>\n      <!-- {{/clearToggle}} -->\n    </footer>\n    <!-- {{/todoState}} -->\n  </section>\n  <footer class="info">\n    <p>Double-click to edit a todo</p>\n    <p>Created by <a href="https://github.com/syarul">Shahrul Nizam Selamat</a></p>\n    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>\n  </footer>']);
+
+  var App$2 = function (_Keet) {
+    inherits(App, _Keet);
+
+    function App() {
+      var _temp, _this, _ret;
+
+      classCallCheck(this, App);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = possibleConstructorReturn(this, _Keet.call.apply(_Keet, [this].concat(args))), _this), _this.todoApp = todoApp, _this.filter = filterApp, _this.isChecked = false, _this.count = 0, _this.plural = '', _this.clearToggle = false, _this.todoState = false, _temp), possibleConstructorReturn(_this, _ret);
+    }
+
+    App.prototype.componentWillMount = function componentWillMount() {
+      var _this2 = this;
+
+      todoApp.subscribe(function (todos) {
+        var uncompleted = todos.filter(function (c) {
+          return !c.completed;
+        });
+        var completed = todos.filter(function (c) {
+          return c.completed;
+        });
+        _this2.clearToggle = completed.length ? true : false;
+        _this2.todoState = todos.length ? true : false;
+        _this2.plural = uncompleted.length === 1 ? '' : 's';
+        _this2.count = uncompleted.length;
+        console.log(todos);
+      });
+    };
+
+    App.prototype.create = function create(evt) {
+      if (evt.keyCode !== 13) return;
+      evt.preventDefault();
+      var title = evt.target.value.trim();
+      if (title) {
+        this.todoApp.addTodo({ title: title, completed: false });
+        evt.target.value = '';
+      }
+    };
+
+    App.prototype.completeAll = function completeAll() {
+      this.isChecked = !this.isChecked;
+      // this.todoApp.updateAll(this.isChecked)
+    };
+
+    App.prototype.clearCompleted = function clearCompleted() {
+      this.todoApp.clearCompleted();
+    };
+
+    App.prototype.editMode = function editMode() {};
+
+    return App;
+  }(Keet);
+
+  var vmodel$2 = html(_templateObject$2);
+
+  var app = new App$2();
+
+  app.mount(vmodel$2).link('todo');
+
+}());
 //# sourceMappingURL=app.js.map
