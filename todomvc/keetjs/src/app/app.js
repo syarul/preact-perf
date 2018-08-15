@@ -11,7 +11,7 @@ class App extends Keet {
   count = 0
   plural = ''
   clearToggle = false
-  todoState = false
+  todoState = true
 
   componentWillMount() {
     todoApp.subscribe(todos => {
@@ -58,13 +58,13 @@ const vmodel = html`
     <section class="main">
       <input id="toggle-all" class="toggle-all" type="checkbox" checked="{{isChecked?checked:''}}" k-click="completeAll()">
       <label for="toggle-all">Mark all as complete</label>
-      <!-- {{component:todoApp}} -->
+      <!-- component:todoApp -->
     </section>
     <footer class="footer">
       <span class="todo-count">
         <strong>{{count}}</strong> item{{plural}} left
       </span>
-      <!-- {{component:filter}} -->
+      <!-- component:filter -->
       <!-- {{?clearToggle}} -->
       <button id="clear-completed" class="clear-completed">Clear completed</button>
       <!-- {{/clearToggle}} -->

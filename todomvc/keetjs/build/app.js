@@ -568,7 +568,6 @@
   var DOCUMENT_ELEMENT_TYPE$1 = 1;
   function conditionalNodes (node, conditional, tmplHandler) {
     var frag = document.createDocumentFragment();
-    var entryNode = void 0;
     var currentNode = void 0;
     var isGen = void 0;
     var cNode = void 0;
@@ -576,9 +575,8 @@
       currentNode = node;
       node = node.nextSibling;
       if (currentNode.nodeType !== DOCUMENT_ELEMENT_TYPE$1) {
-        if (currentNode.nodeValue.match(conditionalNodesRawStart)) {
-          entryNode = currentNode;
-        } else if (currentNode.nodeValue.match(conditionalNodesRawEnd)) {
+        if (currentNode.nodeValue.match(conditionalNodesRawStart)) ; else if (currentNode.nodeValue.match(conditionalNodesRawEnd)) {
+          l(1, 2, currentNode);
           // currentNode.remove()
           // star generating the conditional nodes range, if not yet
           if (!isGen) {
@@ -586,7 +584,7 @@
             tmplHandler(this, null, null, null, frag);
           }
           if (this[conditional]) {
-            entryNode.parentNode.insertBefore(frag, entryNode);
+            currentNode.parentNode.insertBefore(frag, currentNode);
           }
           // entryNode.remove()
           node = null;
@@ -962,7 +960,10 @@
       // Handle regular element node updates.
       if (oldNode.nodeType === ELEMENT_TYPE) {
         // Checks if nodes are equal before diffing.
-        if (isEqualNode(oldNode, newNode)) return;
+        if (isEqualNode(oldNode, newNode)) {
+          // console.trace(oldNode)
+          return;
+        }
 
         // Update all children (and subchildren).
         setChildNodes(oldNode, newNode);
@@ -1129,6 +1130,7 @@
    * @param {Node} b - Another node to compare.
    */
   function isEqualNode(a, b) {
+    // console.log(a, b, isIgnored(a), isIgnored(b))
     return (
       // Check if both nodes are ignored.
       isIgnored(a) && isIgnored(b) ||
@@ -1663,7 +1665,7 @@
         _this2.todoState = todos.length ? true : false;
         _this2.plural = uncompleted.length === 1 ? '' : 's';
         _this2.count = uncompleted.length;
-        console.log(todos);
+        // console.log(todos)
       });
     };
 
