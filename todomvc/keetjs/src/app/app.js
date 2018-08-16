@@ -21,6 +21,7 @@ class App extends Keet {
       this.todoState = todos.length ? true : false
       this.plural = uncompleted.length === 1 ? '' : 's'
       this.count = uncompleted.length
+      // l(this.count)
     })
   }
 
@@ -39,8 +40,10 @@ class App extends Keet {
     // this.todoApp.updateAll(this.isChecked)
   }
 
-  clearCompleted() {
-    this.todoApp.clearCompleted()
+  clearCompleted(evt) {
+    evt.preventDefault()
+    l(1)
+    // this.todoApp.clearCompleted()
   }
   editMode(){
 
@@ -65,7 +68,7 @@ const vmodel = html`
       </span>
       <!-- {{component:filter}} -->
       <!-- {{?clearToggle}} -->
-      <button id="clear-completed" class="clear-completed">Clear completed</button>
+      <button id="clear-completed"  class="clear-completed">Clear completed</button>
       <!-- {{/clearToggle}} -->
     </footer>
     <!-- {{/todoState}} -->

@@ -2,7 +2,6 @@ import Keet from '../../keet'
 import { html } from '../../keet/utils'
 import filterModel from './filter-model'
 
-
 class App extends Keet {
   el = 'filters'
   filterModel = filterModel
