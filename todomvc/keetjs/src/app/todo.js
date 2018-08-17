@@ -15,35 +15,17 @@ class App extends Keet {
     this.todoModel.add(newTodo)
   }
   evtTodo(obj, target){
-    if(!x){
-      x = true
-      window.t = new Date()
-    }
-    // console.log(obj)
     if(target.className === 'toggle')
       this.todoModel.update({ ...obj,  completed: !obj.completed })
     else if(target.className === 'destroy')  
       this.todoModel.destroy(obj)
   }
-  // toggleTodo(obj) {
-  //   console.log(obj)
-  //   this.todoModel.update({ ...obj,  completed: !obj.completed })
-  // }
-  // toggleTodo(id, completed) {
-  //   this.todoModel.update( 'id', { id, completed })
-  // }
-  // todoDestroy(obj) {
-  //   this.todoModel.destroy(obj)
-  // }
   editMode(){
     
   }
-  clearCompleted(){
-    console.log('do!!!!!!!')
-  }
 }
 
-const todoApp = new App()
+const todoList = new App()
 
 let vmodel = html`
   <ul id="todo-list" class="todo-list" k-click="evtTodo()">
@@ -60,6 +42,6 @@ let vmodel = html`
   </ul>
 `
 
-todoApp.mount(vmodel)
+todoList.mount(vmodel)
 
-export default todoApp
+export default todoList

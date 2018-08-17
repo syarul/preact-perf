@@ -2,10 +2,12 @@ import Keet from '../../keet'
 import { html } from '../../keet/utils'
 import { genId } from './util'
 import filterApp  from './filter'
-import todoApp from './todo'
+import todoList from './todo'
+
+const ENTER_KEY = 13
 
 class App extends Keet {
-  todoApp = todoApp
+  todoList = todoList
   filter = filterApp
   isChecked = false
   count = 0
@@ -14,36 +16,34 @@ class App extends Keet {
   todoState = false
 
   componentWillMount() {
-    todoApp.subscribe(todos => {
+    todoList.subscribe(todos => {
       let uncompleted = todos.filter(c => !c.completed)
       let completed = todos.filter(c => c.completed)
       this.clearToggle = completed.length ? true : false
       this.todoState = todos.length ? true : false
       this.plural = uncompleted.length === 1 ? '' : 's'
       this.count = uncompleted.length
+      this.isChecked = !uncompleted.length ? true : false
+      // l(this)
     })
   }
 
   create (e) {
-    if(e.keyCode !== 13) return
+    if(e.keyCode !== ENTER_KEY) return
     let title = e.target.value.trim()
     if(title){
-      this.todoApp.addTodo({ title, completed: false })
+      this.todoList.addTodo({ title, completed: false })
       e.target.value = ''
     }
   }
 
   completeAll(){
     this.isChecked = !this.isChecked
-    l(this)
-    // this.todoApp.updateAll(this.isChecked)
+    this.todoList.todoModel.updateAll(this.isChecked)
   }
 
-  clearCompleted(e) {
-    this.todoApp.todoModel.clearCompleted()
-  }
-  editMode(){
-
+  clearCompleted() {
+    this.todoList.todoModel.clearCompleted()
   }
 }
 
@@ -57,7 +57,7 @@ const vmodel = html`
     <section class="main">
       <input id="toggle-all" class="toggle-all" type="checkbox" checked="{{isChecked?checked:''}}" k-click="completeAll()">
       <label for="toggle-all">Mark all as complete</label>
-      <!-- {{component:todoApp}} -->
+      <!-- {{component:todoList}} -->
     </section>
     <footer class="footer">
       <span class="todo-count">
