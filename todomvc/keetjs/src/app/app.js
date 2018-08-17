@@ -21,17 +21,16 @@ class App extends Keet {
       this.todoState = todos.length ? true : false
       this.plural = uncompleted.length === 1 ? '' : 's'
       this.count = uncompleted.length
-      // l(this.count)
+      l(todos)
     })
   }
 
-  create (evt) {
-    if(evt.keyCode !== 13) return
-    evt.preventDefault()
-    let title = evt.target.value.trim()
+  create (e) {
+    if(e.keyCode !== 13) return
+    let title = e.target.value.trim()
     if(title){
       this.todoApp.addTodo({ title, completed: false })
-      evt.target.value = ''
+      e.target.value = ''
     }
   }
 
@@ -40,8 +39,7 @@ class App extends Keet {
     // this.todoApp.updateAll(this.isChecked)
   }
 
-  clearCompleted(evt) {
-    evt.preventDefault()
+  clearCompleted(e) {
     l(1)
     // this.todoApp.clearCompleted()
   }
@@ -68,7 +66,7 @@ const vmodel = html`
       </span>
       <!-- {{component:filter}} -->
       <!-- {{?clearToggle}} -->
-      <button id="clear-completed"  class="clear-completed">Clear completed</button>
+      <button id="clear-completed" k-click="clearCompleted()" class="clear-completed">Clear completed</button>
       <!-- {{/clearToggle}} -->
     </footer>
     <!-- {{/todoState}} -->

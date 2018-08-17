@@ -38,9 +38,9 @@ class App extends Keet {
   editMode(){
     
   }
-  clearCompleted(){
-    console.log('do!!!!!!!')
-  }
+  // clearCompleted(){
+  //   console.log('do!!!!!!!')
+  // }
 }
 
 const todoApp = new App()
