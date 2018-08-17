@@ -21,7 +21,6 @@ class App extends Keet {
       this.todoState = todos.length ? true : false
       this.plural = uncompleted.length === 1 ? '' : 's'
       this.count = uncompleted.length
-      l(todos)
     })
   }
 
@@ -36,12 +35,12 @@ class App extends Keet {
 
   completeAll(){
     this.isChecked = !this.isChecked
+    l(this)
     // this.todoApp.updateAll(this.isChecked)
   }
 
   clearCompleted(e) {
-    l(1)
-    // this.todoApp.clearCompleted()
+    this.todoApp.todoModel.clearCompleted()
   }
   editMode(){
 
