@@ -205,7 +205,7 @@ var React = {
 
 var Keet = {
     name: 'Keet',
-    url: 'todomvc/keetjs/index.html',
+    url: 'todomvc/keetjs/build/index.html',
     version: '4.0.0',
     prepare: function (runner, contentWindow, contentDocument) {
         return runner.waitForElement('.new-todo').then(function (element) {
