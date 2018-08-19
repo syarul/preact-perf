@@ -1,33 +1,41 @@
-import Keet from '../../keet'
-import { html } from '../../keet/utils'
+import Keet, { html } from '../../keet'
 import todoModel from './todo-model'
-let x
+
 class App extends Keet {
   el = 'todo-list'
   todoModel = todoModel
-  constructor() {
+  constructor () {
     super()
-    this.todoModel.subscribe(model => {
+    this.todoModel.subscribe((model, filterModel) =>
       this.inform(model)
-    })
+    )
   }
-  addTodo(newTodo){
+  addTodo (newTodo) {
     this.todoModel.add(newTodo)
   }
-  evtTodo(obj, target){
-    if(target.className === 'toggle')
-      this.todoModel.update({ ...obj,  completed: !obj.completed })
-    else if(target.className === 'destroy')  
-      this.todoModel.destroy(obj)
+  evtTodo (obj, target) {
+    if (target.className === 'toggle') { 
+      this.todoModel.update({ ...obj, completed: !obj.completed }) 
+    } else if (target.className === 'destroy') { 
+      this.todoModel.destroy(obj) 
+    }
   }
-  editMode(){
-    
+  filterTodo (page) {
+    if (page === '#/all') {
+      this.todoModel.filter(null)
+    } else if (page === '#/active') {
+      this.todoModel.filter('completed', false)
+    } else if (page === '#/completed') {
+      this.todoModel.filter('completed', true)
+    }
+  }
+  editMode () {
   }
 }
 
 const todoList = new App()
 
-let vmodel = html`
+todoList.mount(html`
   <ul id="todo-list" class="todo-list" k-click="evtTodo()">
     <!-- {{model:todoModel}} -->
       <li class="{{completed?completed:''}}">
@@ -39,9 +47,6 @@ let vmodel = html`
         <input class="edit" value="{{title}}">
       </li>
     <!-- {{/model:todoModel}} -->
-  </ul>
-`
-
-todoList.mount(vmodel)
+  </ul>`)
 
 export default todoList

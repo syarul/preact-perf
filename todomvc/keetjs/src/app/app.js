@@ -1,10 +1,9 @@
-import Keet from '../../keet'
-import { html } from '../../keet/utils'
-import { genId } from './util'
-import filterApp  from './filter'
+import Keet, { html } from '../../keet'
+import filterApp from './filter'
 import todoList from './todo'
 
 const ENTER_KEY = 13
+// const ESC_KEY
 
 class App extends Keet {
   todoList = todoList
@@ -15,39 +14,40 @@ class App extends Keet {
   clearToggle = false
   todoState = false
 
-  componentWillMount() {
+  componentWillMount () {
     todoList.subscribe(todos => {
       let uncompleted = todos.filter(c => !c.completed)
       let completed = todos.filter(c => c.completed)
-      this.clearToggle = completed.length ? true : false
-      this.todoState = todos.length ? true : false
+      this.clearToggle = !!completed.length
+      this.todoState = !!todos.length
       this.plural = uncompleted.length === 1 ? '' : 's'
       this.count = uncompleted.length
-      this.isChecked = !uncompleted.length ? true : false
-      // l(this)
+      this.isChecked = !uncompleted.length
     })
   }
 
   create (e) {
-    if(e.keyCode !== ENTER_KEY) return
+    if (e.keyCode !== ENTER_KEY) return
     let title = e.target.value.trim()
-    if(title){
+    if (title) {
       this.todoList.addTodo({ title, completed: false })
       e.target.value = ''
     }
   }
 
-  completeAll(){
+  completeAll () {
     this.isChecked = !this.isChecked
     this.todoList.todoModel.updateAll(this.isChecked)
   }
 
-  clearCompleted() {
+  clearCompleted () {
     this.todoList.todoModel.clearCompleted()
   }
 }
 
-const vmodel = html`
+const app = new App()
+
+app.mount(html`
   <section class="todoapp">
     <header id="header">
       <h1>todos</h1>
@@ -74,10 +74,4 @@ const vmodel = html`
     <p>Double-click to edit a todo</p>
     <p>Created by <a href="https://github.com/syarul">Shahrul Nizam Selamat</a></p>
     <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-  </footer>`
-
-const app = new App()
-
-app.mount(vmodel).link('todo')
-
-// console.log(app)
+  </footer>`).link('todo')

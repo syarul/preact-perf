@@ -1,15 +1,13 @@
-const store = function(namespace, data) {
+const store = (namespace, data) => {
   if (arguments.length > 1) {
-    return localStorage.setItem(namespace, JSON.stringify(data))
+    return window.localStorage.setItem(namespace, JSON.stringify(data))
   } else {
-    var store = localStorage.getItem(namespace)
-    return store && JSON.parse(store) || []
+    let store = window.localStorage.getItem(namespace)
+    return store ? JSON.parse(store) : []
   }
 }
 
-const camelCase = function(s) {
-  return s.charAt(0).toUpperCase() + s.slice(1)
-}
+const camelCase = s => s.charAt(0).toUpperCase() + s.slice(1)
 
 export {
   store,

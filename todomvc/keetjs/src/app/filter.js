@@ -1,35 +1,33 @@
-import Keet from '../../keet'
-import { html } from '../../keet/utils'
+import Keet, { html } from '../../keet'
 import filterModel from './filter-model'
+import todoList from './todo'
 
 class App extends Keet {
   el = 'filters'
   filterModel = filterModel
-  componentWillMount() {
+  componentWillMount () {
     this.filterModel.subscribe(model => this.callBatchPoolUpdate())
-    if(window.location.hash == '') {
+    if (window.location.hash === '') {
       window.history.pushState({}, null, '#/all')
     }
   }
-  componentDidMount(){
+  componentDidMount () {
     this.updateUrl(window.location.hash)
     window.onpopstate = () => this.updateUrl(window.location.hash)
   }
-  updateUrl(hash) {
+  updateUrl (hash) {
     this.filterModel.switch(hash, { selected: true })
+    todoList.filterTodo(hash)
   }
 }
 
 const filterApp = new App()
 
-let vmodel = html`
-	<ul id="filters" class="filters">
-		<!-- {{model:filterModel}} -->
-		<li id="{{name}}" k-click="updateUrl({{hash}})"><a class="{{selected?selected:''}}" href="{{hash}}">{{name}}</a></li>
-		<!-- {{/model:filterModel}} -->
-	</ul>
-`
-
-filterApp.mount(vmodel)
+filterApp.mount(html`
+  <ul id="filters" class="filters">
+    <!-- {{model:filterModel}} -->
+    <li id="{{name}}" k-click="updateUrl({{hash}})"><a class="{{selected?selected:''}}" href="{{hash}}">{{name}}</a></li>
+    <!-- {{/model:filterModel}} -->
+  </ul>`)
 
 export default filterApp
