@@ -3,7 +3,6 @@ import filterApp from './filter'
 import todoList from './todo'
 
 const ENTER_KEY = 13
-// const ESC_KEY
 
 class App extends Keet {
   todoList = todoList
