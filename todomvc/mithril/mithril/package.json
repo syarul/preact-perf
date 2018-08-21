@@ -1,0 +1,80 @@
+{
+  "_args": [
+    [
+      "mithril@0.2.8",
+      "D:\\distro\\preact-perf\\todomvc\\mithril"
+    ]
+  ],
+  "_from": "mithril@0.2.8",
+  "_id": "mithril@0.2.8",
+  "_inBundle": false,
+  "_integrity": "sha512-9XuGnVmS2OyFexUuP/CcJFFJjHLM+RGYBxyVRNyQ6khbMfDJIF/xyZ4zq18ZRfPagpFmWUFpjHd5ZqPULGZyNg==",
+  "_location": "/mithril",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "mithril@0.2.8",
+    "name": "mithril",
+    "escapedName": "mithril",
+    "rawSpec": "0.2.8",
+    "saveSpec": null,
+    "fetchSpec": "0.2.8"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/mithril/-/mithril-0.2.8.tgz",
+  "_spec": "0.2.8",
+  "_where": "D:\\distro\\preact-perf\\todomvc\\mithril",
+  "author": {
+    "name": "Leo Horie"
+  },
+  "bugs": {
+    "url": "https://github.com/MithrilJS/mithril.js/issues?q=is%3Aopen+is%3Aissue+label%3A0.2.x"
+  },
+  "description": "Mithril.js - A Javascript Framework for Building Brilliant Applications",
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "eslint": "^1.7.3",
+    "grunt": "*",
+    "grunt-cli": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-connect": "^0.11.2",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-eslint": "^17.3.1",
+    "grunt-md2html": "*",
+    "grunt-mocha-phantomjs": "^2.0.0",
+    "grunt-replace": "*",
+    "grunt-saucelabs": "*",
+    "grunt-saucelabs-browsers": "^0.2.0",
+    "grunt-zip": "*",
+    "mocha": "^2.3.3",
+    "request": "^2.67.0",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
+  },
+  "files": [
+    "mithril.min.js",
+    "mithril.min.js.map",
+    "mithril.js",
+    "mithril.d.js",
+    "index.d.js"
+  ],
+  "homepage": "https://mithril.js.org",
+  "license": "MIT",
+  "main": "mithril.js",
+  "name": "mithril",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MithrilJS/mithril.js.git#v0_2_x"
+  },
+  "scripts": {
+    "build": "grunt build",
+    "lint": "grunt lint",
+    "sauce": "grunt sauce",
+    "test": "grunt test"
+  },
+  "version": "0.2.8"
+}

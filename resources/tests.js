@@ -1,4 +1,4 @@
-var numberOfItemsToAdd = 100;
+var numberOfItemsToAdd = 400;
 var Suites = [];
 
 var Riotjs = {
@@ -205,7 +205,7 @@ var React = {
 
 var Keet = {
     name: 'Keet',
-    url: 'todomvc/keetjs/build/index.html',
+    url: 'todomvc/keetjs-todomvc/build/index.html',
     version: '4.0.0',
     prepare: function (runner, contentWindow, contentDocument) {
         return runner.waitForElement('.new-todo').then(function (element) {
