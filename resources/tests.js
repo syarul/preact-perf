@@ -1,4 +1,4 @@
-var numberOfItemsToAdd = 400;
+var numberOfItemsToAdd = 100;
 var Suites = [];
 
 var Riotjs = {
