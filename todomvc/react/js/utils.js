@@ -27,11 +27,11 @@ var app = app || {};
 
 		store: function (namespace, data) {
 			if (data) {
-				return localStorage.setItem(namespace, JSON.stringify(data));
+				// return localStorage.setItem(namespace, JSON.stringify(data));
 			}
 
-			var store = localStorage.getItem(namespace);
-			return (store && JSON.parse(store)) || [];
+			//var store = localStorage.getItem(namespace);
+			return [] //(store && JSON.parse(store)) || [];
 		},
 
 		extend: function () {

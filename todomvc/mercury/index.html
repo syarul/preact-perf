@@ -26,8 +26,8 @@ mercury.app(document.body, state, Render)
 
 function createApp() {
     // load from localStorage
-    var storedState = localStorage.getItem("todos-mercury")
-    var initialState = storedState ? JSON.parse(storedState) : null
+    // var storedState = localStorage.getItem("todos-mercury")
+    var initialState = /*storedState ? JSON.parse(storedState) : */null
 
     var events = Input()
     var state = window.state = State.todoApp(events, initialState)
@@ -35,7 +35,7 @@ function createApp() {
     wireUpEvents(state, events)
 
     rafListen(state, function (value) {
-        localStorage.setItem("todos-mercury", JSON.stringify(value))
+        // localStorage.setItem("todos-mercury", JSON.stringify(value))
     })
 
     return state

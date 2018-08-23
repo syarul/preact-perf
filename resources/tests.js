@@ -1,4 +1,4 @@
-var numberOfItemsToAdd = 100;
+var numberOfItemsToAdd = 1000;
 var Suites = [];
 
 var Riotjs = {
@@ -669,15 +669,15 @@ var framework = [
     // Riotjs,
     // Backbone,
     // Ember,
-    // Angular,
-    // React,
+    Angular,
+    React,
     Keet,
     // Om,
-    Mercury,
+    // Mercury,
     // Elm,
-    Vue,
-    Mithril,
-    Preact,
+    // Vue,
+    // Mithril,
+    // Preact,
     // Knockout,
     // Ractive,
     // choo,
