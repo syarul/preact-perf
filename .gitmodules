@@ -1,0 +1,3 @@
+[submodule "todomvc/keetjs-todomvc"]
+	path = todomvc/keetjs-todomvc
+	url = https://github.com/syarul/keetjs-todomvc
