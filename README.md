@@ -1,10 +1,10 @@
 # TodoMVC Performance Benchmark
 
-<img src="img/2018-02-06.png" width="583">
+<img src="img/2018-24-08.jpg" width="400">
 
-_(Results for Chrome v64 on Window 7 Custom PC)_
+_( Results from Chrome v64 on Window 7 - AMD FX6100 - Radeon HD 7900 - )_
 
-> No write to localStorage, preact, mithril as well
+> 1000 Todos, all test without write to localStorage. Result varied across multiple test
 
 # Try
 https://developit.github.io/preact-perf
