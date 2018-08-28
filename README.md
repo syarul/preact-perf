@@ -6,9 +6,6 @@ _( Results from Chrome v64 on Window 7 - AMD FX6100 - Radeon HD 7900 - )_
 
 > 1000 Todos, all test without write to localStorage. Result varied across multiple test
 
-# Try
-https://developit.github.io/preact-perf
-
 # Setup
 ```
 npm run install
