@@ -1,4 +1,4 @@
-var numberOfItemsToAdd = 1000;
+var numberOfItemsToAdd = 100;
 var Suites = [];
 
 var Riotjs = {
@@ -204,9 +204,9 @@ var React = {
 }
 
 var Keet = {
-    name: 'Keet',
+    name: 'Keet-v4.2',
     url: 'todomvc/keetjs-todomvc/build/index.html',
-    version: '4.0.0',
+    version: '4.2.1',
     prepare: function (runner, contentWindow, contentDocument) {
         return runner.waitForElement('.new-todo').then(function (element) {
             element.focus();
@@ -242,6 +242,47 @@ var Keet = {
         })
     ]
 }
+
+var Keet_old = {
+    name: 'Keet-v4.1',
+    url: 'todomvc/keetjs-todomvc_old/build/index.html',
+    version: '4.1.1',
+    prepare: function (runner, contentWindow, contentDocument) {
+        return runner.waitForElement('.new-todo').then(function (element) {
+            element.focus();
+            return element;
+        });
+    },
+    tests: [
+        new BenchmarkTestStep('Adding' + numberOfItemsToAdd + 'Items', function (newTodo, contentWindow, contentDocument) {
+            for (var i = 0; i < numberOfItemsToAdd; i++) {
+                var inputEvent = document.createEvent('Event');
+                inputEvent.initEvent('input', true, true);
+                newTodo.value = 'Something to do ' + i;
+                newTodo.dispatchEvent(inputEvent);
+
+                var keydownEvent = document.createEvent('Event');
+                keydownEvent.initEvent('keydown', true, true);
+                keydownEvent.keyCode = 13; // VK_ENTER
+                newTodo.dispatchEvent(keydownEvent);
+            }
+        }),
+        new BenchmarkTestStep('CompletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var checkboxes = contentDocument.querySelectorAll('.toggle');
+            // setTimeout(() => {
+
+            for (var i = 0; i < checkboxes.length; i++)
+                checkboxes[i].click();
+            // }, 100)
+        }),
+        new BenchmarkTestStep('DeletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var deleteButtons = contentDocument.querySelectorAll('.destroy');
+            for (var i = 0; i < deleteButtons.length; i++)
+                deleteButtons[i].click();
+        })
+    ]
+}
+
 
 var Om = {
     name: 'Om 0.5',
@@ -671,6 +712,7 @@ var framework = [
     // Ember,
     // Angular,
     // React,
+    Keet_old,
     Keet,
     // Om,
     Mercury,

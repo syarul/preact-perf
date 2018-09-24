@@ -1,2 +1,1649 @@
-!function(){"use strict";function e(e,t,n){this.nodeName=e,this.attributes=t,this.children=n,this.key=t&&t.key}function t(t,n){var o=void 0,r=void 0,i=void 0,l=void 0,a=void 0;for(a=arguments.length;a-- >2;)W.push(arguments[a]);for(n&&n.children&&(W.length||W.push(n.children),delete n.children);W.length;)if((i=W.pop())instanceof Array)for(a=i.length;a--;)W.push(i[a]);else null!=i&&!0!==i&&!1!==i&&("number"==typeof i&&(i+=""),l="string"==typeof i,l&&r?o[o.length-1]+=i:((o||(o=[])).push(i),r=l));var s=new e(t,n||void 0,o||R);return L.vnode&&L.vnode(s),s}function n(e,t){if(t)for(var n in t)e[n]=t[n];return e}function o(e){return n({},e)}function r(e,t){for(var n=t.split("."),o=0;o<n.length&&e;o++)e=e[n[o]];return e}function i(e){return"function"==typeof e}function l(e){return"string"==typeof e}function a(e){var t="";for(var n in e)e[n]&&(t&&(t+=" "),t+=n);return t}function s(e,t,n){var o=t.split(".");return function(t){for(var i=t&&t.target||this,a={},s=a,c=l(n)?r(t,n):i.nodeName?i.type.match(/^che|rad/)?i.checked:i.value:t,u=0;u<o.length-1;u++)s=s[o[u]]||(s[o[u]]=!u&&e.state[o[u]]||{});s[o[u]]=c,e.setState(a)}}function c(e){!e._dirty&&(e._dirty=!0)&&1==Z.push(e)&&(L.debounceRendering||I)(u)}function u(){var e=void 0,t=Z;for(Z=[];e=t.pop();)e._dirty&&A(e)}function d(e){var t=e&&e.nodeName;return t&&i(t)&&!(t.prototype&&t.prototype.render)}function f(e,t){return e.nodeName(m(e),t||J)}function p(e,t){return l(t)?e instanceof Text:l(t.nodeName)?!e._componentConstructor&&h(e,t.nodeName):i(t.nodeName)?!e._componentConstructor||e._componentConstructor===t.nodeName||d(t):void 0}function h(e,t){return e.normalizedNodeName===t||K(e.nodeName)===K(t)}function m(e){var t=o(e.attributes);t.children=e.children;var n=e.nodeName.defaultProps;if(n)for(var r in n)void 0===t[r]&&(t[r]=n[r]);return t}function v(e){var t=e.parentNode;t&&t.removeChild(e)}function y(e,t,n,o,r){if("className"===t&&(t="class"),"class"===t&&o&&"object"===(void 0===o?"undefined":$(o))&&(o=a(o)),"key"===t);else if("class"!==t||r)if("style"===t){if((!o||l(o)||l(n))&&(e.style.cssText=o||""),o&&"object"===(void 0===o?"undefined":$(o))){if(!l(n))for(var s in n)s in o||(e.style[s]="");for(var c in o)e.style[c]="number"!=typeof o[c]||X[c]?o[c]:o[c]+"px"}}else if("dangerouslySetInnerHTML"===t)o&&(e.innerHTML=o.__html||"");else if("o"==t[0]&&"n"==t[1]){var u=e._listeners||(e._listeners={});t=K(t.substring(2)),o?u[t]||e.addEventListener(t,b,!!Y[t]):u[t]&&e.removeEventListener(t,b,!!Y[t]),u[t]=o}else if("list"!==t&&"type"!==t&&!r&&t in e)g(e,t,null==o?"":o),null!=o&&!1!==o||e.removeAttribute(t);else{var d=r&&t.match(/^xlink\:?(.+)/);null==o||!1===o?d?e.removeAttributeNS("http://www.w3.org/1999/xlink",K(d[1])):e.removeAttribute(t):"object"===(void 0===o?"undefined":$(o))||i(o)||(d?e.setAttributeNS("http://www.w3.org/1999/xlink",K(d[1]),o):e.setAttribute(t,o))}else e.className=o||""}function g(e,t,n){try{e[t]=n}catch(e){}}function b(e){return this._listeners[e.type](L.event&&L.event(e)||e)}function _(e){if(v(e),e instanceof Element){e._component=e._componentConstructor=null;var t=e.normalizedNodeName||K(e.nodeName);(re[t]||(re[t]=[])).push(e)}}function C(e,t){var n=K(e),o=re[n]&&re[n].pop()||(t?document.createElementNS("http://www.w3.org/2000/svg",e):document.createElement(e));return o.normalizedNodeName=n,o}function w(){for(var e=void 0;e=ie.pop();)L.afterMount&&L.afterMount(e),e.componentDidMount&&e.componentDidMount()}function x(e,t,n,o,r,i){le++||(ae=r&&void 0!==r.ownerSVGElement,se=e&&!(Q in e));var l=S(e,t,n,o);return r&&l.parentNode!==r&&r.appendChild(l),--le||(se=!1,i||w()),l}function S(e,t,n,o){for(var r=t&&t.attributes&&t.attributes.ref;d(t);)t=f(t,n);if(null==t&&(t=""),l(t))return e&&e instanceof Text&&e.parentNode?e.nodeValue!=t&&(e.nodeValue=t):(e&&k(e),e=document.createTextNode(t)),e;if(i(t.nodeName))return O(e,t,n,o);var a=e,s=t.nodeName+"",c=ae,u=t.children;if(ae="svg"===s||"foreignObject"!==s&&ae,e){if(!h(e,s)){for(a=C(s,ae);e.firstChild;)a.appendChild(e.firstChild);e.parentNode&&e.parentNode.replaceChild(a,e),k(e)}}else a=C(s,ae);var p=a.firstChild,m=a[Q];if(!m){a[Q]=m={};for(var v=a.attributes,y=v.length;y--;)m[v[y].name]=v[y].value}return!se&&u&&1===u.length&&"string"==typeof u[0]&&p&&p instanceof Text&&!p.nextSibling?p.nodeValue!=u[0]&&(p.nodeValue=u[0]):(u&&u.length||p)&&N(a,u,n,o,!!m.dangerouslySetInnerHTML),T(a,t.attributes,m),r&&(m.ref=r)(a),ae=c,a}function N(e,t,n,o,r){var i=e.childNodes,l=[],a={},s=0,c=0,u=i.length,d=0,f=t&&t.length,h=void 0,m=void 0,y=void 0,g=void 0;if(u)for(var b=0;b<u;b++){var _=i[b],C=_[Q],w=f?(m=_._component)?m.__key:C?C.key:null:null;null!=w?(s++,a[w]=_):(se||r||C||_ instanceof Text)&&(l[d++]=_)}if(f)for(var x=0;x<f;x++){y=t[x],g=null;var N=y.key;if(null!=N)s&&N in a&&(g=a[N],a[N]=void 0,s--);else if(!g&&c<d)for(h=c;h<d;h++)if((m=l[h])&&p(m,y)){g=m,l[h]=void 0,h===d-1&&d--,h===c&&c++;break}g=S(g,y,n,o),g&&g!==e&&(x>=u?e.appendChild(g):g!==i[x]&&(g===i[x+1]&&v(i[x]),e.insertBefore(g,i[x]||null)))}if(s)for(var T in a)a[T]&&k(a[T]);for(;c<=d;)(g=l[d--])&&k(g)}function k(e,t){var n=e._component;if(n)P(n,!t);else{e[Q]&&e[Q].ref&&e[Q].ref(null),t||_(e);for(var o=void 0;o=e.lastChild;)k(o,t)}}function T(e,t,n){var o=void 0;for(o in n)t&&o in t||null==n[o]||y(e,o,n[o],n[o]=void 0,ae);if(t)for(o in t)"children"===o||"innerHTML"===o||o in n&&t[o]===("value"===o||"checked"===o?e[o]:n[o])||y(e,o,n[o],n[o]=t[o],ae)}function D(e){var t=e.constructor.name,n=ce[t];n?n.push(e):ce[t]=[e]}function U(e,t,n){var o=new e(t,n),r=ce[e.name];if(B.call(o,t,n),r)for(var i=r.length;i--;)if(r[i].constructor===e){o.nextBase=r[i].nextBase,r.splice(i,1);break}return o}function E(e,t,n,o,r){e._disable||(e._disable=!0,(e.__ref=t.ref)&&delete t.ref,(e.__key=t.key)&&delete t.key,!e.base||r?e.componentWillMount&&e.componentWillMount():e.componentWillReceiveProps&&e.componentWillReceiveProps(t,o),o&&o!==e.context&&(e.prevContext||(e.prevContext=e.context),e.context=o),e.prevProps||(e.prevProps=e.props),e.props=t,e._disable=!1,n!==V&&(n!==F&&!1===L.syncComponentUpdates&&e.base?c(e):A(e,F,r)),e.__ref&&e.__ref(e))}function A(e,t,r,l){if(!e._disable){var a=void 0,s=void 0,c=e.props,u=e.state,p=e.context,h=e.prevProps||c,v=e.prevState||u,y=e.prevContext||p,g=e.base,b=e.nextBase,_=g||b,C=e._component,S=void 0,N=void 0;if(g&&(e.props=h,e.state=v,e.context=y,t!==G&&e.shouldComponentUpdate&&!1===e.shouldComponentUpdate(c,u,p)?a=!0:e.componentWillUpdate&&e.componentWillUpdate(c,u,p),e.props=c,e.state=u,e.context=p),e.prevProps=e.prevState=e.prevContext=e.nextBase=null,e._dirty=!1,!a){for(e.render&&(s=e.render(c,u,p)),e.getChildContext&&(p=n(o(p),e.getChildContext()));d(s);)s=f(s,p);var T=s&&s.nodeName,D=void 0,O=void 0;if(i(T)){var B=m(s);S=C,S&&S.constructor===T&&B.key==S.__key?E(S,B,F,p):(D=S,S=U(T,B,p),S.nextBase=S.nextBase||b,S._parentComponent=e,e._component=S,E(S,B,V,p),A(S,F,r,!0)),O=S.base}else N=_,D=C,D&&(N=e._component=null),(_||t===F)&&(N&&(N._component=null),O=x(N,s,p,r||!g,_&&_.parentNode,!0));if(_&&O!==_&&S!==C){var M=_.parentNode;M&&O!==M&&(M.replaceChild(O,_),D||(_._component=null,k(_)))}if(D&&P(D,O!==_),e.base=O,O&&!l){for(var j=e,W=e;W=W._parentComponent;)(j=W).base=O;O._component=j,O._componentConstructor=j.constructor}}!g||r?ie.unshift(e):a||(e.componentDidUpdate&&e.componentDidUpdate(h,v,y),L.afterUpdate&&L.afterUpdate(e));var R=e._renderCallbacks,z=void 0;if(R)for(;z=R.pop();)z.call(e);le||l||w()}}function O(e,t,n,o){for(var r=e&&e._component,i=r,l=e,a=r&&e._componentConstructor===t.nodeName,s=a,c=m(t);r&&!s&&(r=r._parentComponent);)s=r.constructor===t.nodeName;return r&&s&&(!o||r._component)?(E(r,c,q,n,o),e=r.base):(i&&!a&&(P(i,!0),e=l=null),r=U(t.nodeName,c,n),e&&!r.nextBase&&(r.nextBase=e,l=null),E(r,c,F,n,o),e=r.base,l&&e!==l&&(l._component=null,k(l))),e}function P(e,t){L.beforeUnmount&&L.beforeUnmount(e);var n=e.base;e._disable=!0,e.componentWillUnmount&&e.componentWillUnmount(),e.base=null;var o=e._component;if(o)P(o,t);else if(n){n[Q]&&n[Q].ref&&n[Q].ref(null),e.nextBase=n,t&&(v(n),D(e));for(var r=void 0;r=n.lastChild;)k(r,!t)}e.__ref&&e.__ref(null),e.componentDidUnmount&&e.componentDidUnmount()}function B(e,t){this._dirty=!0,this.context=t,this.props=e,this.state||(this.state={})}function M(){for(var e="",t=0;t<32;t++){var n=16*Math.random()|0;8!==t&&12!==t&&16!==t&&20!==t||(e+="-"),e+=(12===t?4:16===t?3&n|8:n).toString(16)}return e}function j(e,t){return 1===e?t:t+"s"}var L={},W=[],R=[],z={},K=function(e){return z[e]||(z[e]=e.toLowerCase())},H="undefined"!=typeof Promise&&Promise.resolve(),I=H?function(e){H.then(e)}:setTimeout,V=0,F=1,G=2,q=3,J={},Q="undefined"!=typeof Symbol?Symbol.for("preactattr"):"__preactattr_",X={boxFlex:1,boxFlexGroup:1,columnCount:1,fillOpacity:1,flex:1,flexGrow:1,flexPositive:1,flexShrink:1,flexNegative:1,fontWeight:1,lineClamp:1,lineHeight:1,opacity:1,order:1,orphans:1,strokeOpacity:1,widows:1,zIndex:1,zoom:1},Y={blur:1,error:1,focus:1,load:1,resize:1,scroll:1},Z=[],$="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},ee=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},te=function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)},ne=function(e){if(null==e)throw new TypeError("Cannot destructure undefined")},oe=function(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t},re={},ie=[],le=0,ae=!1,se=!1,ce={};n(B.prototype,{linkState:function(e,t){var n=this._linkedStates||(this._linkedStates={});return n[e+t]||(n[e+t]=s(this,e,t))},setState:function(e,t){var r=this.state;this.prevState||(this.prevState=o(r)),n(r,i(e)?e(r,this.props):e),t&&(this._renderCallbacks=this._renderCallbacks||[]).push(t),c(this)},forceUpdate:function(){A(this,G)},render:function(){}});var ue=function(){function e(e,t){this.key=e,this.todos=[],this.onChanges=[t]}return e.prototype.inform=function(){this.onChanges.forEach(function(e){return e()})},e.prototype.addTodo=function(e){this.todos=this.todos.concat({id:M(),title:e,completed:!1}),this.inform()},e.prototype.toggleAll=function(e){this.todos=this.todos.map(function(t){return ee({},t,{completed:e})}),this.inform()},e.prototype.toggle=function(e){this.todos=this.todos.map(function(t){return t!==e?t:ee({},t,{completed:!t.completed})}),this.inform()},e.prototype.destroy=function(e){this.todos=this.todos.filter(function(t){return t!==e}),this.inform()},e.prototype.save=function(e,t){this.todos=this.todos.map(function(n){return n!==e?n:ee({},n,{title:t})}),this.inform()},e.prototype.clearCompleted=function(){this.todos=this.todos.filter(function(e){return!e.completed}),this.inform()},e}(),de=function(e){function n(){return oe(this,e.apply(this,arguments))}return te(n,e),n.prototype.render=function(e){var n=e.nowShowing,o=e.count,r=e.completedCount,i=e.onClearCompleted;return t("footer",{class:"footer"},t("span",{class:"todo-count"},t("strong",null,o)," ",j(o,"item")," left"),t("ul",{class:"filters"},t("li",null,t("a",{href:"#/",class:"all"==n&&"selected"},"All"))," ",t("li",null,t("a",{href:"#/active",class:"active"==n&&"selected"},"Active"))," ",t("li",null,t("a",{href:"#/completed",class:"completed"==n&&"selected"},"Completed"))),r>0&&t("button",{class:"clear-completed",onClick:i},"Clear completed"))},n}(B),fe=27,pe=13,he=function(e){function n(){for(var t,n,o,r=arguments.length,i=Array(r),l=0;l<r;l++)i[l]=arguments[l];return t=n=oe(this,e.call.apply(e,[this].concat(i))),n.handleSubmit=function(){var e=n.props,t=e.onSave,o=e.onDestroy,r=e.todo,i=n.state.editText.trim();i?(t(r,i),n.setState({editText:i})):o(r)},n.handleEdit=function(){var e=n.props,t=e.onEdit,o=e.todo;t(o),n.setState({editText:o.title})},n.toggle=function(e){var t=n.props;(0,t.onToggle)(t.todo),e.preventDefault()},n.handleKeyDown=function(e){if(e.which===fe){var t=n.props.todo;n.setState({editText:t.title}),n.props.onCancel(t)}else e.which===pe&&n.handleSubmit()},n.handleDestroy=function(){n.props.onDestroy(n.props.todo)},o=t,oe(n,o)}return te(n,e),n.prototype.componentDidUpdate=function(){var e=this.base&&this.base.querySelector(".edit");e&&e.focus()},n.prototype.render=function(e,n){var o=e.todo,r=o.title,i=o.completed,l=e.editing,a=n.editText;return t("li",{class:{completed:i,editing:l}},t("div",{class:"view"},t("input",{class:"toggle",type:"checkbox",checked:i,onChange:this.toggle}),t("label",{onDblClick:this.handleEdit},r),t("button",{class:"destroy",onClick:this.handleDestroy})),l&&t("input",{class:"edit",value:a,onBlur:this.handleSubmit,onInput:this.linkState("editText"),onKeyDown:this.handleKeyDown}))},n}(B),me=13,ve={all:function(){return!0},active:function(e){return!e.completed},completed:function(e){return e.completed}},ye=function(e){function n(){var t=oe(this,e.call(this));return t.handleNewTodoKeyDown=function(e){if(e.keyCode===me){e.preventDefault();var n=t.state.newTodo.trim();n&&(t.model.addTodo(n),t.setState({newTodo:""}))}},t.toggleAll=function(e){t.model.toggleAll(e.target.checked)},t.toggle=function(e){t.model.toggle(e)},t.destroy=function(e){t.model.destroy(e)},t.edit=function(e){t.setState({editing:e.id})},t.save=function(e,n){t.model.save(e,n),t.setState({editing:null})},t.cancel=function(){t.setState({editing:null})},t.clearCompleted=function(){t.model.clearCompleted()},t.model=new ue("preact-todos",function(){return t.setState({})}),addEventListener("hashchange",t.handleRoute.bind(t)),t.handleRoute(),t}return te(n,e),n.prototype.handleRoute=function(){var e=((location.hash||"")+"").split("/").pop();ve[e]||(e="all"),this.setState({nowShowing:e})},n.prototype.render=function(e,n){var o=this,r=n.nowShowing,i=void 0===r?ALL_TODOS:r,l=n.newTodo,a=n.editing;ne(e);var s=this.model.todos,c=s.filter(ve[i]),u=s.reduce(function(e,t){return e+(t.completed?0:1)},0),d=s.length-u;return t("div",null,t("header",{class:"header"},t("h1",null,"todos"),t("input",{class:"new-todo",placeholder:"What needs to be done?",value:l,onKeyDown:this.handleNewTodoKeyDown,onInput:this.linkState("newTodo"),autoFocus:!0})),s.length?t("section",{class:"main"},t("input",{class:"toggle-all",type:"checkbox",onChange:this.toggleAll,checked:0===u}),t("ul",{class:"todo-list"},c.map(function(e){return t(he,{todo:e,onToggle:o.toggle,onDestroy:o.destroy,onEdit:o.edit,editing:a===e.id,onSave:o.save,onCancel:o.cancel})}))):null,u||d?t(de,{count:u,completedCount:d,nowShowing:i,onClearCompleted:this.clearCompleted}):null)},n}(B);!function(e,t,n){x(n,e,{},!1,t)}(t(ye,null),document.querySelector(".todoapp"))}();
+(function () {
+'use strict';
+
+/** Virtual DOM Node */
+function VNode(nodeName, attributes, children) {
+	/** @type {string|function} */
+	this.nodeName = nodeName;
+
+	/** @type {object<string>|undefined} */
+	this.attributes = attributes;
+
+	/** @type {array<VNode>|undefined} */
+	this.children = children;
+
+	/** Reference to the given key. */
+	this.key = attributes && attributes.key;
+}
+
+/** Global options
+ *	@public
+ *	@namespace options {Object}
+ */
+var options = {
+
+	/** If `true`, `prop` changes trigger synchronous component updates.
+  *	@name syncComponentUpdates
+  *	@type Boolean
+  *	@default true
+  */
+	//syncComponentUpdates: true,
+
+	/** Processes all created VNodes.
+  *	@param {VNode} vnode	A newly-created VNode to normalize/process
+  */
+	//vnode(vnode) { }
+
+	/** Hook invoked after a component is mounted. */
+	// afterMount(component) { }
+
+	/** Hook invoked after the DOM is updated with a component's latest render. */
+	// afterUpdate(component) { }
+
+	/** Hook invoked immediately before a component is unmounted. */
+	// beforeUnmount(component) { }
+};
+
+var stack = [];
+
+var EMPTY_CHILDREN = [];
+
+/** JSX/hyperscript reviver
+*	Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
+ *	@see http://jasonformat.com/wtf-is-jsx
+ *	@public
+ *  @example
+ *  /** @jsx h *\/
+ *  import { render, h } from 'preact';
+ *  render(<span>foo</span>, document.body);
+ */
+function h(nodeName, attributes) {
+	var children = void 0,
+	    lastSimple = void 0,
+	    child = void 0,
+	    simple = void 0,
+	    i = void 0;
+	for (i = arguments.length; i-- > 2;) {
+		stack.push(arguments[i]);
+	}
+	if (attributes && attributes.children) {
+		if (!stack.length) stack.push(attributes.children);
+		delete attributes.children;
+	}
+	while (stack.length) {
+		if ((child = stack.pop()) instanceof Array) {
+			for (i = child.length; i--;) {
+				stack.push(child[i]);
+			}
+		} else if (child != null && child !== true && child !== false) {
+			if (typeof child == 'number') child = String(child);
+			simple = typeof child == 'string';
+			if (simple && lastSimple) {
+				children[children.length - 1] += child;
+			} else {
+				(children || (children = [])).push(child);
+				lastSimple = simple;
+			}
+		}
+	}
+
+	var p = new VNode(nodeName, attributes || undefined, children || EMPTY_CHILDREN);
+
+	// if a "vnode hook" is defined, pass every created VNode to it
+	if (options.vnode) options.vnode(p);
+
+	return p;
+}
+
+/** Copy own-properties from `props` onto `obj`.
+ *	@returns obj
+ *	@private
+ */
+function extend(obj, props) {
+	if (props) {
+		for (var i in props) {
+			obj[i] = props[i];
+		}
+	}
+	return obj;
+}
+
+/** Fast clone. Note: does not filter out non-own properties.
+ *	@see https://esbench.com/bench/56baa34f45df6895002e03b6
+ */
+function clone(obj) {
+	return extend({}, obj);
+}
+
+/** Get a deep property value from the given object, expressed in dot-notation.
+ *	@private
+ */
+function delve(obj, key) {
+	for (var p = key.split('.'), i = 0; i < p.length && obj; i++) {
+		obj = obj[p[i]];
+	}
+	return obj;
+}
+
+/** @private is the given object a Function? */
+function isFunction(obj) {
+	return 'function' === typeof obj;
+}
+
+/** @private is the given object a String? */
+function isString(obj) {
+	return 'string' === typeof obj;
+}
+
+/** Convert a hashmap of CSS classes to a space-delimited className string
+ *	@private
+ */
+function hashToClassName(c) {
+	var str = '';
+	for (var prop in c) {
+		if (c[prop]) {
+			if (str) str += ' ';
+			str += prop;
+		}
+	}
+	return str;
+}
+
+/** Just a memoized String#toLowerCase */
+var lcCache = {};
+var toLowerCase = function toLowerCase(s) {
+	return lcCache[s] || (lcCache[s] = s.toLowerCase());
+};
+
+/** Call a function asynchronously, as soon as possible.
+ *	@param {Function} callback
+ */
+var resolved = typeof Promise !== 'undefined' && Promise.resolve();
+var defer = resolved ? function (f) {
+	resolved.then(f);
+} : setTimeout;
+
+// render modes
+
+var NO_RENDER = 0;
+var SYNC_RENDER = 1;
+var FORCE_RENDER = 2;
+var ASYNC_RENDER = 3;
+
+var EMPTY = {};
+
+var ATTR_KEY = typeof Symbol !== 'undefined' ? Symbol.for('preactattr') : '__preactattr_';
+
+// DOM properties that should NOT have "px" added when numeric
+var NON_DIMENSION_PROPS = {
+	boxFlex: 1, boxFlexGroup: 1, columnCount: 1, fillOpacity: 1, flex: 1, flexGrow: 1,
+	flexPositive: 1, flexShrink: 1, flexNegative: 1, fontWeight: 1, lineClamp: 1, lineHeight: 1,
+	opacity: 1, order: 1, orphans: 1, strokeOpacity: 1, widows: 1, zIndex: 1, zoom: 1
+};
+
+// DOM event types that do not bubble and should be attached via useCapture
+var NON_BUBBLING_EVENTS = { blur: 1, error: 1, focus: 1, load: 1, resize: 1, scroll: 1 };
+
+/** Create an Event handler function that sets a given state property.
+ *	@param {Component} component	The component whose state should be updated
+ *	@param {string} key				A dot-notated key path to update in the component's state
+ *	@param {string} eventPath		A dot-notated key path to the value that should be retrieved from the Event or component
+ *	@returns {function} linkedStateHandler
+ *	@private
+ */
+function createLinkedState(component, key, eventPath) {
+	var path = key.split('.');
+	return function (e) {
+		var t = e && e.target || this,
+		    state = {},
+		    obj = state,
+		    v = isString(eventPath) ? delve(e, eventPath) : t.nodeName ? t.type.match(/^che|rad/) ? t.checked : t.value : e,
+		    i = 0;
+		for (; i < path.length - 1; i++) {
+			obj = obj[path[i]] || (obj[path[i]] = !i && component.state[path[i]] || {});
+		}
+		obj[path[i]] = v;
+		component.setState(state);
+	};
+}
+
+/** Managed queue of dirty components to be re-rendered */
+
+var items = [];
+
+function enqueueRender(component) {
+	if (!component._dirty && (component._dirty = true) && items.push(component) == 1) {
+		(options.debounceRendering || defer)(rerender);
+	}
+}
+
+function rerender() {
+	var p = void 0,
+	    list = items;
+	items = [];
+	while (p = list.pop()) {
+		if (p._dirty) renderComponent(p);
+	}
+}
+
+/** Check if a VNode is a reference to a stateless functional component.
+ *	A function component is represented as a VNode whose `nodeName` property is a reference to a function.
+ *	If that function is not a Component (ie, has no `.render()` method on a prototype), it is considered a stateless functional component.
+ *	@param {VNode} vnode	A VNode
+ *	@private
+ */
+function isFunctionalComponent(vnode) {
+  var nodeName = vnode && vnode.nodeName;
+  return nodeName && isFunction(nodeName) && !(nodeName.prototype && nodeName.prototype.render);
+}
+
+/** Construct a resultant VNode from a VNode referencing a stateless functional component.
+ *	@param {VNode} vnode	A VNode with a `nodeName` property that is a reference to a function.
+ *	@private
+ */
+function buildFunctionalComponent(vnode, context) {
+  return vnode.nodeName(getNodeProps(vnode), context || EMPTY);
+}
+
+/** Check if two nodes are equivalent.
+ *	@param {Element} node
+ *	@param {VNode} vnode
+ *	@private
+ */
+function isSameNodeType(node, vnode) {
+	if (isString(vnode)) {
+		return node instanceof Text;
+	}
+	if (isString(vnode.nodeName)) {
+		return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+	}
+	if (isFunction(vnode.nodeName)) {
+		return (node._componentConstructor ? node._componentConstructor === vnode.nodeName : true) || isFunctionalComponent(vnode);
+	}
+}
+
+function isNamedNode(node, nodeName) {
+	return node.normalizedNodeName === nodeName || toLowerCase(node.nodeName) === toLowerCase(nodeName);
+}
+
+/**
+ * Reconstruct Component-style `props` from a VNode.
+ * Ensures default/fallback values from `defaultProps`:
+ * Own-properties of `defaultProps` not present in `vnode.attributes` are added.
+ * @param {VNode} vnode
+ * @returns {Object} props
+ */
+function getNodeProps(vnode) {
+	var props = clone(vnode.attributes);
+	props.children = vnode.children;
+
+	var defaultProps = vnode.nodeName.defaultProps;
+	if (defaultProps) {
+		for (var i in defaultProps) {
+			if (props[i] === undefined) {
+				props[i] = defaultProps[i];
+			}
+		}
+	}
+
+	return props;
+}
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+
+
+
+
+
+
+
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+var get = function get(object, property, receiver) {
+  if (object === null) object = Function.prototype;
+  var desc = Object.getOwnPropertyDescriptor(object, property);
+
+  if (desc === undefined) {
+    var parent = Object.getPrototypeOf(object);
+
+    if (parent === null) {
+      return undefined;
+    } else {
+      return get(parent, property, receiver);
+    }
+  } else if ("value" in desc) {
+    return desc.value;
+  } else {
+    var getter = desc.get;
+
+    if (getter === undefined) {
+      return undefined;
+    }
+
+    return getter.call(receiver);
+  }
+};
+
+var inherits = function (subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+
+
+
+
+
+
+var objectDestructuringEmpty = function (obj) {
+  if (obj == null) throw new TypeError("Cannot destructure undefined");
+};
+
+
+
+var possibleConstructorReturn = function (self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
+
+
+var set = function set(object, property, value, receiver) {
+  var desc = Object.getOwnPropertyDescriptor(object, property);
+
+  if (desc === undefined) {
+    var parent = Object.getPrototypeOf(object);
+
+    if (parent !== null) {
+      set(parent, property, value, receiver);
+    }
+  } else if ("value" in desc && desc.writable) {
+    desc.value = value;
+  } else {
+    var setter = desc.set;
+
+    if (setter !== undefined) {
+      setter.call(receiver, value);
+    }
+  }
+
+  return value;
+};
+
+/** Removes a given DOM Node from its parent. */
+function removeNode(node) {
+	var p = node.parentNode;
+	if (p) p.removeChild(node);
+}
+
+/** Set a named attribute on the given Node, with special behavior for some names and event handlers.
+ *	If `value` is `null`, the attribute/handler will be removed.
+ *	@param {Element} node	An element to mutate
+ *	@param {string} name	The name/key to set, such as an event or attribute name
+ *	@param {any} old	The last value that was set for this name/node pair
+ *	@param {any} value	An attribute value, such as a function to be used as an event handler
+ *	@param {Boolean} isSvg	Are we currently diffing inside an svg?
+ *	@private
+ */
+function setAccessor(node, name, old, value, isSvg) {
+
+	if (name === 'className') name = 'class';
+
+	if (name === 'class' && value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object') {
+		value = hashToClassName(value);
+	}
+
+	if (name === 'key') {
+		// ignore
+	} else if (name === 'class' && !isSvg) {
+		node.className = value || '';
+	} else if (name === 'style') {
+		if (!value || isString(value) || isString(old)) {
+			node.style.cssText = value || '';
+		}
+		if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object') {
+			if (!isString(old)) {
+				for (var i in old) {
+					if (!(i in value)) node.style[i] = '';
+				}
+			}
+			for (var _i in value) {
+				node.style[_i] = typeof value[_i] === 'number' && !NON_DIMENSION_PROPS[_i] ? value[_i] + 'px' : value[_i];
+			}
+		}
+	} else if (name === 'dangerouslySetInnerHTML') {
+		if (value) node.innerHTML = value.__html || '';
+	} else if (name[0] == 'o' && name[1] == 'n') {
+		var l = node._listeners || (node._listeners = {});
+		name = toLowerCase(name.substring(2));
+		// @TODO: this might be worth it later, un-breaks focus/blur bubbling in IE9:
+		// if (node.attachEvent) name = name=='focus'?'focusin':name=='blur'?'focusout':name;
+		if (value) {
+			if (!l[name]) node.addEventListener(name, eventProxy, !!NON_BUBBLING_EVENTS[name]);
+		} else if (l[name]) {
+			node.removeEventListener(name, eventProxy, !!NON_BUBBLING_EVENTS[name]);
+		}
+		l[name] = value;
+	} else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
+		setProperty(node, name, value == null ? '' : value);
+		if (value == null || value === false) node.removeAttribute(name);
+	} else {
+		var ns = isSvg && name.match(/^xlink\:?(.+)/);
+		if (value == null || value === false) {
+			if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', toLowerCase(ns[1]));else node.removeAttribute(name);
+		} else if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== 'object' && !isFunction(value)) {
+			if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', toLowerCase(ns[1]), value);else node.setAttribute(name, value);
+		}
+	}
+}
+
+/** Attempt to set a DOM property to the given value.
+ *	IE & FF throw for certain property-value combinations.
+ */
+function setProperty(node, name, value) {
+	try {
+		node[name] = value;
+	} catch (e) {}
+}
+
+/** Proxy an event to hooked event handlers
+ *	@private
+ */
+function eventProxy(e) {
+	return this._listeners[e.type](options.event && options.event(e) || e);
+}
+
+/** DOM node pool, keyed on nodeName. */
+
+var nodes = {};
+
+function collectNode(node) {
+	removeNode(node);
+
+	if (node instanceof Element) {
+		node._component = node._componentConstructor = null;
+
+		var name = node.normalizedNodeName || toLowerCase(node.nodeName);
+		(nodes[name] || (nodes[name] = [])).push(node);
+	}
+}
+
+function createNode(nodeName, isSvg) {
+	var name = toLowerCase(nodeName),
+	    node = nodes[name] && nodes[name].pop() || (isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName));
+	node.normalizedNodeName = name;
+	return node;
+}
+
+/** Queue of components that have been mounted and are awaiting componentDidMount */
+var mounts = [];
+
+/** Diff recursion count, used to track the end of the diff cycle. */
+var diffLevel = 0;
+
+/** Global flag indicating if the diff is currently within an SVG */
+var isSvgMode = false;
+
+/** Global flag indicating if the diff is performing hydration */
+var hydrating = false;
+
+/** Invoke queued componentDidMount lifecycle methods */
+function flushMounts() {
+	var c = void 0;
+	while (c = mounts.pop()) {
+		if (options.afterMount) options.afterMount(c);
+		if (c.componentDidMount) c.componentDidMount();
+	}
+}
+
+/** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
+ *	@param {Element} [dom=null]		A DOM node to mutate into the shape of the `vnode`
+ *	@param {VNode} vnode			A VNode (with descendants forming a tree) representing the desired DOM structure
+ *	@returns {Element} dom			The created/mutated element
+ *	@private
+ */
+function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+	// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
+	if (!diffLevel++) {
+		// when first starting the diff, check if we're diffing an SVG or within an SVG
+		isSvgMode = parent && typeof parent.ownerSVGElement !== 'undefined';
+
+		// hydration is inidicated by the existing element to be diffed not having a prop cache
+		hydrating = dom && !(ATTR_KEY in dom);
+	}
+
+	var ret = idiff(dom, vnode, context, mountAll);
+
+	// append the element if its a new parent
+	if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+
+	// diffLevel being reduced to 0 means we're exiting the diff
+	if (! --diffLevel) {
+		hydrating = false;
+		// invoke queued componentDidMount lifecycle methods
+		if (!componentRoot) flushMounts();
+	}
+
+	return ret;
+}
+
+function idiff(dom, vnode, context, mountAll) {
+	var ref = vnode && vnode.attributes && vnode.attributes.ref;
+
+	// Resolve ephemeral Pure Functional Components
+	while (isFunctionalComponent(vnode)) {
+		vnode = buildFunctionalComponent(vnode, context);
+	}
+
+	// empty values (null & undefined) render as empty Text nodes
+	if (vnode == null) vnode = '';
+
+	// Fast case: Strings create/update Text nodes.
+	if (isString(vnode)) {
+		// update if it's already a Text node
+		if (dom && dom instanceof Text && dom.parentNode) {
+			if (dom.nodeValue != vnode) {
+				dom.nodeValue = vnode;
+			}
+		} else {
+			// it wasn't a Text node: replace it with one and recycle the old Element
+			if (dom) recollectNodeTree(dom);
+			dom = document.createTextNode(vnode);
+		}
+
+		return dom;
+	}
+
+	// If the VNode represents a Component, perform a component diff.
+	if (isFunction(vnode.nodeName)) {
+		return buildComponentFromVNode(dom, vnode, context, mountAll);
+	}
+
+	var out = dom,
+	    nodeName = String(vnode.nodeName),
+	    // @TODO this masks undefined component errors as `<undefined>`
+	prevSvgMode = isSvgMode,
+	    vchildren = vnode.children;
+
+	// SVGs have special namespace stuff.
+	// This tracks entering and exiting that namespace when descending through the tree.
+	isSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode;
+
+	if (!dom) {
+		// case: we had no element to begin with
+		// - create an element with the nodeName from VNode
+		out = createNode(nodeName, isSvgMode);
+	} else if (!isNamedNode(dom, nodeName)) {
+		// case: Element and VNode had different nodeNames
+		// - need to create the correct Element to match VNode
+		// - then migrate children from old to new
+
+		out = createNode(nodeName, isSvgMode);
+
+		// move children into the replacement node
+		while (dom.firstChild) {
+			out.appendChild(dom.firstChild);
+		} // if the previous Element was mounted into the DOM, replace it inline
+		if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+
+		// recycle the old element (skips non-Element node types)
+		recollectNodeTree(dom);
+	}
+
+	var fc = out.firstChild,
+	    props = out[ATTR_KEY];
+
+	// Attribute Hydration: if there is no prop cache on the element,
+	// ...create it and populate it with the element's attributes.
+	if (!props) {
+		out[ATTR_KEY] = props = {};
+		for (var a = out.attributes, i = a.length; i--;) {
+			props[a[i].name] = a[i].value;
+		}
+	}
+
+	// Optimization: fast-path for elements containing a single TextNode:
+	if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc && fc instanceof Text && !fc.nextSibling) {
+		if (fc.nodeValue != vchildren[0]) {
+			fc.nodeValue = vchildren[0];
+		}
+	}
+	// otherwise, if there are existing or new children, diff them:
+	else if (vchildren && vchildren.length || fc) {
+			innerDiffNode(out, vchildren, context, mountAll, !!props.dangerouslySetInnerHTML);
+		}
+
+	// Apply attributes/props from VNode to the DOM Element:
+	diffAttributes(out, vnode.attributes, props);
+
+	// invoke original ref (from before resolving Pure Functional Components):
+	if (ref) {
+		(props.ref = ref)(out);
+	}
+
+	isSvgMode = prevSvgMode;
+
+	return out;
+}
+
+/** Apply child and attribute changes between a VNode and a DOM Node to the DOM.
+ *	@param {Element} dom		Element whose children should be compared & mutated
+ *	@param {Array} vchildren	Array of VNodes to compare to `dom.childNodes`
+ *	@param {Object} context		Implicitly descendant context object (from most recent `getChildContext()`)
+ *	@param {Boolean} mountAll
+ *	@param {Boolean} absorb		If `true`, consumes externally created elements similar to hydration
+ */
+function innerDiffNode(dom, vchildren, context, mountAll, absorb) {
+	var originalChildren = dom.childNodes,
+	    children = [],
+	    keyed = {},
+	    keyedLen = 0,
+	    min = 0,
+	    len = originalChildren.length,
+	    childrenLen = 0,
+	    vlen = vchildren && vchildren.length,
+	    j = void 0,
+	    c = void 0,
+	    vchild = void 0,
+	    child = void 0;
+
+	if (len) {
+		for (var i = 0; i < len; i++) {
+			var _child = originalChildren[i],
+			    props = _child[ATTR_KEY],
+			    key = vlen ? (c = _child._component) ? c.__key : props ? props.key : null : null;
+			if (key != null) {
+				keyedLen++;
+				keyed[key] = _child;
+			} else if (hydrating || absorb || props || _child instanceof Text) {
+				children[childrenLen++] = _child;
+			}
+		}
+	}
+
+	if (vlen) {
+		for (var _i = 0; _i < vlen; _i++) {
+			vchild = vchildren[_i];
+			child = null;
+
+			// if (isFunctionalComponent(vchild)) {
+			// 	vchild = buildFunctionalComponent(vchild);
+			// }
+
+			// attempt to find a node based on key matching
+			var _key = vchild.key;
+			if (_key != null) {
+				if (keyedLen && _key in keyed) {
+					child = keyed[_key];
+					keyed[_key] = undefined;
+					keyedLen--;
+				}
+			}
+			// attempt to pluck a node of the same type from the existing children
+			else if (!child && min < childrenLen) {
+					for (j = min; j < childrenLen; j++) {
+						c = children[j];
+						if (c && isSameNodeType(c, vchild)) {
+							child = c;
+							children[j] = undefined;
+							if (j === childrenLen - 1) childrenLen--;
+							if (j === min) min++;
+							break;
+						}
+					}
+				}
+
+			// morph the matched/found/created DOM child to match vchild (deep)
+			child = idiff(child, vchild, context, mountAll);
+
+			if (child && child !== dom) {
+				if (_i >= len) {
+					dom.appendChild(child);
+				} else if (child !== originalChildren[_i]) {
+					if (child === originalChildren[_i + 1]) {
+						removeNode(originalChildren[_i]);
+					}
+					dom.insertBefore(child, originalChildren[_i] || null);
+				}
+			}
+		}
+	}
+
+	if (keyedLen) {
+		for (var _i2 in keyed) {
+			if (keyed[_i2]) recollectNodeTree(keyed[_i2]);
+		}
+	}
+
+	// remove orphaned children
+	while (min <= childrenLen) {
+		child = children[childrenLen--];
+		if (child) recollectNodeTree(child);
+	}
+}
+
+/** Recursively recycle (or just unmount) a node an its descendants.
+ *	@param {Node} node						DOM node to start unmount/removal from
+ *	@param {Boolean} [unmountOnly=false]	If `true`, only triggers unmount lifecycle, skips removal
+ */
+function recollectNodeTree(node, unmountOnly) {
+	var component = node._component;
+	if (component) {
+		// if node is owned by a Component, unmount that component (ends up recursing back here)
+		unmountComponent(component, !unmountOnly);
+	} else {
+		// If the node's VNode had a ref function, invoke it with null here.
+		// (this is part of the React spec, and smart for unsetting references)
+		if (node[ATTR_KEY] && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null);
+
+		if (!unmountOnly) {
+			collectNode(node);
+		}
+
+		// Recollect/unmount all children.
+		// - we use .lastChild here because it causes less reflow than .firstChild
+		// - it's also cheaper than accessing the .childNodes Live NodeList
+		var c = void 0;
+		while (c = node.lastChild) {
+			recollectNodeTree(c, unmountOnly);
+		}
+	}
+}
+
+/** Apply differences in attributes from a VNode to the given DOM Element.
+ *	@param {Element} dom		Element with attributes to diff `attrs` against
+ *	@param {Object} attrs		The desired end-state key-value attribute pairs
+ *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
+ */
+function diffAttributes(dom, attrs, old) {
+	// remove attributes no longer present on the vnode by setting them to undefined
+	var name = void 0;
+	for (name in old) {
+		if (!(attrs && name in attrs) && old[name] != null) {
+			setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
+		}
+	}
+
+	// add new & update changed attributes
+	if (attrs) {
+		for (name in attrs) {
+			if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
+				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+			}
+		}
+	}
+}
+
+/** Retains a pool of Components for re-use, keyed on component name.
+ *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
+ *	@private
+ */
+var components = {};
+
+function collectComponent(component) {
+	var name = component.constructor.name,
+	    list = components[name];
+	if (list) list.push(component);else components[name] = [component];
+}
+
+function createComponent(Ctor, props, context) {
+	var inst = new Ctor(props, context),
+	    list = components[Ctor.name];
+	Component.call(inst, props, context);
+	if (list) {
+		for (var i = list.length; i--;) {
+			if (list[i].constructor === Ctor) {
+				inst.nextBase = list[i].nextBase;
+				list.splice(i, 1);
+				break;
+			}
+		}
+	}
+	return inst;
+}
+
+/** Set a component's `props` (generally derived from JSX attributes).
+ *	@param {Object} props
+ *	@param {Object} [opts]
+ *	@param {boolean} [opts.renderSync=false]	If `true` and {@link options.syncComponentUpdates} is `true`, triggers synchronous rendering.
+ *	@param {boolean} [opts.render=true]			If `false`, no render will be triggered.
+ */
+function setComponentProps(component, props, opts, context, mountAll) {
+	if (component._disable) return;
+	component._disable = true;
+
+	if (component.__ref = props.ref) delete props.ref;
+	if (component.__key = props.key) delete props.key;
+
+	if (!component.base || mountAll) {
+		if (component.componentWillMount) component.componentWillMount();
+	} else if (component.componentWillReceiveProps) {
+		component.componentWillReceiveProps(props, context);
+	}
+
+	if (context && context !== component.context) {
+		if (!component.prevContext) component.prevContext = component.context;
+		component.context = context;
+	}
+
+	if (!component.prevProps) component.prevProps = component.props;
+	component.props = props;
+
+	component._disable = false;
+
+	if (opts !== NO_RENDER) {
+		if (opts === SYNC_RENDER || options.syncComponentUpdates !== false || !component.base) {
+			renderComponent(component, SYNC_RENDER, mountAll);
+		} else {
+			enqueueRender(component);
+		}
+	}
+
+	if (component.__ref) component.__ref(component);
+}
+
+/** Render a Component, triggering necessary lifecycle events and taking High-Order Components into account.
+ *	@param {Component} component
+ *	@param {Object} [opts]
+ *	@param {boolean} [opts.build=false]		If `true`, component will build and store a DOM node if not already associated with one.
+ *	@private
+ */
+function renderComponent(component, opts, mountAll, isChild) {
+	if (component._disable) return;
+
+	var skip = void 0,
+	    rendered = void 0,
+	    props = component.props,
+	    state = component.state,
+	    context = component.context,
+	    previousProps = component.prevProps || props,
+	    previousState = component.prevState || state,
+	    previousContext = component.prevContext || context,
+	    isUpdate = component.base,
+	    nextBase = component.nextBase,
+	    initialBase = isUpdate || nextBase,
+	    initialChildComponent = component._component,
+	    inst = void 0,
+	    cbase = void 0;
+
+	// if updating
+	if (isUpdate) {
+		component.props = previousProps;
+		component.state = previousState;
+		component.context = previousContext;
+		if (opts !== FORCE_RENDER && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
+			skip = true;
+		} else if (component.componentWillUpdate) {
+			component.componentWillUpdate(props, state, context);
+		}
+		component.props = props;
+		component.state = state;
+		component.context = context;
+	}
+
+	component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
+	component._dirty = false;
+
+	if (!skip) {
+		if (component.render) rendered = component.render(props, state, context);
+
+		// context to pass to the child, can be updated via (grand-)parent component
+		if (component.getChildContext) {
+			context = extend(clone(context), component.getChildContext());
+		}
+
+		while (isFunctionalComponent(rendered)) {
+			rendered = buildFunctionalComponent(rendered, context);
+		}
+
+		var childComponent = rendered && rendered.nodeName,
+		    toUnmount = void 0,
+		    base = void 0;
+
+		if (isFunction(childComponent)) {
+			// set up high order component link
+
+			var childProps = getNodeProps(rendered);
+			inst = initialChildComponent;
+
+			if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
+				setComponentProps(inst, childProps, SYNC_RENDER, context);
+			} else {
+				toUnmount = inst;
+
+				inst = createComponent(childComponent, childProps, context);
+				inst.nextBase = inst.nextBase || nextBase;
+				inst._parentComponent = component;
+				component._component = inst;
+				setComponentProps(inst, childProps, NO_RENDER, context);
+				renderComponent(inst, SYNC_RENDER, mountAll, true);
+			}
+
+			base = inst.base;
+		} else {
+			cbase = initialBase;
+
+			// destroy high order component link
+			toUnmount = initialChildComponent;
+			if (toUnmount) {
+				cbase = component._component = null;
+			}
+
+			if (initialBase || opts === SYNC_RENDER) {
+				if (cbase) cbase._component = null;
+				base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
+			}
+		}
+
+		if (initialBase && base !== initialBase && inst !== initialChildComponent) {
+			var baseParent = initialBase.parentNode;
+			if (baseParent && base !== baseParent) {
+				baseParent.replaceChild(base, initialBase);
+
+				if (!toUnmount) {
+					initialBase._component = null;
+					recollectNodeTree(initialBase);
+				}
+			}
+		}
+
+		if (toUnmount) {
+			unmountComponent(toUnmount, base !== initialBase);
+		}
+
+		component.base = base;
+		if (base && !isChild) {
+			var componentRef = component,
+			    t = component;
+			while (t = t._parentComponent) {
+				(componentRef = t).base = base;
+			}
+			base._component = componentRef;
+			base._componentConstructor = componentRef.constructor;
+		}
+	}
+
+	if (!isUpdate || mountAll) {
+		mounts.unshift(component);
+	} else if (!skip) {
+		if (component.componentDidUpdate) {
+			component.componentDidUpdate(previousProps, previousState, previousContext);
+		}
+		if (options.afterUpdate) options.afterUpdate(component);
+	}
+
+	var cb = component._renderCallbacks,
+	    fn = void 0;
+	if (cb) while (fn = cb.pop()) {
+		fn.call(component);
+	}if (!diffLevel && !isChild) flushMounts();
+}
+
+/** Apply the Component referenced by a VNode to the DOM.
+ *	@param {Element} dom	The DOM node to mutate
+ *	@param {VNode} vnode	A Component-referencing VNode
+ *	@returns {Element} dom	The created/mutated element
+ *	@private
+ */
+function buildComponentFromVNode(dom, vnode, context, mountAll) {
+	var c = dom && dom._component,
+	    originalComponent = c,
+	    oldDom = dom,
+	    isDirectOwner = c && dom._componentConstructor === vnode.nodeName,
+	    isOwner = isDirectOwner,
+	    props = getNodeProps(vnode);
+	while (c && !isOwner && (c = c._parentComponent)) {
+		isOwner = c.constructor === vnode.nodeName;
+	}
+
+	if (c && isOwner && (!mountAll || c._component)) {
+		setComponentProps(c, props, ASYNC_RENDER, context, mountAll);
+		dom = c.base;
+	} else {
+		if (originalComponent && !isDirectOwner) {
+			unmountComponent(originalComponent, true);
+			dom = oldDom = null;
+		}
+
+		c = createComponent(vnode.nodeName, props, context);
+		if (dom && !c.nextBase) {
+			c.nextBase = dom;
+			// passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L241:
+			oldDom = null;
+		}
+		setComponentProps(c, props, SYNC_RENDER, context, mountAll);
+		dom = c.base;
+
+		if (oldDom && dom !== oldDom) {
+			oldDom._component = null;
+			recollectNodeTree(oldDom);
+		}
+	}
+
+	return dom;
+}
+
+/** Remove a component from the DOM and recycle it.
+ *	@param {Element} dom			A DOM node from which to unmount the given Component
+ *	@param {Component} component	The Component instance to unmount
+ *	@private
+ */
+function unmountComponent(component, remove) {
+	if (options.beforeUnmount) options.beforeUnmount(component);
+
+	// console.log(`${remove?'Removing':'Unmounting'} component: ${component.constructor.name}`);
+	var base = component.base;
+
+	component._disable = true;
+
+	if (component.componentWillUnmount) component.componentWillUnmount();
+
+	component.base = null;
+
+	// recursively tear down & recollect high-order component children:
+	var inner = component._component;
+	if (inner) {
+		unmountComponent(inner, remove);
+	} else if (base) {
+		if (base[ATTR_KEY] && base[ATTR_KEY].ref) base[ATTR_KEY].ref(null);
+
+		component.nextBase = base;
+
+		if (remove) {
+			removeNode(base);
+			collectComponent(component);
+		}
+		var c = void 0;
+		while (c = base.lastChild) {
+			recollectNodeTree(c, !remove);
+		} // removeOrphanedChildren(base.childNodes, true);
+	}
+
+	if (component.__ref) component.__ref(null);
+	if (component.componentDidUnmount) component.componentDidUnmount();
+}
+
+/** Base Component class, for the ES6 Class method of creating Components
+ *	@public
+ *
+ *	@example
+ *	class MyFoo extends Component {
+ *		render(props, state) {
+ *			return <div />;
+ *		}
+ *	}
+ */
+function Component(props, context) {
+	/** @private */
+	this._dirty = true;
+	// /** @public */
+	// this._disableRendering = false;
+	// /** @public */
+	// this.prevState = this.prevProps = this.prevContext = this.base = this.nextBase = this._parentComponent = this._component = this.__ref = this.__key = this._linkedStates = this._renderCallbacks = null;
+	/** @public */
+	this.context = context;
+	/** @type {object} */
+	this.props = props;
+	/** @type {object} */
+	if (!this.state) this.state = {};
+}
+
+extend(Component.prototype, {
+
+	/** Returns a `boolean` value indicating if the component should re-render when receiving the given `props` and `state`.
+  *	@param {object} nextProps
+  *	@param {object} nextState
+  *	@param {object} nextContext
+  *	@returns {Boolean} should the component re-render
+  *	@name shouldComponentUpdate
+  *	@function
+  */
+	// shouldComponentUpdate() {
+	// 	return true;
+	// },
+
+
+	/** Returns a function that sets a state property when called.
+  *	Calling linkState() repeatedly with the same arguments returns a cached link function.
+  *
+  *	Provides some built-in special cases:
+  *		- Checkboxes and radio buttons link their boolean `checked` value
+  *		- Inputs automatically link their `value` property
+  *		- Event paths fall back to any associated Component if not found on an element
+  *		- If linked value is a function, will invoke it and use the result
+  *
+  *	@param {string} key		The path to set - can be a dot-notated deep key
+  *	@param {string} [eventPath]	If set, attempts to find the new state value at a given dot-notated path within the object passed to the linkedState setter.
+  *	@returns {function} linkStateSetter(e)
+  *
+  *	@example Update a "text" state value when an input changes:
+  *		<input onChange={ this.linkState('text') } />
+  *
+  *	@example Set a deep state value on click
+  *		<button onClick={ this.linkState('touch.coords', 'touches.0') }>Tap</button
+  */
+	linkState: function linkState(key, eventPath) {
+		var c = this._linkedStates || (this._linkedStates = {});
+		return c[key + eventPath] || (c[key + eventPath] = createLinkedState(this, key, eventPath));
+	},
+
+
+	/** Update component state by copying properties from `state` to `this.state`.
+  *	@param {object} state		A hash of state properties to update with new values
+  */
+	setState: function setState(state, callback) {
+		var s = this.state;
+		if (!this.prevState) this.prevState = clone(s);
+		extend(s, isFunction(state) ? state(s, this.props) : state);
+		if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
+		enqueueRender(this);
+	},
+
+
+	/** Immediately perform a synchronous re-render of the component.
+  *	@private
+  */
+	forceUpdate: function forceUpdate() {
+		renderComponent(this, FORCE_RENDER);
+	},
+
+
+	/** Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
+  *	Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
+  *	@param {object} props		Props (eg: JSX attributes) received from parent element/component
+  *	@param {object} state		The component's current state
+  *	@param {object} context		Context object (if a parent component has provided context)
+  *	@returns VNode
+  */
+	render: function render() {}
+});
+
+/** Render JSX into a `parent` Element.
+ *	@param {VNode} vnode		A (JSX) VNode to render
+ *	@param {Element} parent		DOM element to render into
+ *	@param {Element} [merge]	Attempt to re-use an existing DOM tree rooted at `merge`
+ *	@public
+ *
+ *	@example
+ *	// render a div into <body>:
+ *	render(<div id="hello">hello!</div>, document.body);
+ *
+ *	@example
+ *	// render a "Thing" component into #foo:
+ *	const Thing = ({ name }) => <span>{ name }</span>;
+ *	render(<Thing name="one" />, document.querySelector('#foo'));
+ */
+function render$1(vnode, parent, merge) {
+  return diff(merge, vnode, {}, false, parent);
+}
+
+function uuid() {
+	var uuid = '';
+	for (var i = 0; i < 32; i++) {
+		var random = Math.random() * 16 | 0;
+		if (i === 8 || i === 12 || i === 16 || i === 20) {
+			uuid += '-';
+		}
+		uuid += (i === 12 ? 4 : i === 16 ? random & 3 | 8 : random).toString(16);
+	}
+	return uuid;
+}
+
+function pluralize(count, word) {
+	return count === 1 ? word : word + 's';
+}
+
+var TodoModel = function () {
+	function TodoModel(key, sub) {
+		classCallCheck(this, TodoModel);
+
+		this.key = key;
+		this.todos = /*store(key) || */[];
+		this.onChanges = [sub];
+	}
+
+	TodoModel.prototype.inform = function inform() {
+		// store(this.key, this.todos);
+		this.onChanges.forEach(function (cb) {
+			return cb();
+		});
+	};
+
+	TodoModel.prototype.addTodo = function addTodo(title) {
+		this.todos = this.todos.concat({
+			id: uuid(),
+			title: title,
+			completed: false
+		});
+		this.inform();
+	};
+
+	TodoModel.prototype.toggleAll = function toggleAll(completed) {
+		this.todos = this.todos.map(function (todo) {
+			return _extends({}, todo, { completed: completed });
+		});
+		this.inform();
+	};
+
+	TodoModel.prototype.toggle = function toggle(todoToToggle) {
+		this.todos = this.todos.map(function (todo) {
+			return todo !== todoToToggle ? todo : _extends({}, todo, { completed: !todo.completed });
+		});
+		this.inform();
+	};
+
+	TodoModel.prototype.destroy = function destroy(todo) {
+		this.todos = this.todos.filter(function (t) {
+			return t !== todo;
+		});
+		this.inform();
+	};
+
+	TodoModel.prototype.save = function save(todoToSave, title) {
+		this.todos = this.todos.map(function (todo) {
+			return todo !== todoToSave ? todo : _extends({}, todo, { title: title });
+		});
+		this.inform();
+	};
+
+	TodoModel.prototype.clearCompleted = function clearCompleted() {
+		this.todos = this.todos.filter(function (todo) {
+			return !todo.completed;
+		});
+		this.inform();
+	};
+
+	return TodoModel;
+}();
+
+var TodoFooter = function (_Component) {
+	inherits(TodoFooter, _Component);
+
+	function TodoFooter() {
+		classCallCheck(this, TodoFooter);
+		return possibleConstructorReturn(this, _Component.apply(this, arguments));
+	}
+
+	TodoFooter.prototype.render = function render(_ref) {
+		var nowShowing = _ref.nowShowing,
+		    count = _ref.count,
+		    completedCount = _ref.completedCount,
+		    onClearCompleted = _ref.onClearCompleted;
+
+		return h(
+			'footer',
+			{ 'class': 'footer' },
+			h(
+				'span',
+				{ 'class': 'todo-count' },
+				h(
+					'strong',
+					null,
+					count
+				),
+				' ',
+				pluralize(count, 'item'),
+				' left'
+			),
+			h(
+				'ul',
+				{ 'class': 'filters' },
+				h(
+					'li',
+					null,
+					h(
+						'a',
+						{ href: '#/', 'class': nowShowing == 'all' && 'selected' },
+						'All'
+					)
+				),
+				' ',
+				h(
+					'li',
+					null,
+					h(
+						'a',
+						{ href: '#/active', 'class': nowShowing == 'active' && 'selected' },
+						'Active'
+					)
+				),
+				' ',
+				h(
+					'li',
+					null,
+					h(
+						'a',
+						{ href: '#/completed', 'class': nowShowing == 'completed' && 'selected' },
+						'Completed'
+					)
+				)
+			),
+			completedCount > 0 && h(
+				'button',
+				{ 'class': 'clear-completed', onClick: onClearCompleted },
+				'Clear completed'
+			)
+		);
+	};
+
+	return TodoFooter;
+}(Component);
+
+var ESCAPE_KEY = 27;
+var ENTER_KEY$1 = 13;
+
+var TodoItem = function (_Component) {
+	inherits(TodoItem, _Component);
+
+	function TodoItem() {
+		var _temp, _this, _ret;
+
+		classCallCheck(this, TodoItem);
+
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.handleSubmit = function () {
+			var _this$props = _this.props,
+			    onSave = _this$props.onSave,
+			    onDestroy = _this$props.onDestroy,
+			    todo = _this$props.todo,
+			    val = _this.state.editText.trim();
+
+			if (val) {
+				onSave(todo, val);
+				_this.setState({ editText: val });
+			} else {
+				onDestroy(todo);
+			}
+		}, _this.handleEdit = function () {
+			var _this$props2 = _this.props,
+			    onEdit = _this$props2.onEdit,
+			    todo = _this$props2.todo;
+
+			onEdit(todo);
+			_this.setState({ editText: todo.title });
+		}, _this.toggle = function (e) {
+			var _this$props3 = _this.props,
+			    onToggle = _this$props3.onToggle,
+			    todo = _this$props3.todo;
+
+			onToggle(todo);
+			e.preventDefault();
+		}, _this.handleKeyDown = function (e) {
+			if (e.which === ESCAPE_KEY) {
+				var todo = _this.props.todo;
+
+				_this.setState({ editText: todo.title });
+				_this.props.onCancel(todo);
+			} else if (e.which === ENTER_KEY$1) {
+				_this.handleSubmit();
+			}
+		}, _this.handleDestroy = function () {
+			_this.props.onDestroy(_this.props.todo);
+		}, _temp), possibleConstructorReturn(_this, _ret);
+	}
+
+	// shouldComponentUpdate({ todo, editing, editText }) {
+	// 	return (
+	// 		todo !== this.props.todo ||
+	// 		editing !== this.props.editing ||
+	// 		editText !== this.state.editText
+	// 	);
+	// }
+
+	TodoItem.prototype.componentDidUpdate = function componentDidUpdate() {
+		var node = this.base && this.base.querySelector('.edit');
+		if (node) node.focus();
+	};
+
+	TodoItem.prototype.render = function render(_ref, _ref2) {
+		var _ref$todo = _ref.todo,
+		    title = _ref$todo.title,
+		    completed = _ref$todo.completed,
+		    onToggle = _ref.onToggle,
+		    onDestroy = _ref.onDestroy,
+		    editing = _ref.editing;
+		var editText = _ref2.editText;
+
+		return h(
+			'li',
+			{ 'class': { completed: completed, editing: editing } },
+			h(
+				'div',
+				{ 'class': 'view' },
+				h('input', {
+					'class': 'toggle',
+					type: 'checkbox',
+					checked: completed,
+					onChange: this.toggle
+				}),
+				h(
+					'label',
+					{ onDblClick: this.handleEdit },
+					title
+				),
+				h('button', { 'class': 'destroy', onClick: this.handleDestroy })
+			),
+			editing && h('input', {
+				'class': 'edit',
+				value: editText,
+				onBlur: this.handleSubmit,
+				onInput: this.linkState('editText'),
+				onKeyDown: this.handleKeyDown
+			})
+		);
+	};
+
+	return TodoItem;
+}(Component);
+
+var ENTER_KEY = 13;
+
+var FILTERS = {
+	all: function all(todo) {
+		return true;
+	},
+	active: function active(todo) {
+		return !todo.completed;
+	},
+	completed: function completed(todo) {
+		return todo.completed;
+	}
+};
+
+var App = function (_Component) {
+	inherits(App, _Component);
+
+	function App() {
+		classCallCheck(this, App);
+
+		var _this = possibleConstructorReturn(this, _Component.call(this));
+
+		_this.handleNewTodoKeyDown = function (e) {
+			if (e.keyCode !== ENTER_KEY) return;
+			e.preventDefault();
+
+			var val = _this.state.newTodo.trim();
+			if (val) {
+				_this.model.addTodo(val);
+				_this.setState({ newTodo: '' });
+			}
+		};
+
+		_this.toggleAll = function (event) {
+			var checked = event.target.checked;
+			_this.model.toggleAll(checked);
+		};
+
+		_this.toggle = function (todo) {
+			_this.model.toggle(todo);
+		};
+
+		_this.destroy = function (todo) {
+			_this.model.destroy(todo);
+		};
+
+		_this.edit = function (todo) {
+			_this.setState({ editing: todo.id });
+		};
+
+		_this.save = function (todoToSave, text) {
+			_this.model.save(todoToSave, text);
+			_this.setState({ editing: null });
+		};
+
+		_this.cancel = function () {
+			_this.setState({ editing: null });
+		};
+
+		_this.clearCompleted = function () {
+			_this.model.clearCompleted();
+		};
+
+		_this.model = new TodoModel('preact-todos', function () {
+			return _this.setState({});
+		});
+		addEventListener('hashchange', _this.handleRoute.bind(_this));
+		_this.handleRoute();
+		return _this;
+	}
+
+	App.prototype.handleRoute = function handleRoute() {
+		var nowShowing = String(location.hash || '').split('/').pop();
+		if (!FILTERS[nowShowing]) {
+			nowShowing = 'all';
+		}
+		this.setState({ nowShowing: nowShowing });
+	};
+
+	App.prototype.render = function render(_ref, _ref2) {
+		var _this2 = this;
+
+		var _ref2$nowShowing = _ref2.nowShowing,
+		    nowShowing = _ref2$nowShowing === undefined ? ALL_TODOS : _ref2$nowShowing,
+		    newTodo = _ref2.newTodo,
+		    editing = _ref2.editing;
+		objectDestructuringEmpty(_ref);
+		var todos = this.model.todos,
+		    shownTodos = todos.filter(FILTERS[nowShowing]),
+		    activeTodoCount = todos.reduce(function (a, todo) {
+			return a + (todo.completed ? 0 : 1);
+		}, 0),
+		    completedCount = todos.length - activeTodoCount;
+
+
+		return h(
+			'div',
+			null,
+			h(
+				'header',
+				{ 'class': 'header' },
+				h(
+					'h1',
+					null,
+					'todos'
+				),
+				h('input', {
+					'class': 'new-todo',
+					placeholder: 'What needs to be done?',
+					value: newTodo,
+					onKeyDown: this.handleNewTodoKeyDown,
+					onInput: this.linkState('newTodo'),
+					autoFocus: true
+				})
+			),
+			todos.length ? h(
+				'section',
+				{ 'class': 'main' },
+				h('input', {
+					'class': 'toggle-all',
+					type: 'checkbox',
+					onChange: this.toggleAll,
+					checked: activeTodoCount === 0
+				}),
+				h(
+					'ul',
+					{ 'class': 'todo-list' },
+					shownTodos.map(function (todo) {
+						return h(TodoItem, {
+							todo: todo,
+							onToggle: _this2.toggle,
+							onDestroy: _this2.destroy,
+							onEdit: _this2.edit,
+							editing: editing === todo.id,
+							onSave: _this2.save,
+							onCancel: _this2.cancel
+						});
+					})
+				)
+			) : null,
+			activeTodoCount || completedCount ? h(TodoFooter, {
+				count: activeTodoCount,
+				completedCount: completedCount,
+				nowShowing: nowShowing,
+				onClearCompleted: this.clearCompleted
+			}) : null
+		);
+	};
+
+	return App;
+}(Component);
+
+// import 'todomvc-common';
+// import 'todomvc-common/base.css';
+// import 'todomvc-app-css/index.css';
+
+render$1(h(App, null), document.querySelector('.todoapp'));
+
+}());
 //# sourceMappingURL=app.js.map
