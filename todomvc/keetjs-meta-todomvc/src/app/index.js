@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { Component } from 'keet';
 import TodoModel from './model';
 import TodoFooter from './footer';
 import TodoItem from './item';
@@ -11,6 +11,8 @@ const FILTERS = {
 	completed: todo => todo.completed
 };
 
+// let ALL_TODOS = true
+
 export default class App extends Component {
 	constructor() {
 		super();
@@ -20,6 +22,7 @@ export default class App extends Component {
 	}
 
 	handleRoute() {
+		console.log(location)
 		let nowShowing = String(location.hash||'').split('/').pop();
 		if (!FILTERS[nowShowing]) {
 			nowShowing = 'all';
@@ -68,8 +71,15 @@ export default class App extends Component {
 		this.model.clearCompleted();
 	};
 
+	// render({}, {nowShowing=ALL_TODOS}){
+	// 	let { todos } = this.model
+	// 	console.log(todos)
+	// 	return (
+	// 		<div>hello</div>
+	// 	)
+	// }
+
 	render({ }, { nowShowing=ALL_TODOS, newTodo, editing }) {
-		console.log(this)
 		let { todos } = this.model,
 			shownTodos = todos.filter( FILTERS[nowShowing] ),
 			activeTodoCount = todos.reduce( (a, todo) => a + (todo.completed ? 0 : 1), 0),
