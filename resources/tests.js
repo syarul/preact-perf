@@ -203,6 +203,87 @@ var React = {
     ]
 }
 
+var Locomotor = {
+    name: 'Locomotor',
+    url: 'todomvc/locomotor-todomvc/build/index.html',
+    version: '0.1.13',
+    prepare: function (runner, contentWindow, contentDocument) {
+        return runner.waitForElement('.new-todo').then(function (element) {
+            element.focus();
+            return element;
+        });
+    },
+    tests: [
+        new BenchmarkTestStep('Adding' + numberOfItemsToAdd + 'Items', function (newTodo, contentWindow, contentDocument) {
+            for (var i = 0; i < numberOfItemsToAdd; i++) {
+                var inputEvent = document.createEvent('Event');
+                inputEvent.initEvent('input', true, true);
+                newTodo.value = 'Something to do ' + i;
+                newTodo.dispatchEvent(inputEvent);
+
+                var keydownEvent = document.createEvent('Event');
+                keydownEvent.initEvent('keyup', true, true);
+                keydownEvent.keyCode = 13; // VK_ENTER
+                newTodo.dispatchEvent(keydownEvent);
+            }
+        }),
+        new BenchmarkTestStep('CompletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var checkboxes = contentDocument.querySelectorAll('.toggle');
+            // setTimeout(() => {
+
+            for (var i = 0; i < checkboxes.length; i++)
+                checkboxes[i].click();
+            // }, 100)
+        }),
+        new BenchmarkTestStep('DeletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var deleteButtons = contentDocument.querySelectorAll('.destroy');
+            for (var i = 0; i < deleteButtons.length; i++)
+                deleteButtons[i].click();
+        })
+    ]
+}
+
+var HyperFun = {
+    name: 'HyperFun',
+    url: 'todomvc/hyper-fun/index.html',
+    version: '0.0.1',
+    prepare: function (runner, contentWindow, contentDocument) {
+        return runner.waitForElement('.new-todo').then(function (element) {
+            element.focus();
+            return element;
+        });
+    },
+    tests: [
+        new BenchmarkTestStep('Adding' + numberOfItemsToAdd + 'Items', function (newTodo, contentWindow, contentDocument) {
+            console.log(newTodo)
+            for (var i = 0; i < numberOfItemsToAdd; i++) {
+                var inputEvent = document.createEvent('Event');
+                inputEvent.initEvent('input', true, true);
+                newTodo.value = 'Something to do ' + i;
+                newTodo.dispatchEvent(inputEvent);
+
+                var keydownEvent = document.createEvent('Event');
+                keydownEvent.initEvent('keyup', true, true);
+                keydownEvent.which = 13; // VK_ENTER
+                newTodo.dispatchEvent(keydownEvent);
+            }
+        }),
+        new BenchmarkTestStep('CompletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var checkboxes = contentDocument.querySelectorAll('.toggle');
+            // setTimeout(() => {
+
+            for (var i = 0; i < checkboxes.length; i++)
+                checkboxes[i].click();
+            // }, 100)
+        }),
+        new BenchmarkTestStep('DeletingAllItems', function (newTodo, contentWindow, contentDocument) {
+            var deleteButtons = contentDocument.querySelectorAll('.destroy');
+            for (var i = 0; i < deleteButtons.length; i++)
+                deleteButtons[i].click();
+        })
+    ]
+}
+
 var Keet = {
     name: 'Keet-v4.2',
     url: 'todomvc/keetjs-todomvc/build/index.html',
@@ -707,23 +788,25 @@ var choo = {
 // framework
 
 var framework = [
-    // Riotjs,
+    // // Riotjs,
     // Backbone,
     // Ember,
-    // Angular,
+    // // Angular,
     // React,
-    Keet_old,
-    Keet,
+    // Locomotor,
+    HyperFun,
+    // Keet_old,
+    // Keet,
     // Om,
-    Mercury,
+    // Mercury,
     // Elm,
-    Vue,
-    Mithril,
-    Preact,
-    // Knockout,
+    // Vue,
+    // Mithril,
+    // Preact,
+    // // Knockout,
     // Ractive,
-    // choo,
-    // Vanilla
+    // // choo,
+    // // Vanilla
 ]
 
 framework.map(function(f){
